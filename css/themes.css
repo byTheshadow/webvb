@@ -1,44 +1,188 @@
+/* ================================
+   文件名：themes.css
+   功能：多主题色彩与质感系统
+   风格：Soft Minimalist (柔和极简风)
+   核心要求：彻底无紫、高级灰调、情绪化光影
+   最后更新：2026-04-18
+   ================================ */
+
 /* ============================================
-   【主题1】落雨日 Rainy Day (默认基础色)
-   情绪：冷灰蓝、水汽蒙蒙、淡淡的忧郁
+   【主题 1】落雨日 (Rainy Day) - 默认主题
+   情绪：冷灰蓝、水汽蒙蒙、淡淡的忧郁与宁静
+   质感：高斯模糊的水汽感玻璃
    ============================================ */
 :root, [data-theme="rain"] {
-    --primary-color: #5c7285; /* 雾霭蓝 */
-    --secondary-color: #8c9da8;
-    --background-color: #eef2f5; /* 阴雨天的灰白 */
-    --surface-color: rgba(255, 255, 255, 0.7); /* 半透明玻璃感 */
-    --text-primary: #2c3e50;
-    --text-secondary: #7f8c8d;
-    --border-color: rgba(92, 114, 133, 0.15);
-    --shadow-soft: 0 10px 40px rgba(92, 114, 133, 0.08);
+    /* 主色彩：莫兰迪冷雾蓝系 */
+    --primary-color: #6c7a89;        /* 雾霭蓝 */
+    --primary-light: #9ba4b5;        /* 浅灰蓝 */
+    --secondary-color: #a8b2b9;      /* 阴天灰 */
+    
+    /* 背景色与表面色：带有水汽感的灰白 */
+    --background-color: #eef2f5;     
+    --surface-color: rgba(245, 248, 250, 0.6); /* 高透光水汽玻璃 */
+    
+    /* 文本色：克制的深石板灰 */
+    --text-primary: #34404b;
+    --text-secondary: #7b8b9a;
+    --text-inverse: #ffffff;
+    
+    /* 边框与光影：冷调微弱反光 */
+    --border-color: rgba(108, 122, 137, 0.12);
+    --shadow-sm: 0 4px 16px rgba(108, 122, 137, 0.04);
+    --shadow-md: 0 12px 32px rgba(108, 122, 137, 0.08);
+    --shadow-lg: 0 24px 48px rgba(108, 122, 137, 0.12);
+    
+    /* 特效配置 */
+    --glass-blur: blur(20px) saturate(110%);
+    --bg-gradient: linear-gradient(180deg, #e4eaf0 0%, #eef2f5 100%);
 }
 
 /* ============================================
-   【主题2】春日序曲 Spring Overture
-   情绪：柔和、治愈、带有一点点清冷的春晨
+   【主题 2】春日序曲 (Spring Overture)
+   情绪：柔和、治愈、带着一点清晨冷空气的微暖
+   质感：温润的玉石或透光宣纸
    ============================================ */
 [data-theme="spring"] {
-    --primary-color: #8a9a86; /* 鼠尾草绿 */
-    --secondary-color: #d1bfae; /* 奶茶灰 */
-    --background-color: #f7f6f2; /* 暖纸白 */
-    --surface-color: rgba(255, 255, 255, 0.8);
-    --text-primary: #4a4a44;
-    --text-secondary: #8c8c82;
-    --border-color: rgba(138, 154, 134, 0.15);
-    --shadow-soft: 0 10px 40px rgba(138, 154, 134, 0.06);
+    /* 主色彩：鼠尾草绿与燕麦灰 */
+    --primary-color: #8fa08c;        /* 鼠尾草绿 */
+    --primary-light: #b4c2b2;        /* 嫩芽灰绿 */
+    --secondary-color: #d4cbb3;      /* 燕麦灰 */
+    
+    /* 背景色与表面色：温暖但克制的纸白 */
+    --background-color: #f8f7f4;
+    --surface-color: rgba(255, 255, 255, 0.75); /* 温润玉石感 */
+    
+    /* 文本色：深茶褐 */
+    --text-primary: #4a4843;
+    --text-secondary: #8c8982;
+    --text-inverse: #ffffff;
+    
+    /* 边框与光影：暖调柔和漫反射 */
+    --border-color: rgba(143, 160, 140, 0.15);
+    --shadow-sm: 0 4px 16px rgba(143, 160, 140, 0.03);
+    --shadow-md: 0 12px 32px rgba(143, 160, 140, 0.06);
+    --shadow-lg: 0 24px 48px rgba(143, 160, 140, 0.09);
+    
+    /* 特效配置 */
+    --glass-blur: blur(16px) saturate(130%);
+    --bg-gradient: linear-gradient(180deg, #f1efe9 0%, #f8f7f4 100%);
 }
 
 /* ============================================
-   【主题3】无人之境 No Man's Land (暗黑极简)
-   情绪：深邃、克制、孤独感、黑白灰
+   【主题 3】无人之境 (No Man's Land)
+   情绪：深邃、克制、神秘、极简主义的孤独
+   质感：暗色磨砂黑石、微弱呼吸的微光
    ============================================ */
 [data-theme="wasteland"] {
-    --primary-color: #a0a0a0; /* 冷银灰 */
-    --secondary-color: #4a4a4a;
-    --background-color: #0f1012; /* 极夜黑，不带一点蓝紫 */
-    --surface-color: rgba(25, 26, 28, 0.6);
-    --text-primary: #e0e0e0;
-    --text-secondary: #7a7a7a;
-    --border-color: rgba(255, 255, 255, 0.05);
-    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.5);
+    /* 主色彩：冷银、碳灰 (严格去紫) */
+    --primary-color: #9e9e9e;        /* 冷银灰 */
+    --primary-light: #c2c2c2;        /* 亮银色 */
+    --secondary-color: #4a4a4a;      /* 碳灰 */
+    
+    /* 背景色与表面色：极夜的深邃 */
+    --background-color: #0d0d0f;     /* 极深灰黑 */
+    --surface-color: rgba(22, 22, 24, 0.65); /* 暗色磨砂感 */
+    
+    /* 文本色：低对比度的浅灰，不刺眼 */
+    --text-primary: #d1d1d1;
+    --text-secondary: #757575;
+    --text-inverse: #0d0d0f;
+    
+    /* 边框与光影：微弱的边缘光感 */
+    --border-color: rgba(255, 255, 255, 0.06);
+    --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.8);
+    
+    /* 特效配置 */
+    --glass-blur: blur(24px) saturate(100%);
+    --bg-gradient: linear-gradient(180deg, #161618 0%, #0d0d0f 100%);
+}
+
+/* ============================================
+   主题特定组件的微调 (强化主题氛围)
+   ============================================ */
+
+/* 全局背景注入微渐变，替代单调的纯色，提升空间感 */
+body {
+    background-image: var(--bg-gradient);
+    background-attachment: fixed; /* 固定背景，页面滚动时增加深度 */
+}
+
+/* 动态应用毛玻璃强度 */
+.app-header, 
+.bottom-nav, 
+.card, 
+.icon-btn, 
+.modal-content,
+.theme-option {
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* 按钮的主题化光影 */
+.primary-btn {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+}
+
+[data-theme="rain"] .primary-btn:hover {
+    box-shadow: 0 8px 24px rgba(108, 122, 137, 0.3);
+}
+
+[data-theme="spring"] .primary-btn:hover {
+    box-shadow: 0 8px 24px rgba(143, 160, 140, 0.3);
+}
+
+[data-theme="wasteland"] .primary-btn {
+    /* 暗黑主题下，按钮采取克制的微边框发光设计 */
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+[data-theme="wasteland"] .primary-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    box-shadow: 0 0 20px rgba(158, 158, 158, 0.2);
+}
+
+/* 底部导航的主题微调 */
+.nav-item.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+[data-theme="wasteland"] .nav-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* 文本选择的颜色（拖拽选中文字时的背景色） */
+::selection {
+    background-color: var(--primary-light);
+    color: var(--text-inverse);
+}
+
+[data-theme="wasteland"] ::selection {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* 滚动条美化：细长且柔和，贴合极简风 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
