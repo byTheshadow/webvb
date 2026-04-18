@@ -1,172 +1,395 @@
-/* ================================
-   文件名：themes.css
-   功能：三种主题的颜色和背景定义
-   依赖：main.css
-   最后更新：2026-04-18
-   ================================ */
+/**
+ * ============================================
+ * WEBVB - 主题样式系统 v2.0
+ * ============================================
+ * 功能：三种主题配色 + 优雅字体系统
+ * 主题：雨幕 | 春日花园 | 无人之地
+ * 风格：Soft Minimalist 柔和极简风
+ * ============================================
+ */
 
-/* ========== 区块A：梦幻星空主题 开始 ========== */
-/* 用途：深紫蓝色调，神秘梦幻风格 */
-body[data-theme="starry"] {
-    --primary-color: #6B5CE7;
-    --secondary-color: #A78BFA;
-    --background-color: #1A1A3E;
-    --surface-color: #252541;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B8B8D1;
-    --border-color: rgba(255, 255, 255, 0.1);
+/* ============================================
+   字体导入区
+   ============================================ */
+
+/* 中文优雅字体 - 思源宋体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+/* 英文优雅字体 - Crimson Pro */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500;600&display=swap');
+
+/* 标题字体 - 霞鹜文楷 (优雅手写体) */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+/* 英文标题 - Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* 等宽字体 - JetBrains Mono */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap');
+
+
+/* ============================================
+   全局字体变量
+   ============================================ */
+
+:root {
+  /* 正文字体 */
+  --font-body-cn: 'Noto Serif SC', 'Source Han Serif SC', serif;
+  --font-body-en: 'Crimson Pro', 'Georgia', serif;
+  
+  /* 标题字体 */
+  --font-heading-cn: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --font-heading-en: 'Playfair Display', 'Georgia', serif;
+  
+  /* 等宽字体 */
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  
+  /* 字重 */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  
+  /* 字号 */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  
+  /* 行高 */
+  --line-height-tight: 1.4;
+  --line-height-normal: 1.7;
+  --line-height-loose: 2;
+  
+  /* 字间距 */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
 }
 
-body[data-theme="starry"]::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(2px 2px at 20% 30%, white, transparent),
-        radial-gradient(2px 2px at 60% 70%, white, transparent),
-        radial-gradient(1px 1px at 50% 50%, white, transparent),
-        radial-gradient(1px 1px at 80% 10%, white, transparent),
-        radial-gradient(2px 2px at 90% 60%, white, transparent),
-        radial-gradient(1px 1px at 33% 80%, white, transparent),
-        radial-gradient(1px 1px at 15% 90%, white, transparent);
-    background-size: 200% 200%;
-    background-position: 0% 0%;
-    animation: starryMove 60s ease-in-out infinite;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: -1;
+
+/* ============================================
+   主题 1: 雨幕 (Rain Curtain)
+   ============================================
+   色调：冷灰蓝、雾蒙蒙、水汽感
+   情绪：宁静、忧郁、沉思
+   ============================================ */
+
+[data-theme="rain"] {
+  /* 主色调 */
+  --color-primary: #7a9eb8;
+  --color-primary-light: #a3c4d9;
+  --color-primary-dark: #5a7e98;
+  
+  /* 背景色 */
+  --color-bg-primary: #e8eef2;
+  --color-bg-secondary: #f5f8fa;
+  --color-bg-tertiary: #ffffff;
+  --color-bg-overlay: rgba(232, 238, 242, 0.95);
+  
+  /* 文字色 */
+  --color-text-primary: #3d4f5c;
+  --color-text-secondary: #6b7f8e;
+  --color-text-tertiary: #9baab5;
+  --color-text-inverse: #ffffff;
+  
+  /* 边框色 */
+  --color-border-light: rgba(122, 158, 184, 0.15);
+  --color-border-medium: rgba(122, 158, 184, 0.25);
+  --color-border-heavy: rgba(122, 158, 184, 0.4);
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(90, 126, 152, 0.08);
+  --shadow-md: 0 4px 16px rgba(90, 126, 152, 0.12);
+  --shadow-lg: 0 8px 32px rgba(90, 126, 152, 0.16);
+  
+  /* 特效色 */
+  --color-accent: #b8d4e6;
+  --color-success: #8fb8a8;
+  --color-warning: #c9b89a;
+  --color-error: #b89a9a;
+  
+  /* 毛玻璃效果 */
+  --blur-amount: 20px;
+  --backdrop-filter: blur(20px) saturate(120%);
 }
 
-@keyframes starryMove {
-    0%, 100% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
-}
-/* ========== 区块A：梦幻星空主题 结束 ========== */
 
-/* ========== 区块B：复古咖啡馆主题 开始 ========== */
-/* 用途：暖色调，温暖怀旧风格 */
-body[data-theme="cafe"] {
-    --primary-color: #8B6F47;
-    --secondary-color: #A0826D;
-    --background-color: #F5F1E8;
-    --surface-color: #FFFFFF;
-    --text-primary: #3E2723;
-    --text-secondary: #6D4C41;
-    --border-color: rgba(62, 39, 35, 0.1);
-}
+/* ============================================
+   主题 2: 春日花园 (Spring Garden)
+   ============================================
+   色调：温暖粉、嫩绿、奶油白
+   情绪：温柔、治愈、希望
+   ============================================ */
 
-body[data-theme="cafe"]::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            rgba(139, 111, 71, 0.03) 0px,
-            transparent 1px,
-            transparent 2px,
-            rgba(139, 111, 71, 0.03) 3px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            rgba(139, 111, 71, 0.03) 0px,
-            transparent 1px,
-            transparent 2px,
-            rgba(139, 111, 71, 0.03) 3px
-        );
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: -1;
-}
-/* ========== 区块B：复古咖啡馆主题 结束 ========== */
-
-/* ========== 区块C：温柔花园主题 开始 ========== */
-/* 用途：粉绿色调，清新治愈风格 */
-body[data-theme="garden"] {
-    --primary-color: #81C784;
-    --secondary-color: #F48FB1;
-    --background-color: #FFF8F0;
-    --surface-color: #FFFFFF;
-    --text-primary: #2E7D32;
-    --text-secondary: #66BB6A;
-    --border-color: rgba(46, 125, 50, 0.1);
+[data-theme="spring"] {
+  /* 主色调 */
+  --color-primary: #d4a5a5;
+  --color-primary-light: #e8c9c9;
+  --color-primary-dark: #b88585;
+  
+  /* 背景色 */
+  --color-bg-primary: #faf7f5;
+  --color-bg-secondary: #fff9f6;
+  --color-bg-tertiary: #ffffff;
+  --color-bg-overlay: rgba(250, 247, 245, 0.95);
+  
+  /* 文字色 */
+  --color-text-primary: #5c4d4d;
+  --color-text-secondary: #8e7a7a;
+  --color-text-tertiary: #b5a5a5;
+  --color-text-inverse: #ffffff;
+  
+  /* 边框色 */
+  --color-border-light: rgba(212, 165, 165, 0.15);
+  --color-border-medium: rgba(212, 165, 165, 0.25);
+  --color-border-heavy: rgba(212, 165, 165, 0.4);
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(184, 133, 133, 0.08);
+  --shadow-md: 0 4px 16px rgba(184, 133, 133, 0.12);
+  --shadow-lg: 0 8px 32px rgba(184, 133, 133, 0.16);
+  
+  /* 特效色 */
+  --color-accent: #e6d4b8;
+  --color-success: #b8d4a5;
+  --color-warning: #e6c9a5;
+  --color-error: #d4a5a5;
+  
+  /* 毛玻璃效果 */
+  --blur-amount: 20px;
+  --backdrop-filter: blur(20px) saturate(130%);
 }
 
-body[data-theme="garden"]::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(244, 143, 177, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(129, 199, 132, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 212, 229, 0.1) 0%, transparent 50%);
-    background-size: 100% 100%;
-    animation: gardenBreath 20s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
+
+/* ============================================
+   主题 3: 无人之地 (Wasteland)
+   ============================================
+   色调：深灰、暗紫、冷黑
+   情绪：神秘、孤独、深邃
+   ============================================ */
+
+[data-theme="wasteland"] {
+  /* 主色调 */
+  --color-primary: #8a7a9e;
+  --color-primary-light: #a89eb8;
+  --color-primary-dark: #6a5a7e;
+  
+  /* 背景色 */
+  --color-bg-primary: #1a1a1f;
+  --color-bg-secondary: #25252d;
+  --color-bg-tertiary: #2f2f3a;
+  --color-bg-overlay: rgba(26, 26, 31, 0.95);
+  
+  /* 文字色 */
+  --color-text-primary: #d4d4dc;
+  --color-text-secondary: #a5a5b5;
+  --color-text-tertiary: #7a7a8e;
+  --color-text-inverse: #1a1a1f;
+  
+  /* 边框色 */
+  --color-border-light: rgba(138, 122, 158, 0.15);
+  --color-border-medium: rgba(138, 122, 158, 0.25);
+  --color-border-heavy: rgba(138, 122, 158, 0.4);
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  
+  /* 特效色 */
+  --color-accent: #9e8ab8;
+  --color-success: #7a9e8a;
+  --color-warning: #b89e7a;
+  --color-error: #b87a7a;
+  
+  /* 毛玻璃效果 */
+  --blur-amount: 24px;
+  --backdrop-filter: blur(24px) saturate(100%);
 }
 
-@keyframes gardenBreath {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.5; }
+
+/* ============================================
+   全局字体应用
+   ============================================ */
+
+body {
+  font-family: var(--font-body-cn), var(--font-body-en);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 花瓣飘落效果 */
-body[data-theme="garden"]::after {
-    content: '';
-    position: fixed;
-    top: -10%;
-    left: 0;
-    width: 100%;
-    height: 120%;
-    background-image: 
-        radial-gradient(circle, rgba(244, 143, 177, 0.3) 2px, transparent 2px),
-        radial-gradient(circle, rgba(129, 199, 132, 0.3) 1px, transparent 1px);
-    background-size: 100px 100px, 150px 150px;
-    background-position: 0 0, 50px 50px;
-    animation: petalFall 30s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.4;
+/* 标题字体 */
+h1, h2, h3, h4, h5, h6,
+.heading {
+  font-family: var(--font-heading-cn), var(--font-heading-en);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-primary);
 }
 
-@keyframes petalFall {
-    0% { transform: translateY(-10%); }
-    100% { transform: translateY(110%); }
-}
-/* ========== 区块C：温柔花园主题 结束 ========== */
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5, h6 { font-size: var(--font-size-base); }
 
-/* ========== 区块D：自定义背景支持 开始 ========== */
-/* 用途：用户上传自定义背景图时的样式 */
-body[data-custom-bg="true"]::before,
-body[data-custom-bg="true"]::after {
-    display: none;
-}
-
-body[data-custom-bg="true"] {
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+/* 等宽字体 */
+code, pre, .code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-/* 自定义背景时添加半透明遮罩，确保文字可读 */
-body[data-custom-bg="true"] .app-container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: -1;
+/* 小字 */
+small, .text-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
 }
-/* ========== 区块D：自定义背景支持 结束 ========== */
+
+/* 超小字 */
+.text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+}
+
+/* 大字 */
+.text-lg {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-normal);
+}
+
+/* 粗体 */
+strong, b, .font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+/* 细体 */
+.font-light {
+  font-weight: var(--font-weight-light);
+}
+
+/* 中等字重 */
+.font-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+
+/* ============================================
+   主题特定样式增强
+   ============================================ */
+
+/* 雨幕主题 - 水汽感 */
+[data-theme="rain"] .card,
+[data-theme="rain"] .modal,
+[data-theme="rain"] .panel {
+  background: var(--color-bg-tertiary);
+  backdrop-filter: var(--backdrop-filter);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="rain"] .button-primary {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: var(--color-text-inverse);
+  border: none;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="rain"] .button-primary:hover {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  box-shadow: var(--shadow-md);
+}
+
+/* 春日花园主题 - 温柔感 */
+[data-theme="spring"] .card,
+[data-theme="spring"] .modal,
+[data-theme="spring"] .panel {
+  background: var(--color-bg-tertiary);
+  backdrop-filter: var(--backdrop-filter);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="spring"] .button-primary {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: var(--color-text-inverse);
+  border: none;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="spring"] .button-primary:hover {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* 无人之地主题 - 深邃感 */
+[data-theme="wasteland"] .card,
+[data-theme="wasteland"] .modal,
+[data-theme="wasteland"] .panel {
+  background: var(--color-bg-secondary);
+  backdrop-filter: var(--backdrop-filter);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="wasteland"] .button-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-heavy);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="wasteland"] .button-primary:hover {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary-light);
+}
+
+
+/* ============================================
+   呼吸感动画
+   ============================================ */
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+}
+
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+
+/* ============================================
+   柔和过渡效果
+   ============================================ */
+
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              transform 0.2s ease;
+}
+
+/* 禁用某些元素的过渡 */
+input, textarea, select {
+  transition: none;
+}
