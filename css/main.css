@@ -1,336 +1,307 @@
 /* ================================
    文件名：main.css
-   风格：Soft Minimalist (柔和极简风)
-   核心：呼吸感、优雅字体、淡淡忧郁
+   风格：Soft Minimalist, Aesthetic UI (柔和极简、忧郁呼吸感)
+   特点：绝对无紫、古典排版、悬浮交互
    ================================ */
 
-/* ========== 区块A：全局变量与三大情绪主题 ========== */
+/* ========== 区块A：优雅字体系统 开始 ========== */
 :root {
-    /* --- 优雅字体系统 --- */
-    --font-heading: 'Cormorant Garamond', 'Noto Serif SC', serif; /* 标题：极致优雅，带点古典忧郁 */
-    --font-body: 'Noto Sans SC', sans-serif; /* 正文：干净通透，细字重 */
-    --font-accent: 'Playfair Display', 'Noto Serif SC', serif; /* 强调：用于卡片或引言 */
-
-    /* --- 布局与呼吸感 --- */
-    --border-radius-sm: 12px;
-    --border-radius-md: 20px;
-    --border-radius-pill: 50px; /* 药丸形，增加轻盈感 */
-    --nav-bottom-margin: 24px;
+    /* 标题：极具锋芒与诗意的衬线体 */
+    --font-heading: 'Cormorant Garamond', 'Noto Serif SC', serif;
+    /* 正文：保证阅读性的同时带有文艺感的字体混合 */
+    --font-body: 'Lora', 'Noto Sans SC', sans-serif;
     
-    /* --- 柔和过渡 --- */
-    --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 尺寸与留白（呼吸感的核心） */
+    --spacing-xs: 12px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 36px;
+    --spacing-xl: 48px;
+    
+    /* 极致柔和的阴影（非黑色的生硬阴影，而是光晕） */
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.04);
+    --shadow-float: 0 12px 48px rgba(0, 0, 0, 0.08);
+    
+    /* 呼吸感动画曲线 */
+    --transition-breathe: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-smooth: 0.4s ease-in-out;
+}
+/* ========== 区块A：优雅字体系统 结束 ========== */
+
+/* ========== 区块B：三大主题重构（绝对无紫） 开始 ========== */
+
+/* 默认 / 主题1：落雨日 (Melancholy Rain) */
+:root, [data-theme="rain"] {
+    --background-color: #E2E8F0; /* 雾灰白 */
+    --surface-color: rgba(248, 250, 252, 0.65); /* 水汽毛玻璃 */
+    --primary-color: #64748B; /* 灰蓝色调 */
+    --secondary-color: #94A3B8;
+    --text-primary: #334155; /* 沉静的深青灰 */
+    --text-secondary: #64748B;
+    --border-color: rgba(255, 255, 255, 0.8);
+    --nav-bg: rgba(255, 255, 255, 0.7);
 }
 
-/* 【主题 1】落雨日 (Rainy Day) - 淡淡忧郁，水汽感，冷灰调 */
-[data-theme="rain"], :root {
-    --bg-color: #E6EAEF;
-    --surface-color: rgba(240, 244, 248, 0.6);
-    --text-primary: #4A5568;
-    --text-secondary: #8292A6;
-    --accent-color: #6C8EBF;
-    --border-light: rgba(108, 142, 191, 0.15);
-    --shadow-soft: 0 8px 32px rgba(108, 142, 191, 0.08);
-    --backdrop-blur: blur(16px) saturate(110%);
-}
-
-/* 【主题 2】春日序曲 (Spring Overture) - 温柔，治愈，低饱和暖调 */
+/* 主题2：春日序曲 (Spring Overture) */
 [data-theme="spring"] {
-    --bg-color: #FDFBF7;
+    --background-color: #FDFBF7; /* 宣纸白 */
     --surface-color: rgba(255, 255, 255, 0.7);
-    --text-primary: #5D534A;
-    --text-secondary: #A39B93;
-    --accent-color: #D4A5A5;
-    --border-light: rgba(212, 165, 165, 0.15);
-    --shadow-soft: 0 8px 32px rgba(212, 165, 165, 0.08);
-    --backdrop-blur: blur(20px) saturate(120%);
+    --primary-color: #D4A59A; /* 枯玫瑰色 / 烟粉色，绝非亮粉 */
+    --secondary-color: #E6C8C1;
+    --text-primary: #5C4D49; /* 暖棕灰 */
+    --text-secondary: #8C7D79;
+    --border-color: rgba(212, 165, 154, 0.15);
+    --nav-bg: rgba(253, 251, 247, 0.8);
 }
 
-/* 【主题 3】无人之境 (No Man's Land) - 暗黑极简，孤独感，深邃 */
+/* 主题3：无人之境 (No Man's Land) */
 [data-theme="wasteland"] {
-    --bg-color: #121214;
-    --surface-color: rgba(26, 26, 30, 0.6);
-    --text-primary: #E0E0E4;
-    --text-secondary: #7A7A85;
-    --accent-color: #8A8A9E;
-    --border-light: rgba(255, 255, 255, 0.05);
-    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
-    --backdrop-blur: blur(24px) saturate(80%);
+    --background-color: #0F1115; /* 极夜黑 */
+    --surface-color: rgba(24, 26, 31, 0.6);
+    --primary-color: #E2E8F0; /* 冷月银 */
+    --secondary-color: #94A3B8;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --nav-bg: rgba(15, 17, 21, 0.8);
 }
+/* ========== 区块B：三大主题重构 结束 ========== */
 
-/* ========== 区块B：全局重置 & 字体应用 ========== */
+/* ========== 区块C：全局重置与质感 开始 ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color var(--transition-slow), color var(--transition-slow), border-color var(--transition-slow);
 }
 
 body {
     font-family: var(--font-body);
-    font-weight: 300; /* 使用细字重营造轻盈感 */
-    background-color: var(--bg-color);
+    font-weight: 300;
+    background-color: var(--background-color);
     color: var(--text-primary);
-    line-height: 1.8;
-    letter-spacing: 0.02em;
+    line-height: 1.8; /* 增大行高，增加阅读呼吸感 */
+    letter-spacing: 0.02em; /* 微微拉开字间距 */
+    transition: background-color 1s ease, color 1s ease; /* 主题切换如日夜交替般缓慢 */
     overflow-x: hidden;
 }
 
-h1, h2, h3, .site-title, .heading {
+h1, h2, h3, h4, h5, .site-title {
     font-family: var(--font-heading);
     font-weight: 400;
-    letter-spacing: 0.05em; /* 拉开标题字间距，增加忧郁和高雅感 */
+    letter-spacing: 0.05em;
 }
 
-/* ========== 区块C：悬浮式布局 (Floating Layout) ========== */
+/* 页面加载时的淡入感 */
 .app-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    animation: fadeInBreathe 1.5s ease-out forwards;
 }
 
-/* 顶部导航：改为透明融入背景 */
+@keyframes fadeInBreathe {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+/* ========== 区块C：全局重置与质感 结束 ========== */
+
+/* ========== 区块D：头部（极简透明化） 开始 ========== */
 .app-header {
     height: 80px;
-    width: 100%;
-    position: fixed;
+    background: transparent;
+    position: sticky;
     top: 0;
     z-index: 100;
-    background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .header-content {
-    max-width: 1000px;
+    max-width: 1000px; /* 收紧内容宽度，更聚拢 */
     margin: 0 auto;
     height: 100%;
-    padding: 0 24px;
+    padding: 0 var(--spacing-md);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Logo字体特殊处理：极其优雅 */
 .site-title {
     font-size: 28px;
-    font-weight: 300;
-    font-style: italic;
+    font-style: italic; /* 英文衬线体使用斜体极具高级感 */
     color: var(--text-primary);
-    position: relative;
-}
-.site-title::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: var(--accent-color);
 }
 
-/* 设置按钮：极简线框 */
 .icon-btn {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-light);
-    background: transparent;
-    color: var(--text-primary);
-    transition: all var(--transition-smooth);
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    transition: all var(--transition-breathe);
+    backdrop-filter: blur(10px);
 }
+
 .icon-btn:hover {
-    background: var(--surface-color);
-    transform: rotate(90deg); /* 增加交互趣味 */
+    color: var(--primary-color);
+    transform: rotate(90deg) scale(1.05); /* 缓慢的旋转与放大 */
 }
+/* ========== 区块D：头部 结束 ========== */
 
-/* ========== 区块D：主内容区 ========== */
-.main-content {
-    flex: 1;
-    max-width: 800px; /* 收窄内容区，增加两边留白(负空间)，提升高级感 */
-    width: 100%;
-    margin: 80px auto 0;
-    padding: 24px;
-    padding-bottom: 120px;
-    animation: fadeIn 1s ease-out forwards;
-}
-
-/* 通用卡片：呼吸感、毛玻璃、极弱阴影 */
-.card {
-    background: var(--surface-color);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius-md);
-    padding: 32px;
-    box-shadow: var(--shadow-soft);
-    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-}
-
-/* ========== 区块E：悬浮式底部导航 (Floating Dock) ========== */
-/* 将底部导航变成一个悬浮的“药丸”，类似苹果的灵动岛，极其优雅 */
+/* ========== 区块E：悬浮式导航栏（核心视觉焦点） 开始 ========== */
+/* 将到底部的导航改为居中悬浮的胶囊，这在高级UI中非常流行 */
 .bottom-nav {
+    height: 64px;
+    background: var(--nav-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 32px; /* 胶囊形状 */
     position: fixed;
-    bottom: var(--nav-bottom-margin);
+    bottom: var(--spacing-md);
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 460px;
-    height: 64px;
-    background: var(--surface-color);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius-pill);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
-    box-shadow: var(--shadow-soft);
+    padding: 0 var(--spacing-sm);
     z-index: 100;
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: var(--shadow-float);
+    width: 90%;
+    max-width: 400px;
 }
 
 .nav-item {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
+    padding: 8px 0;
     color: var(--text-secondary);
     transition: all var(--transition-smooth);
-    padding: 8px 16px;
-    border-radius: var(--border-radius-pill);
     position: relative;
+    border-radius: 24px;
+}
+
+/* 去掉死板的底边线，改为柔和的背景晕染 */
+.nav-item.active {
+    color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="wasteland"] .nav-item.active {
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-icon {
     font-size: 20px;
-    opacity: 0.7;
-    transition: opacity var(--transition-smooth);
+    opacity: 0.8;
+    transition: transform var(--transition-smooth);
+}
+
+.nav-item:hover .nav-icon {
+    transform: translateY(-2px);
 }
 
 .nav-label {
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.05em;
-    opacity: 0;
-    transform: translateY(10px);
+}
+/* ========== 区块E：悬浮式导航栏 结束 ========== */
+
+/* ========== 区块F：卡片与按钮（具有呼吸感） 开始 ========== */
+.card, .modal-content, .panel {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px; /* 更柔和的圆角 */
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all var(--transition-breathe);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+    border-color: var(--primary-color);
+}
+
+/* 高级感按钮设计：抛弃艳俗渐变，使用内敛的边框与微光 */
+.button-primary, .primary-btn {
+    padding: 14px 32px;
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--text-primary);
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-breathe);
+}
+
+.button-primary::before, .primary-btn::before {
+    content: '';
     position: absolute;
-    bottom: -18px;
-    transition: all var(--transition-smooth);
-}
-
-/* 交互状态：鼠标移入或激活时，图标上浮，文字浮现 */
-.nav-item:hover, .nav-item.active {
-    color: var(--accent-color);
-}
-.nav-item:hover .nav-icon, .nav-item.active .nav-icon {
-    transform: translateY(-6px);
-    opacity: 1;
-}
-.nav-item:hover .nav-label, .nav-item.active .nav-label {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ========== 区块F：呼吸感动画 ========== */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* 呼吸态：用于需要暗示用户点击的空灵元素 */
-.breathe-effect {
-    animation: breathe 4s ease-in-out infinite;
-}
-@keyframes breathe {
-    0%, 100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
-}
-
-/* ========== 区块G：弹窗 (Modal) 极简重构 ========== */
-.modal {
-    display: none;
-    position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
+    background: var(--primary-color);
     opacity: 0;
+    z-index: -1;
     transition: opacity var(--transition-smooth);
 }
-.modal.active {
-    display: flex;
+
+.button-primary:hover, .primary-btn:hover {
+    color: var(--background-color);
+    transform: scale(1.02);
+}
+
+.button-primary:hover::before, .primary-btn:hover::before {
     opacity: 1;
 }
+/* ========== 区块F：卡片与按钮 结束 ========== */
 
-.modal-content {
-    background: var(--bg-color); /* 使用主题背景色而非纯卡片色 */
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius-md);
-    width: 90%;
-    max-width: 420px;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.1);
-    transform: scale(0.95);
-    transition: transform var(--transition-smooth);
-}
-.modal.active .modal-content {
-    transform: scale(1);
+/* ========== 区块G：模态框（如晨雾般显现） 开始 ========== */
+.modal {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
 }
 
-.modal-header {
-    padding: 24px 32px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
+
 .modal-header h2 {
-    font-size: 20px;
-    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 400;
 }
-.close-btn {
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--text-secondary);
-    transition: color 0.3s;
-}
-.close-btn:hover { color: var(--accent-color); }
 
-/* ========== 区块H：主题选择按钮的美化 ========== */
-.theme-selector {
-    display: flex;
-    gap: 16px;
-    margin-top: 12px;
-}
-.theme-option {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 16px;
+.theme-btn {
+    border-radius: 16px;
     background: var(--surface-color);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius-sm);
-    color: var(--text-secondary);
-    transition: all var(--transition-smooth);
-}
-.theme-option:hover {
-    border-color: var(--accent-color);
-    color: var(--text-primary);
-}
-.theme-option .theme-name {
-    font-family: var(--font-heading);
-    font-size: 14px;
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-breathe);
 }
 
+.theme-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.theme-btn.active {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+}
+/* ========== 区块G：模态框 结束 ========== */
