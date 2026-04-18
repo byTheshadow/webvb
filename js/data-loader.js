@@ -51,6 +51,15 @@ const DataLoader = {
         }
     },
     // ========== 区块A2：加载JSON文件 结束 ==========
+       // ========== 区块A2.5：通用加载方法（兼容性） 开始 ==========
+    // 用途：提供 load(path, cacheKey) 接口，供模块使用
+    async load(path, cacheKey) {
+        // cacheKey 参数用于兼容，实际使用 path 作为缓存键
+        console.log('[DataLoader] load() 调用, path:', path, 'cacheKey:', cacheKey);
+        return await this.loadJSON(path);
+    },
+    // ========== 区块A2.5：通用加载方法（兼容性） 结束 ==========
+
 
     // ========== 区块A3：具体数据加载方法 开始 ==========
     // 用途：为各个模块提供便捷的数据加载接口
