@@ -182,8 +182,7 @@ const Router = {
         // 添加首页样式
         this.injectHomeStyles();
     },
-
-       // 人格测试页面
+    // 人格测试页面
     renderTest() {
         const mainContent = document.getElementById('main-content');
         
@@ -204,6 +203,7 @@ const Router = {
             `;
         }
     },
+
 
     // 雷诺曼占卜页面
     renderLenormand() {
