@@ -183,7 +183,7 @@ const Router = {
         this.injectHomeStyles();
     },
 
-    // 人格测试页面
+       // 人格测试页面
     renderTest() {
         const mainContent = document.getElementById('main-content');
         
