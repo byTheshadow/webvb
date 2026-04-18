@@ -21,7 +21,7 @@
 
 
 /* ============================================
-   区块B：全局主题变量定义 (彻底告别紫色调)
+   区块B：全局布局变量定义
    ============================================ */
 :root {
     /* 字体系统 */
@@ -51,60 +51,6 @@
     --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-normal: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ----------------------------------
-   【主题1】落雨日 Rainy Day (默认)
-   情绪：冷灰蓝、水汽蒙蒙、淡淡的忧郁
-   ---------------------------------- */
-:root, [data-theme="rain"] {
-    --primary-color: #5c7285; /* 雾霭蓝 */
-    --secondary-color: #8c9da8;
-    --background-color: #eef2f5; /* 阴雨天的灰白 */
-    --surface-color: rgba(255, 255, 255, 0.7); /* 半透明玻璃感 */
-    --text-primary: #2c3e50;
-    --text-secondary: #7f8c8d;
-    --text-inverse: #ffffff;
-    --border-color: rgba(92, 114, 133, 0.15);
-    --shadow-sm: 0 4px 12px rgba(92, 114, 133, 0.04);
-    --shadow-md: 0 10px 30px rgba(92, 114, 133, 0.08);
-    --shadow-lg: 0 20px 40px rgba(92, 114, 133, 0.12);
-}
-
-/* ----------------------------------
-   【主题2】春日序曲 Spring Overture
-   情绪：柔和、治愈、带有一点清冷的春晨
-   ---------------------------------- */
-[data-theme="spring"] {
-    --primary-color: #8a9a86; /* 鼠尾草绿 */
-    --secondary-color: #d1bfae; /* 奶茶灰 */
-    --background-color: #f7f6f2; /* 暖纸白 */
-    --surface-color: rgba(255, 255, 255, 0.8);
-    --text-primary: #4a4a44;
-    --text-secondary: #8c8c82;
-    --text-inverse: #ffffff;
-    --border-color: rgba(138, 154, 134, 0.15);
-    --shadow-sm: 0 4px 12px rgba(138, 154, 134, 0.03);
-    --shadow-md: 0 10px 30px rgba(138, 154, 134, 0.06);
-    --shadow-lg: 0 20px 40px rgba(138, 154, 134, 0.1);
-}
-
-/* ----------------------------------
-   【主题3】无人之境 No Man's Land
-   情绪：深邃、克制、孤独感、高级黑白灰
-   ---------------------------------- */
-[data-theme="wasteland"] {
-    --primary-color: #a0a0a0; /* 冷银灰 */
-    --secondary-color: #4a4a4a;
-    --background-color: #0f1012; /* 极夜黑，不带一点蓝紫 */
-    --surface-color: rgba(25, 26, 28, 0.6);
-    --text-primary: #e0e0e0;
-    --text-secondary: #7a7a7a;
-    --text-inverse: #0f1012;
-    --border-color: rgba(255, 255, 255, 0.05);
-    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
 /* ============================================
@@ -443,6 +389,19 @@ h1, h2, h3, h4, h5, h6 {
 /* ============================================
    区块H：设置面板特定样式
    ============================================ */
+.setting-group {
+    margin-bottom: var(--spacing-xl);
+}
+
+.setting-title {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
 .setting-section {
     margin-bottom: var(--spacing-xl);
 }
@@ -556,6 +515,13 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: 14px;
+    letter-spacing: 0.1em;
 }
 
 /* 呼吸感特效类 - 赋予需要柔和闪烁的元素 */
