@@ -99,23 +99,24 @@
             <div class="modal-body">
                 
                 <!-- 主题选择 -->
-                <div class="setting-section">
-                    <h3>主题</h3>
-                    <div class="theme-options">
-                        <button class="theme-btn active" data-theme="starry">
-                            <span class="theme-preview starry-preview"></span>
-                            <span>梦幻星空</span>
-                        </button>
-                        <button class="theme-btn" data-theme="cafe">
-                            <span class="theme-preview cafe-preview"></span>
-                            <span>复古咖啡馆</span>
-                        </button>
-                        <button class="theme-btn" data-theme="garden">
-                            <span class="theme-preview garden-preview"></span>
-                            <span>温柔花园</span>
-                        </button>
-                    </div>
-                </div>
+              
+<div class="setting-group">
+  <h3 class="setting-title">主题选择</h3>
+  <div class="theme-selector">
+    <button class="theme-option" data-theme="rain" onclick="changeTheme('rain')">
+      <span class="theme-icon">🌧️</span>
+      <span class="theme-name">雨幕</span>
+    </button>
+    <button class="theme-option" data-theme="spring" onclick="changeTheme('spring')">
+      <span class="theme-icon">🌸</span>
+      <span class="theme-name">春日花园</span>
+    </button>
+    <button class="theme-option" data-theme="wasteland" onclick="changeTheme('wasteland')">
+      <span class="theme-icon">🌑</span>
+      <span class="theme-name">无人之地</span>
+    </button>
+  </div>
+</div>
 
                 <!-- 自定义背景 -->
                 <div class="setting-section">
