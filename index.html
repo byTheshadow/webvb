@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vibe Coding - 互动人格探索与角色卡推荐平台">
+    
+    <!-- ========== 区块A：SEO和社交分享标签 开始 ========== -->
+    <!-- 用途：优化搜索引擎和社交媒体分享效果 -->
+    <meta property="og:title" content="webvb - Vibe Coding">
+    <meta property="og:description" content="探索你的内心世界，发现专属角色卡">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- ========== 区块A：SEO和社交分享标签 结束 ========== -->
+    
+    <title>webvb - Vibe Coding</title>
+    
+    <!-- ========== 区块B：样式表引入 开始 ========== -->
+    <!-- 用途：引入所有CSS文件，顺序很重要 -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- ========== 区块B：样式表引入 结束 ========== -->
+</head>
+<body>
+    <!-- ========== 区块C：加载动画 开始 ========== -->
+    <!-- 用途：页面加载时显示，加载完成后隐藏 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">加载中...</p>
+    </div>
+    <!-- ========== 区块C：加载动画 结束 ========== -->
+
+    <!-- ========== 区块D：主容器 开始 ========== -->
+    <!-- 用途：整个应用的主要容器 -->
+    <div id="app" class="app-container">
+        
+        <!-- ========== 区块D1：顶部导航栏 开始 ========== -->
+        <!-- 用途：网站标题和设置按钮 -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="site-title">webvb</h1>
+                <button id="settings-btn" class="icon-btn" aria-label="设置">
+                    <span class="icon">⚙️</span>
+                </button>
+            </div>
+        </header>
+        <!-- ========== 区块D1：顶部导航栏 结束 ========== -->
+
+        <!-- ========== 区块D2：主内容区域 开始 ========== -->
+        <!-- 用途：所有页面内容都在这里动态渲染 -->
+        <main id="main-content" class="main-content">
+            <!-- 内容由 JavaScript 动态加载 -->
+        </main>
+        <!-- ========== 区块D2：主内容区域 结束 ========== -->
+
+        <!-- ========== 区块D3：底部导航 开始 ========== -->
+        <!-- 用途：主要功能入口 -->
+        <nav class="bottom-nav">
+            <a href="#/home" class="nav-item active" data-page="home">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">首页</span>
+            </a>
+            <a href="#/test" class="nav-item" data-page="test">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">测试</span>
+            </a>
+            <a href="#/lenormand" class="nav-item" data-page="lenormand">
+                <span class="nav-icon">🔮</span>
+                <span class="nav-label">占卜</span>
+            </a>
+            <a href="#/creative" class="nav-item" data-page="creative">
+                <span class="nav-icon">✨</span>
+                <span class="nav-label">创意</span>
+            </a>
+            <a href="#/more" class="nav-item" data-page="more">
+                <span class="nav-icon">⋯</span>
+                <span class="nav-label">更多</span>
+            </a>
+        </nav>
+        <!-- ========== 区块D3：底部导航 结束 ========== -->
+
+    </div>
+    <!-- ========== 区块D：主容器 结束 ========== -->
+
+    <!-- ========== 区块E：设置面板（模态框）开始 ========== -->
+    <!-- 用途：主题切换、音频控制等设置 -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <button class="close-btn" id="close-settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- 主题选择 -->
+                <div class="setting-section">
+                    <h3>主题</h3>
+                    <div class="theme-options">
+                        <button class="theme-btn active" data-theme="starry">
+                            <span class="theme-preview starry-preview"></span>
+                            <span>梦幻星空</span>
+                        </button>
+                        <button class="theme-btn" data-theme="cafe">
+                            <span class="theme-preview cafe-preview"></span>
+                            <span>复古咖啡馆</span>
+                        </button>
+                        <button class="theme-btn" data-theme="garden">
+                            <span class="theme-preview garden-preview"></span>
+                            <span>温柔花园</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 自定义背景 -->
+                <div class="setting-section">
+                    <h3>自定义背景</h3>
+                    <input type="file" id="custom-bg-input" accept="image/*" style="display: none;">
+                    <button id="upload-bg-btn" class="secondary-btn">上传背景图</button>
+                    <button id="reset-bg-btn" class="secondary-btn">恢复默认</button>
+                </div>
+
+                <!-- 白噪音 -->
+                <div class="setting-section">
+                    <h3>白噪音</h3>
+                    <div class="audio-controls">
+                        <select id="audio-select" class="audio-select">
+                            <option value="">关闭</option>
+                            <option value="rain">雨声</option>
+                            <option value="cafe">咖啡厅</option>
+                            <option value="forest">森林</option>
+                            <option value="ocean">海浪</option>
+                            <option value="typing">打字声</option>
+                        </select>
+                        <input type="range" id="volume-slider" min="0" max="100" value="50" class="volume-slider">
+                        <span id="volume-value">50%</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ========== 区块E：设置面板（模态框）结束 ========== -->
+
+    <!-- ========== 区块F：JavaScript引入 开始 ========== -->
+    <!-- 用途：引入所有JS文件，顺序很重要 -->
+    <!-- 工具类先加载 -->
+    <script src="js/storage.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/router.js"></script>
+    
+    <!-- 功能模块 -->
+    <script src="js/modules/theme-manager.js"></script>
+    <script src="js/modules/audio-player.js"></script>
+    <script src="js/modules/personality-test.js"></script>
+    <script src="js/modules/lenormand.js"></script>
+    <script src="js/modules/cocktail.js"></script>
+    <script src="js/modules/perfume.js"></script>
+    <script src="js/modules/poem.js"></script>
+    <script src="js/modules/cp-analysis.js"></script>
+    
+    <!-- 工具函数 -->
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/share.js"></script>
+    
+    <!-- 主应用最后加载 -->
+    <script src="js/app.js"></script>
+    <!-- ========== 区块F：JavaScript引入 结束 ========== -->
+</body>
+</html>
