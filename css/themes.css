@@ -1,0 +1,172 @@
+/* ================================
+   文件名：themes.css
+   功能：三种主题的颜色和背景定义
+   依赖：main.css
+   最后更新：2026-04-18
+   ================================ */
+
+/* ========== 区块A：梦幻星空主题 开始 ========== */
+/* 用途：深紫蓝色调，神秘梦幻风格 */
+body[data-theme="starry"] {
+    --primary-color: #6B5CE7;
+    --secondary-color: #A78BFA;
+    --background-color: #1A1A3E;
+    --surface-color: #252541;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B8B8D1;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-theme="starry"]::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 33% 80%, white, transparent),
+        radial-gradient(1px 1px at 15% 90%, white, transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: starryMove 60s ease-in-out infinite;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes starryMove {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+}
+/* ========== 区块A：梦幻星空主题 结束 ========== */
+
+/* ========== 区块B：复古咖啡馆主题 开始 ========== */
+/* 用途：暖色调，温暖怀旧风格 */
+body[data-theme="cafe"] {
+    --primary-color: #8B6F47;
+    --secondary-color: #A0826D;
+    --background-color: #F5F1E8;
+    --surface-color: #FFFFFF;
+    --text-primary: #3E2723;
+    --text-secondary: #6D4C41;
+    --border-color: rgba(62, 39, 35, 0.1);
+}
+
+body[data-theme="cafe"]::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(139, 111, 71, 0.03) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(139, 111, 71, 0.03) 3px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(139, 111, 71, 0.03) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(139, 111, 71, 0.03) 3px
+        );
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: -1;
+}
+/* ========== 区块B：复古咖啡馆主题 结束 ========== */
+
+/* ========== 区块C：温柔花园主题 开始 ========== */
+/* 用途：粉绿色调，清新治愈风格 */
+body[data-theme="garden"] {
+    --primary-color: #81C784;
+    --secondary-color: #F48FB1;
+    --background-color: #FFF8F0;
+    --surface-color: #FFFFFF;
+    --text-primary: #2E7D32;
+    --text-secondary: #66BB6A;
+    --border-color: rgba(46, 125, 50, 0.1);
+}
+
+body[data-theme="garden"]::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(244, 143, 177, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(129, 199, 132, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 212, 229, 0.1) 0%, transparent 50%);
+    background-size: 100% 100%;
+    animation: gardenBreath 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes gardenBreath {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+}
+
+/* 花瓣飘落效果 */
+body[data-theme="garden"]::after {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-image: 
+        radial-gradient(circle, rgba(244, 143, 177, 0.3) 2px, transparent 2px),
+        radial-gradient(circle, rgba(129, 199, 132, 0.3) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px;
+    background-position: 0 0, 50px 50px;
+    animation: petalFall 30s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+@keyframes petalFall {
+    0% { transform: translateY(-10%); }
+    100% { transform: translateY(110%); }
+}
+/* ========== 区块C：温柔花园主题 结束 ========== */
+
+/* ========== 区块D：自定义背景支持 开始 ========== */
+/* 用途：用户上传自定义背景图时的样式 */
+body[data-custom-bg="true"]::before,
+body[data-custom-bg="true"]::after {
+    display: none;
+}
+
+body[data-custom-bg="true"] {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* 自定义背景时添加半透明遮罩，确保文字可读 */
+body[data-custom-bg="true"] .app-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+/* ========== 区块D：自定义背景支持 结束 ========== */
