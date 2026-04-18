@@ -186,13 +186,23 @@ const Router = {
     // 人格测试页面
     renderTest() {
         const mainContent = document.getElementById('main-content');
-        mainContent.innerHTML = `
-            <div class="test-page">
-                <h2>人格测试</h2>
-                <p>功能开发中...</p>
-                <p>这里将显示人格测试的内容</p>
-            </div>
-        `;
+        
+        // 检查 PersonalityTest 模块是否已加载
+        if (window.PersonalityTest) {
+            console.log('[Router] 渲染人格测试页面');
+            PersonalityTest.render(mainContent);
+        } else {
+            console.error('[Router] PersonalityTest 模块未加载');
+            mainContent.innerHTML = `
+                <div class="test-page">
+                    <div class="error-message">
+                        <h2>⚠️ 加载失败</h2>
+                        <p>人格测试模块未正确加载，请刷新页面重试</p>
+                        <button class="primary-btn" onclick="location.reload()">刷新页面</button>
+                    </div>
+                </div>
+            `;
+        }
     },
 
     // 雷诺曼占卜页面
