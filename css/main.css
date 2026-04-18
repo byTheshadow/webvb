@@ -1,128 +1,88 @@
 /* ================================
    文件名：main.css
-   功能：主样式表，定义全局样式和布局
-   依赖：themes.css, animations.css
-   最后更新：2026-04-18
+   风格：Soft Minimalist (柔和极简风)
+   核心：呼吸感、优雅字体、淡淡忧郁
    ================================ */
 
-/* ========== 区块A：CSS变量定义 开始 ========== */
-/* 用途：定义全局颜色、尺寸等变量，方便统一修改 */
+/* ========== 区块A：全局变量与三大情绪主题 ========== */
 :root {
-    /* 颜色变量（会被主题覆盖） */
-    --primary-color: #6B5CE7;
-    --secondary-color: #A78BFA;
-    --background-color: #1A1A2E;
-    --surface-color: #252541;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B8B8D1;
-    --border-color: rgba(255, 255, 255, 0.1);
-    
-    /* 尺寸变量 */
-    --header-height: 60px;
-    --bottom-nav-height: 70px;
-    --border-radius: 16px;
-    --spacing-xs: 8px;
-    --spacing-sm: 12px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
-    --spacing-xl: 32px;
-    
-    /* 阴影 */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-    
-    /* 过渡 */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-}
-/* ========== 区块A：CSS变量定义 结束 ========== */
+    /* --- 优雅字体系统 --- */
+    --font-heading: 'Cormorant Garamond', 'Noto Serif SC', serif; /* 标题：极致优雅，带点古典忧郁 */
+    --font-body: 'Noto Sans SC', sans-serif; /* 正文：干净通透，细字重 */
+    --font-accent: 'Playfair Display', 'Noto Serif SC', serif; /* 强调：用于卡片或引言 */
 
-/* ========== 区块B：全局重置和基础样式 开始 ========== */
-/* 用途：重置浏览器默认样式，设置基础字体和盒模型 */
+    /* --- 布局与呼吸感 --- */
+    --border-radius-sm: 12px;
+    --border-radius-md: 20px;
+    --border-radius-pill: 50px; /* 药丸形，增加轻盈感 */
+    --nav-bottom-margin: 24px;
+    
+    /* --- 柔和过渡 --- */
+    --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 【主题 1】落雨日 (Rainy Day) - 淡淡忧郁，水汽感，冷灰调 */
+[data-theme="rain"], :root {
+    --bg-color: #E6EAEF;
+    --surface-color: rgba(240, 244, 248, 0.6);
+    --text-primary: #4A5568;
+    --text-secondary: #8292A6;
+    --accent-color: #6C8EBF;
+    --border-light: rgba(108, 142, 191, 0.15);
+    --shadow-soft: 0 8px 32px rgba(108, 142, 191, 0.08);
+    --backdrop-blur: blur(16px) saturate(110%);
+}
+
+/* 【主题 2】春日序曲 (Spring Overture) - 温柔，治愈，低饱和暖调 */
+[data-theme="spring"] {
+    --bg-color: #FDFBF7;
+    --surface-color: rgba(255, 255, 255, 0.7);
+    --text-primary: #5D534A;
+    --text-secondary: #A39B93;
+    --accent-color: #D4A5A5;
+    --border-light: rgba(212, 165, 165, 0.15);
+    --shadow-soft: 0 8px 32px rgba(212, 165, 165, 0.08);
+    --backdrop-blur: blur(20px) saturate(120%);
+}
+
+/* 【主题 3】无人之境 (No Man's Land) - 暗黑极简，孤独感，深邃 */
+[data-theme="wasteland"] {
+    --bg-color: #121214;
+    --surface-color: rgba(26, 26, 30, 0.6);
+    --text-primary: #E0E0E4;
+    --text-secondary: #7A7A85;
+    --accent-color: #8A8A9E;
+    --border-light: rgba(255, 255, 255, 0.05);
+    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --backdrop-blur: blur(24px) saturate(80%);
+}
+
+/* ========== 区块B：全局重置 & 字体应用 ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    transition: background-color var(--transition-slow), color var(--transition-slow), border-color var(--transition-slow);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background-color: var(--background-color);
+    font-family: var(--font-body);
+    font-weight: 300; /* 使用细字重营造轻盈感 */
+    background-color: var(--bg-color);
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
     overflow-x: hidden;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+h1, h2, h3, .site-title, .heading {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: 0.05em; /* 拉开标题字间距，增加忧郁和高雅感 */
 }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-input, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-}
-/* ========== 区块B：全局重置和基础样式 结束 ========== */
-
-/* ========== 区块C：加载动画 开始 ========== */
-/* 用途：页面初始加载时的全屏动画 */
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity var(--transition-normal), visibility var(--transition-normal);
-}
-
-.loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid var(--border-color);
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.loading-text {
-    margin-top: var(--spacing-md);
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-/* ========== 区块C：加载动画 结束 ========== */
-
-/* ========== 区块D：主容器布局 开始 ========== */
-/* 用途：定义整体应用的布局结构 */
+/* ========== 区块C：悬浮式布局 (Floating Layout) ========== */
 .app-container {
     min-height: 100vh;
     display: flex;
@@ -130,375 +90,247 @@ input, select, textarea {
     position: relative;
 }
 
+/* 顶部导航：改为透明融入背景 */
 .app-header {
-    height: var(--header-height);
-    background: var(--surface-color);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
+    height: 80px;
+    width: 100%;
+    position: fixed;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 100%);
 }
 
 .header-content {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     height: 100%;
-    padding: 0 var(--spacing-md);
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Logo字体特殊处理：极其优雅 */
 .site-title {
-    font-size: 24px;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-primary);
+    position: relative;
+}
+.site-title::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
 }
 
+/* 设置按钮：极简线框 */
 .icon-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
-    transition: all var(--transition-fast);
+    border: 1px solid var(--border-light);
+    background: transparent;
+    color: var(--text-primary);
+    transition: all var(--transition-smooth);
 }
-
 .icon-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
+    background: var(--surface-color);
+    transform: rotate(90deg); /* 增加交互趣味 */
 }
 
-.icon-btn .icon {
-    font-size: 20px;
-}
-/* ========== 区块D：主容器布局 结束 ========== */
-
-/* ========== 区块E：主内容区域 开始 ========== */
-/* 用途：所有页面内容的容器 */
+/* ========== 区块D：主内容区 ========== */
 .main-content {
     flex: 1;
-    max-width: 1200px;
+    max-width: 800px; /* 收窄内容区，增加两边留白(负空间)，提升高级感 */
     width: 100%;
-    margin: 0 auto;
-    padding: var(--spacing-lg) var(--spacing-md);
-    padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-lg));
+    margin: 80px auto 0;
+    padding: 24px;
+    padding-bottom: 120px;
+    animation: fadeIn 1s ease-out forwards;
 }
-/* ========== 区块E：主内容区域 结束 ========== */
 
-/* ========== 区块F：底部导航栏 开始 ========== */
-/* 用途：主要功能的快速入口 */
-.bottom-nav {
-    height: var(--bottom-nav-height);
+/* 通用卡片：呼吸感、毛玻璃、极弱阴影 */
+.card {
     background: var(--surface-color);
-    border-top: 1px solid var(--border-color);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+/* ========== 区块E：悬浮式底部导航 (Floating Dock) ========== */
+/* 将底部导航变成一个悬浮的“药丸”，类似苹果的灵动岛，极其优雅 */
+.bottom-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: var(--nav-bottom-margin);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 460px;
+    height: 64px;
+    background: var(--surface-color);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-pill);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
+    padding: 0 16px;
+    box-shadow: var(--shadow-soft);
     z-index: 100;
-    backdrop-filter: blur(10px);
 }
 
 .nav-item {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: var(--spacing-xs);
     color: var(--text-secondary);
-    transition: all var(--transition-fast);
+    transition: all var(--transition-smooth);
+    padding: 8px 16px;
+    border-radius: var(--border-radius-pill);
     position: relative;
 }
 
-.nav-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 0 0 3px 3px;
-    transition: width var(--transition-fast);
-}
-
-.nav-item.active::before {
-    width: 40px;
-}
-
-.nav-item.active {
-    color: var(--primary-color);
-}
-
 .nav-icon {
-    font-size: 24px;
+    font-size: 20px;
+    opacity: 0.7;
+    transition: opacity var(--transition-smooth);
 }
 
 .nav-label {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(10px);
+    position: absolute;
+    bottom: -18px;
+    transition: all var(--transition-smooth);
 }
-/* ========== 区块F：底部导航栏 结束 ========== */
 
-/* ========== 区块G：模态框（弹窗）样式 开始 ========== */
-/* 用途：设置面板等弹窗的样式 */
+/* 交互状态：鼠标移入或激活时，图标上浮，文字浮现 */
+.nav-item:hover, .nav-item.active {
+    color: var(--accent-color);
+}
+.nav-item:hover .nav-icon, .nav-item.active .nav-icon {
+    transform: translateY(-6px);
+    opacity: 1;
+}
+.nav-item:hover .nav-label, .nav-item.active .nav-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========== 区块F：呼吸感动画 ========== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 呼吸态：用于需要暗示用户点击的空灵元素 */
+.breathe-effect {
+    animation: breathe 4s ease-in-out infinite;
+}
+@keyframes breathe {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* ========== 区块G：弹窗 (Modal) 极简重构 ========== */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 1000;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
 }
-
 .modal.active {
     display: flex;
+    opacity: 1;
 }
 
 .modal-content {
-    background: var(--surface-color);
-    border-radius: var(--border-radius);
+    background: var(--bg-color); /* 使用主题背景色而非纯卡片色 */
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-md);
     width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--shadow-lg);
-    animation: modalSlideIn var(--transition-normal);
+    max-width: 420px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+    transform: scale(0.95);
+    transition: transform var(--transition-smooth);
 }
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.modal.active .modal-content {
+    transform: scale(1);
 }
 
 .modal-header {
-    padding: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    padding: 24px 32px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .modal-header h2 {
     font-size: 20px;
-    font-weight: 600;
+    color: var(--text-primary);
 }
-
 .close-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: 300;
     color: var(--text-secondary);
-    transition: all var(--transition-fast);
+    transition: color 0.3s;
 }
+.close-btn:hover { color: var(--accent-color); }
 
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
+/* ========== 区块H：主题选择按钮的美化 ========== */
+.theme-selector {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
 }
-
-.modal-body {
-    padding: var(--spacing-lg);
-    overflow-y: auto;
-}
-/* ========== 区块G：模态框（弹窗）样式 结束 ========== */
-
-/* ========== 区块H：设置面板特定样式 开始 ========== */
-/* 用途：设置面板内的各种控件样式 */
-.setting-section {
-    margin-bottom: var(--spacing-xl);
-}
-
-.setting-section h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: var(--spacing-md);
-    color: var(--text-primary);
-}
-
-.theme-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.theme-btn {
+.theme-option {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid transparent;
-    border-radius: var(--border-radius);
-    transition: all var(--transition-fast);
-    color: var(--text-secondary);
-}
-
-.theme-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.theme-btn.active {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-.theme-preview {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
-}
-
-.starry-preview {
-    background: linear-gradient(135deg, #2D1B69, #1A1A3E);
-}
-
-.cafe-preview {
-    background: linear-gradient(135deg, #8B6F47, #3E2723);
-}
-
-.garden-preview {
-    background: linear-gradient(135deg, #B8E6D5, #FFD4E5);
-}
-
-.secondary-btn {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: var(--text-primary);
-    font-size: 14px;
-    transition: all var(--transition-fast);
-    margin-right: var(--spacing-sm);
-}
-
-.secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.audio-controls {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-}
-
-.audio-select {
-    flex: 1;
-    min-width: 150px;
-    padding: var(--spacing-sm);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-primary);
-    font-size: 14px;
-}
-
-.volume-slider {
-    flex: 1;
-    min-width: 100px;
-}
-
-#volume-value {
-    min-width: 40px;
-    text-align: right;
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-/* ========== 区块H：设置面板特定样式 结束 ========== */
-
-/* ========== 区块I：通用组件样式 开始 ========== */
-/* 用途：卡片、按钮等可复用组件 */
-.card {
+    gap: 8px;
+    padding: 16px;
     background: var(--surface-color);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-fast);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-secondary);
+    transition: all var(--transition-smooth);
 }
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+.theme-option:hover {
+    border-color: var(--accent-color);
+    color: var(--text-primary);
 }
-
-.primary-btn {
-    padding: var(--spacing-md) var(--spacing-xl);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 12px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-sm);
+.theme-option .theme-name {
+    font-family: var(--font-heading);
+    font-size: 14px;
 }
-
-.primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.primary-btn:active {
-    transform: translateY(0);
-}
-/* ========== 区块I：通用组件样式 结束 ========== */
-
-/* ========== 区块J：响应式设计 开始 ========== */
-/* 用途：适配不同屏幕尺寸 */
-@media (max-width: 768px) {
-    .site-title {
-        font-size: 20px;
-    }
-    
-    .main-content {
-        padding: var(--spacing-md);
-        padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-md));
-    }
-    
-    .modal-content {
-        width: 95%;
-    }
-}
-
-@media (min-width: 769px) {
-    .bottom-nav {
-        max-width: 600px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
-    }
-}
-/* ========== 区块J：响应式设计 结束 ========== */
-
 
