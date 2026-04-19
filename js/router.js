@@ -150,45 +150,132 @@ navigate(routeName) {
     // 用途：各个页面的HTML生成
     
     // 首页
+       // 首页
     renderHome() {
         const mainContent = document.getElementById('main-content');
+        
+        // 获取历史记录统计
+        const testHistory = Storage.get('testHistory') || [];
+        const fortuneHistory = Storage.get('fortuneHistory') || [];
+        const hasHistory = testHistory.length > 0 || fortuneHistory.length > 0;
+        
         mainContent.innerHTML = `
             <div class="home-page">
+                <!-- ========== 欢迎区域 开始 ========== -->
                 <div class="welcome-section">
-                    <h2 class="welcome-title">欢迎来到 webvb</h2>
-                    <p class="welcome-subtitle">探索你的内心世界，发现专属角色卡</p>
+                    <div class="welcome-content">
+                        <h1 class="site-slogan">Shh. The algorithm is listening to your darkness.</h1>
+                        <p class="site-intro">由玉元一制作的角色卡推荐网站！大部分角色卡来自锦鲤食堂，请多多支持吧！</p>
+                        <div class="decrypting-text">
+                            <p class="decrypt-line">Decrypting your dimensional signature...</p>
+                            <p class="decrypt-quote">"别急，深渊也需要时间回望你。"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 装饰性背景效果 -->
+                    <div class="welcome-bg-effects">
+                        <div class="floating-particle"></div>
+                        <div class="floating-particle"></div>
+                        <div class="floating-particle"></div>
+                        <div class="floating-particle"></div>
+                        <div class="floating-particle"></div>
+                    </div>
                 </div>
+                <!-- ========== 欢迎区域 结束 ========== -->
                 
+                <!-- ========== 功能入口卡片 开始 ========== -->
                 <div class="feature-grid">
                     <a href="#/test" class="feature-card card-appear">
                         <div class="feature-icon">📝</div>
-                        <h3>人格测试</h3>
-                        <p>通过测试了解自己，获得角色卡推荐</p>
+                        <h3 class="feature-title">人格测试</h3>
+                        <p class="feature-desc">探索内心世界</p>
+                        <div class="feature-badge">开始探索</div>
                     </a>
                     
                     <a href="#/lenormand" class="feature-card card-appear" style="animation-delay: 0.1s">
                         <div class="feature-icon">🔮</div>
-                        <h3>雷诺曼占卜</h3>
-                        <p>抽取卡牌，探索今日运势</p>
+                        <h3 class="feature-title">雷诺曼占卜</h3>
+                        <p class="feature-desc">寻找命运指引</p>
+                        <div class="feature-badge">抽取卡牌</div>
                     </a>
                     
                     <a href="#/creative" class="feature-card card-appear" style="animation-delay: 0.2s">
                         <div class="feature-icon">✨</div>
-                        <h3>创意功能</h3>
-                        <p>调酒、配香水、拼贴诗</p>
+                        <h3 class="feature-title">创意推荐</h3>
+                        <p class="feature-desc">发现新灵感</p>
+                        <div class="feature-badge">探索创意</div>
                     </a>
                     
-                    <a href="#/cp" class="feature-card card-appear" style="animation-delay: 0.3s">
+                    <a href="#/settings" class="feature-card card-appear" style="animation-delay: 0.3s" onclick="event.preventDefault(); App.openSettings();">
                         <div class="feature-icon">💕</div>
-                        <h3>CP分析</h3>
-                        <p>分析你与角色的契合度</p>
+                        <h3 class="feature-title">偏好设置</h3>
+                        <p class="feature-desc">个性化体验</p>
+                        <div class="feature-badge">立即设置</div>
                     </a>
                 </div>
+                <!-- ========== 功能入口卡片 结束 ========== -->
+                
+                <!-- ========== 最近活动 开始 ========== -->
+                ${hasHistory ? `
+                <div class="recent-activity">
+                    <h3 class="section-title">最近活动</h3>
+                    <div class="activity-list">
+                        ${this.renderRecentActivities(testHistory, fortuneHistory)}
+                    </div>
+                </div>
+                ` : ''}
+                <!-- ========== 最近活动 结束 ========== -->
             </div>
         `;
         
         // 添加首页样式
         this.injectHomeStyles();
+    },
+    
+    // 渲染最近活动列表
+    renderRecentActivities(testHistory, fortuneHistory) {
+        const activities = [];
+        
+        // 添加测试记录
+        if (testHistory.length > 0) {
+            const latest = testHistory[0];
+            activities.push({
+                type: 'test',
+                icon: '📝',
+                title: '完成了人格测试',
+                desc: `结果：${latest.result?.faction || '未知'}`,
+                date: latest.date,
+                link: '#/test'
+            });
+        }
+        
+        // 添加抽卡记录
+        if (fortuneHistory.length > 0) {
+            const latest = fortuneHistory[0];
+            activities.push({
+                type: 'fortune',
+                icon: '🔮',
+                title: '进行了雷诺曼占卜',
+                desc: `抽取了 ${latest.cards?.length || 0} 张卡牌`,
+                date: latest.date,
+                link: '#/lenormand'
+            });
+        }
+        
+        // 按日期排序，只显示最近3条
+        activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const recentActivities = activities.slice(0, 3);
+        
+        return recentActivities.map(activity => `
+            <a href="${activity.link}" class="activity-item">
+                <div class="activity-icon">${activity.icon}</div>
+                <div class="activity-info">
+                    <h4 class="activity-title">${activity.title}</h4>
+                    <p class="activity-desc">${activity.desc}</p>
+                    <span class="activity-date">${activity.date}</span>
+                </div>
+            </a>
+        `).join('');
     },
     // 人格测试页面
     renderTest() {
