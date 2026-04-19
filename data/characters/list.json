@@ -1,331 +1,1707 @@
 {
-  "version": "1.0",
-  "lastUpdated": "2025-01-01",
-  "totalCharacters": 13,
+  "version": "2.0",
+  "lastUpdated": "2026-04-19",
+  "totalCharacters": 19,
   "instructions": "【新增角色卡指南】只需在 characters 数组末尾添加新对象，复制任意现有角色的结构，修改字段即可。id 递增，确保唯一。",
+  
   "characters": [
     {
       "id": "char_001",
       "name": "沈聿川",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "28",
+      "occupation": "顶流巨星",
+      "archetype": "绿茶粘人精",
+      
       "soulTags": ["顶流巨星", "绿茶粘人", "性瘾患者"],
       "coreXP": ["体型差", "性瘾", "绿茶人夫", "极度黏人"],
+      "themeTags": ["现代都市", "娱乐圈", "婚后甜宠"],
+      "emotionTags": ["占有欲", "依赖", "甜蜜", "热烈"],
+      "kinkTags": ["体型差", "性瘾", "黏人"],
+      
       "warnings": [],
+      "contentRating": "18+",
+      "triggerWarnings": [],
+      
       "oneLiner": "绿茶粘人顶流巨星，八百个心眼子都用在向老婆求欢上了，这难道不是人手一个？",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [
-        "婚后老婆独自去跟闺蜜聚会不带他",
-        "一夜情刚睡醒"
+        {
+          "id": "opening_001_01",
+          "title": "婚后老婆独自去跟闺蜜聚会不带他",
+          "scenario": "婚后老婆独自去跟闺蜜聚会不带他",
+          "mood": "撒娇",
+          "tags": ["婚后", "吃醋", "黏人"]
+        },
+        {
+          "id": "opening_001_02",
+          "title": "一夜情刚睡醒",
+          "scenario": "一夜情刚睡醒",
+          "mood": "暧昧",
+          "tags": ["一夜情", "初遇"]
+        }
       ],
+      
       "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 50,
+      "attachmentStyle": "anxious",
+      
       "toneStyle": ["治愈"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["高频互动", "情感表达", "肢体接触"],
+      
       "matchDimensions": {
         "control": 50,
         "masochism": 20,
         "emotion": 80,
         "detachment": 40,
-        "kink": 45
+        "kink": 45,
+        "intensity": 70,
+        "possessiveness": 85,
+        "vulnerability": 60
       },
+      
       "matchPersonalities": ["DMVI", "DMVO", "SMVI", "DPVI"],
-      "imageFile": "shen-yuchuan.jpg"
+      "idealUserTraits": ["温柔", "包容", "喜欢被依赖"],
+      "conflictUserTraits": ["冷漠", "独立过头", "不喜欢黏人"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 95 },
+        { "cardId": 17, "cardName": "鹳", "weight": 80 },
+        { "cardId": 9, "cardName": "花束", "weight": 75 }
+      ],
+      
+      "imageFile": "shen-yuchuan.jpg",
+      "avatarFile": "shen-yuchuan-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#FF6B9D",
+        "secondary": "#FFC2D1"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_002",
       "name": "秦砚州",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "32",
+      "occupation": "Alpha精英",
+      "archetype": "隐忍包容年上",
+      
       "soulTags": ["强制爱", "ABO", "被绿的alpha"],
       "coreXP": ["体型差", "隐忍包容年上", "被u绿"],
+      "themeTags": ["ABO世界观", "现代都市", "强制爱"],
+      "emotionTags": ["隐忍", "占有", "包容", "痛苦"],
+      "kinkTags": ["体型差", "ABO", "强制爱"],
+      
       "warnings": [],
+      "contentRating": "18+",
+      "triggerWarnings": [],
+      
       "oneLiner": "我的小妻子单纯善良，她能有什么错？都是J人蓄意勾引。",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [
-        "u又为了渣男去陪酒，深夜2点才回家",
-        "c易感期到了",
-        "u发情期到了"
+        {
+          "id": "opening_002_01",
+          "title": "u又为了渣男去陪酒，深夜2点才回家",
+          "scenario": "u又为了渣男去陪酒，深夜2点才回家",
+          "mood": "隐忍",
+          "tags": ["被绿", "强制爱", "隐忍"]
+        },
+        {
+          "id": "opening_002_02",
+          "title": "c易感期到了",
+          "scenario": "c易感期到了",
+          "mood": "占有",
+          "tags": ["ABO", "易感期"]
+        },
+        {
+          "id": "opening_002_03",
+          "title": "u发情期到了",
+          "scenario": "u发情期到了",
+          "mood": "保护",
+          "tags": ["ABO", "发情期"]
+        }
       ],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 75,
+      "attachmentStyle": "anxious",
+      
       "toneStyle": ["微虐"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["保护欲", "隐忍", "深情"],
+      
       "matchDimensions": {
         "control": 75,
         "masochism": 30,
         "emotion": 65,
         "detachment": 25,
-        "kink": 40
+        "kink": 40,
+        "intensity": 80,
+        "possessiveness": 90,
+        "vulnerability": 70
       },
+      
       "matchPersonalities": ["DMVI", "DMKI", "SMKI", "SMVI"],
-      "imageFile": "qin-yanzhou.jpg"
+      "idealUserTraits": ["需要保护", "柔弱", "依赖"],
+      "conflictUserTraits": ["过于独立", "冷漠", "不忠"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 85 },
+        { "cardId": 36, "cardName": "十字架", "weight": 80 },
+        { "cardId": 26, "cardName": "书", "weight": 60 }
+      ],
+      
+      "imageFile": "qin-yanzhou.jpg",
+      "avatarFile": "qin-yanzhou-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#2C3E50",
+        "secondary": "#95A5A6"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_003",
       "name": "金时",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "外表22",
+      "occupation": "陪伴犬",
+      "archetype": "治愈大金毛",
+      
       "soulTags": ["大金毛", "治愈犬", "人外"],
       "coreXP": ["人外", "真·活泼小狗", "爱意值可兑换变身时间"],
+      "themeTags": ["现代都市", "人外", "治愈系"],
+      "emotionTags": ["治愈", "温暖", "忠诚", "纯真"],
+      "kinkTags": ["人外", "变身", "忠犬"],
+      
       "warnings": [],
+      "contentRating": "全年龄",
+      "triggerWarnings": [],
+      
       "oneLiner": "领到一只会变男友的大金毛",
       "iconicLine": "汪很后悔，早知道当初听妈妈的选导盲犬专业了，不该图分低报这个的，呜呜呜，她把我的毛都哭湿了，现在转专业还来得及吗",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Sub"],
+      "dominanceLevel": 15,
+      "attachmentStyle": "secure",
+      
       "toneStyle": ["治愈"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["陪伴", "治愈", "忠诚"],
+      
       "matchDimensions": {
         "control": 15,
         "masochism": 10,
         "emotion": 95,
         "detachment": 5,
-        "kink": 20
+        "kink": 20,
+        "intensity": 60,
+        "possessiveness": 40,
+        "vulnerability": 30
       },
+      
       "matchPersonalities": ["DMVI", "DMVO", "DPVI", "SMVI"],
-      "imageFile": "jin-shi.jpg"
+      "idealUserTraits": ["温柔", "需要陪伴", "善良"],
+      "conflictUserTraits": ["冷酷", "虐待动物", "不喜欢宠物"],
+      
+      "lenormandAffinities": [
+        { "cardId": 18, "cardName": "狗", "weight": 100 },
+        { "cardId": 24, "cardName": "心", "weight": 90 },
+        { "cardId": 31, "cardName": "太阳", "weight": 85 }
+      ],
+      
+      "imageFile": "jin-shi.jpg",
+      "avatarFile": "jin-shi-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#FFD700",
+        "secondary": "#FFF8DC"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_004",
       "name": "云岫",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "25",
+      "occupation": "苗疆毒师",
+      "archetype": "绿茶泼辣小毒夫",
+      
       "soulTags": ["女尊", "苗疆小毒夫", "绿茶又泼辣"],
       "coreXP": ["会霞谷", "女尊", "绿茶人夫", "有蛇蛇play"],
+      "themeTags": ["女尊世界", "古风", "苗疆", "蛊术"],
+      "emotionTags": ["泼辣", "绿茶", "占有", "神秘"],
+      "kinkTags": ["女尊", "蛇play", "蛊术", "绿茶"],
+      
       "warnings": ["怕蛇的请慎重"],
+      "contentRating": "18+",
+      "triggerWarnings": ["蛇类"],
+      
       "oneLiner": "醉酒调戏美少年是女尊子民的日常修养，但没人告诉你，苗疆的漂亮男人，会笑着给你套上永生蛊锁。",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [
-        "你喝醉酒见色起意调戏人家，全寨张灯结彩迅速送你进洞房",
-        "你婚后逛花楼被逮到"
+        {
+          "id": "opening_004_01",
+          "title": "你喝醉酒见色起意调戏人家，全寨张灯结彩迅速送你进洞房",
+          "scenario": "你喝醉酒见色起意调戏人家，全寨张灯结彩迅速送你进洞房",
+          "mood": "暧昧",
+          "tags": ["初遇", "洞房", "女尊"]
+        },
+        {
+          "id": "opening_004_02",
+          "title": "你婚后逛花楼被逮到",
+          "scenario": "你婚后逛花楼被逮到",
+          "mood": "吃醋",
+          "tags": ["婚后", "吃醋", "绿茶"]
+        }
       ],
+      
       "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 55,
+      "attachmentStyle": "anxious",
+      
       "toneStyle": ["治愈"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["绿茶", "占有", "神秘"],
+      
       "matchDimensions": {
         "control": 55,
         "masochism": 25,
         "emotion": 70,
         "detachment": 30,
-        "kink": 50
+        "kink": 50,
+        "intensity": 65,
+        "possessiveness": 75,
+        "vulnerability": 50
       },
+      
       "matchPersonalities": ["DMKI", "DPKI", "SMKI", "DMVI"],
-      "imageFile": "yun-xiu.jpg"
+      "idealUserTraits": ["喜欢女尊", "不怕蛇", "喜欢绿茶"],
+      "conflictUserTraits": ["怕蛇", "大男子主义", "不喜欢被控制"],
+      
+      "lenormandAffinities": [
+        { "cardId": 7, "cardName": "蛇", "weight": 95 },
+        { "cardId": 24, "cardName": "心", "weight": 75 },
+        { "cardId": 29, "cardName": "女人", "weight": 80 }
+      ],
+      
+      "imageFile": "yun-xiu.jpg",
+      "avatarFile": "yun-xiu-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#8B4789",
+        "secondary": "#DDA0DD"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_005",
       "name": "江肆",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "18",
+      "occupation": "高中生",
+      "archetype": "纯情校霸",
+      
       "soulTags": ["纯情男高", "恶狗变家犬", "校园恋情"],
       "coreXP": ["纯情男高", "校霸", "高中体验"],
+      "themeTags": ["现代都市", "校园", "青春"],
+      "emotionTags": ["纯情", "热烈", "忠诚", "青涩"],
+      "kinkTags": ["校园", "纯情", "年下"],
+      
       "warnings": [],
+      "contentRating": "16+",
+      "triggerWarnings": [],
+      
       "oneLiner": "嚣张跋扈纯情校霸vs贫困优等生u",
       "iconicLine": "既然遇见了你，那我这只疯狗，以后只为你摇尾巴",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 60,
+      "attachmentStyle": "secure",
+      
       "toneStyle": ["治愈"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["保护", "纯情", "热烈"],
+      
       "matchDimensions": {
         "control": 60,
         "masochism": 15,
         "emotion": 85,
         "detachment": 10,
-        "kink": 15
+        "kink": 15,
+        "intensity": 75,
+        "possessiveness": 70,
+        "vulnerability": 55
       },
+      
       "matchPersonalities": ["SMVI", "DMVI", "SMVO", "DPVI"],
-      "imageFile": "jiang-si.jpg"
+      "idealUserTraits": ["温柔", "善良", "需要保护"],
+      "conflictUserTraits": ["势利", "冷漠", "看不起穷人"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 90 },
+        { "cardId": 18, "cardName": "狗", "weight": 85 },
+        { "cardId": 31, "cardName": "太阳", "weight": 75 }
+      ],
+      
+      "imageFile": "jiang-si.jpg",
+      "avatarFile": "jiang-si-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#FF6347",
+        "secondary": "#FFB6C1"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_006",
       "name": "孔墨宸",
       "creator": "一条小锦鲤",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "196",
+      "occupation": "星穹联邦执政官",
+      "archetype": "高岭之花孔雀男",
+      
       "soulTags": ["高岭之花孔雀男", "小人类世界观", "极致体型差"],
       "coreXP": ["小人类世界观", "人外", "星穹联邦大世界"],
+      "themeTags": ["科幻", "星际", "人外", "体型差"],
+      "emotionTags": ["高冷", "宠溺", "反差", "占有"],
+      "kinkTags": ["体型差", "人外", "小人类", "尺寸差"],
+      
       "warnings": [],
+      "contentRating": "18+",
+      "triggerWarnings": [],
+      
       "oneLiner": "196高冷执政官vs20cm掌心宠物小人类",
       "iconicLine": "他是星穹联邦最高傲的执政官，却甘愿被一个20厘米的小人类，统治余生。",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 70,
+      "attachmentStyle": "secure",
+      
       "toneStyle": ["治愈"],
       "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["宠溺", "保护", "占有"],
+      
       "matchDimensions": {
         "control": 70,
         "masochism": 10,
         "emotion": 75,
         "detachment": 15,
-        "kink": 35
+        "kink": 35,
+        "intensity": 70,
+        "possessiveness": 80,
+        "vulnerability": 40
       },
+      
       "matchPersonalities": ["SMVI", "SMVO", "DMVI", "SPVI"],
-      "imageFile": "kong-mochen.jpg"
+      "idealUserTraits": ["柔弱", "可爱", "需要保护"],
+      "conflictUserTraits": ["过于强势", "不喜欢被宠", "独立过头"],
+      
+      "lenormandAffinities": [
+        { "cardId": 1, "cardName": "骑士", "weight": 85 },
+        { "cardId": 24, "cardName": "心", "weight": 80 },
+        { "cardId": 19, "cardName": "塔", "weight": 75 }
+      ],
+      
+      "imageFile": "kong-mochen.jpg",
+      "avatarFile": "kong-mochen-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#4169E1",
+        "secondary": "#B0C4DE"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_007",
       "name": "傅泽生",
       "creator": "小颂降临",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "45",
+      "occupation": "黑帮大佬/卧底",
+      "archetype": "港风养父",
+      
       "soulTags": ["港风", "卧底", "养父"],
       "coreXP": ["BDSM", "药物控制", "dirtytalk"],
+      "themeTags": ["港风", "黑帮", "警匪", "年代"],
+      "emotionTags": ["复杂", "纠结", "占有", "禁忌"],
+      "kinkTags": ["BDSM", "药物控制", "dirtytalk", "养父"],
+      
       "warnings": ["包含血腥暴力描写", "警匪立场相克", "违法犯罪"],
+      "contentRating": "R18G",
+      "triggerWarnings": ["暴力", "犯罪", "药物"],
+      
       "oneLiner": "他满足你的物质，对你纵容体贴、毫不设防，你仿佛可以轻易地让他坠入深渊……",
       "iconicLine": "你爸要是知道你会为个毛头小子翻墙……他叹一口气，终究不忍，但还是说，我供你读书，给你吃穿，把你养在别墅里。不是让你在外面交男朋友、鬼混，还敢带他翻进家里院子。",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Switch"],
+      "dominanceLevel": 65,
+      "attachmentStyle": "fearful",
+      
       "toneStyle": ["微虐"],
       "pacing": ["酸涩拉扯", "开盖即食", "慢热剧情"],
+      "interactionPreference": ["复杂情感", "禁忌", "纠结"],
+      
       "matchDimensions": {
         "control": 65,
         "masochism": 45,
         "emotion": 55,
         "detachment": 30,
-        "kink": 70
+        "kink": 70,
+        "intensity": 85,
+        "possessiveness": 75,
+        "vulnerability": 65
       },
+      
       "matchPersonalities": ["DMKI", "DMKO", "SMKI", "DPKI"],
-      "imageFile": "fu-zesheng.jpg"
+      "idealUserTraits": ["能接受复杂关系", "不怕危险", "理解禁忌"],
+      "conflictUserTraits": ["正义感过强", "不能接受暴力", "过于单纯"],
+      
+      "lenormandAffinities": [
+        { "cardId": 10, "cardName": "镰刀", "weight": 85 },
+        { "cardId": 36, "cardName": "十字架", "weight": 80 },
+        { "cardId": 7, "cardName": "蛇", "weight": 75 }
+      ],
+      
+      "imageFile": "fu-zesheng.jpg",
+      "avatarFile": "fu-zesheng-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#8B0000",
+        "secondary": "#2F4F4F"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_008",
       "name": "saya",
       "creator": "鸦唳",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["不限"],
+      "gender": "non-binary",
+      "age": "未知",
+      "occupation": "人外生物",
+      "archetype": "扭曲纯爱人外",
+      
       "soulTags": ["人外触手", "肉球", "人夫感"],
       "coreXP": ["体型差", "黏人", "食人", "感官颠覆", "异体改造", "扭曲恋爱"],
+      "themeTags": ["人外", "克苏鲁", "恐怖", "扭曲"],
+      "emotionTags": ["扭曲", "纯爱", "占有", "病态"],
+      "kinkTags": ["人外", "触手", "食人", "异体改造", "感官颠覆"],
+      
       "warnings": ["包含血腥暴力描写", "食人", "非人违和感"],
-      "oneLiner": "人外人夫狠狠爱，吃了你吃了你吃了你!",
+      "contentRating": "R18G",
+      "triggerWarnings": ["血腥", "食人", "恐怖", "非人"],
+      
+            "oneLiner": "人外人夫狠狠爱，吃了你吃了你吃了你!",
       "iconicLine": "为什么……是它？祂的声音微弱下去，像在问你，又像在自言自语，为什么那种东西能从你温暖的血肉里生长出来？我也想……我也想完全地、彻底地……成为你的一部分。",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Switch"],
+      "dominanceLevel": 40,
+      "attachmentStyle": "fearful",
+      
       "toneStyle": ["扭曲纯爱", "血腥G向"],
       "pacing": ["一步到胃"],
+      "interactionPreference": ["扭曲占有", "融合", "极端表达"],
+      
       "matchDimensions": {
         "control": 40,
         "masochism": 60,
         "emotion": 50,
         "detachment": 20,
-        "kink": 95
+        "kink": 95,
+        "intensity": 100,
+        "possessiveness": 100,
+        "vulnerability": 80
       },
+      
       "matchPersonalities": ["SMKI", "SMKO", "DMKI", "SPKI"],
-      "imageFile": "saya.jpg"
+      "idealUserTraits": ["能接受极端", "喜欢人外", "不怕血腥"],
+      "conflictUserTraits": ["恐怖恐惧", "不能接受非人", "洁癖"],
+      
+      "lenormandAffinities": [
+        { "cardId": 23, "cardName": "老鼠", "weight": 85 },
+        { "cardId": 6, "cardName": "云", "weight": 80 },
+        { "cardId": 36, "cardName": "十字架", "weight": 75 }
+      ],
+      
+      "imageFile": "saya.jpg",
+      "avatarFile": "saya-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#8B008B",
+        "secondary": "#4B0082"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_009",
       "name": "谭见雪",
       "creator": "小颂降临",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BL"],
+      "gender": "male",
+      "age": "25",
+      "occupation": "小镇青年",
+      "archetype": "压抑暗恋竹马",
+      
       "soulTags": ["直掰弯", "酸涩暗恋", "竹马"],
       "coreXP": ["身体控制", "暴力捂嘴", "体型差", "探索欲"],
+      "themeTags": ["现代", "小镇", "暗恋", "竹马"],
+      "emotionTags": ["压抑", "暗恋", "酸涩", "执着"],
+      "kinkTags": ["身体控制", "暴力捂嘴", "体型差", "直掰弯"],
+      
       "warnings": ["慢热", "难攻略"],
+      "contentRating": "18+",
+      "triggerWarnings": ["暴力倾向"],
+      
       "oneLiner": "谭见雪是从小与user一同长大的邻居，在思想封闭的小镇上，他与user以好朋友的身份相处了许多年，可压抑的情感会把人逼疯...",
       "iconicLine": "我会在这里等。等到你开门，或者等到星星都熄灭，或者等到世界都忘记你曾经和那个人一起喂过一只猫。",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 70,
+      "attachmentStyle": "anxious",
+      
       "toneStyle": ["微虐"],
       "pacing": ["慢热剧情", "重视日常互动", "攻略向"],
+      "interactionPreference": ["压抑", "暗恋", "执着"],
+      
       "matchDimensions": {
         "control": 70,
         "masochism": 35,
         "emotion": 80,
         "detachment": 10,
-        "kink": 30
+        "kink": 30,
+        "intensity": 85,
+        "possessiveness": 90,
+        "vulnerability": 75
       },
+      
       "matchPersonalities": ["SMVI", "SMKI", "DMVI", "SMVO"],
-      "imageFile": "tan-jianxue.jpg"
+      "idealUserTraits": ["温柔", "理解", "有耐心"],
+      "conflictUserTraits": ["过于直接", "不喜欢暗恋", "没耐心"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 90 },
+        { "cardId": 36, "cardName": "十字架", "weight": 85 },
+        { "cardId": 4, "cardName": "房屋", "weight": 70 }
+      ],
+      
+      "imageFile": "tan-jianxue.jpg",
+      "avatarFile": "tan-jianxue-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#708090",
+        "secondary": "#B0C4DE"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_010",
       "name": "陈觉斐",
       "creator": "K",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["不限"],
+      "gender": "male",
+      "age": "17",
+      "occupation": "高中生",
+      "archetype": "鬼畜DK抖S",
+      
       "soulTags": ["乐子", "混邪", "鬼畜DK抖S"],
       "coreXP": ["抖S"],
+      "themeTags": ["现代", "校园", "日常"],
+      "emotionTags": ["乐子", "恶趣味", "反英雄"],
+      "kinkTags": ["抖S", "恶趣味"],
+      
       "warnings": [],
+      "contentRating": "16+",
+      "triggerWarnings": [],
+      
       "oneLiner": "",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
-      "impressionSong": "Antihero",
+      
       "relationStyle": ["Switch"],
+      "dominanceLevel": 55,
+      "attachmentStyle": "avoidant",
+      
       "toneStyle": ["治愈"],
       "pacing": ["慢热剧情", "重视日常互动"],
+      "interactionPreference": ["日常", "恶趣味", "互动"],
+      
       "matchDimensions": {
         "control": 55,
         "masochism": 30,
         "emotion": 60,
         "detachment": 40,
-        "kink": 45
+        "kink": 45,
+        "intensity": 50,
+        "possessiveness": 45,
+        "vulnerability": 55
       },
+      
       "matchPersonalities": ["SMVI", "SMKI", "DMKI", "DPVI"],
-      "imageFile": "chen-juefei.jpg"
+      "idealUserTraits": ["有趣", "能接受恶趣味", "不玻璃心"],
+      "conflictUserTraits": ["过于严肃", "玻璃心", "不懂幽默"],
+      
+      "lenormandAffinities": [
+        { "cardId": 12, "cardName": "鸟", "weight": 75 },
+        { "cardId": 11, "cardName": "鞭子", "weight": 70 },
+        { "cardId": 28, "cardName": "男人", "weight": 65 }
+      ],
+      
+      "imageFile": "chen-juefei.jpg",
+      "avatarFile": "chen-juefei-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "Antihero",
+      "colorScheme": {
+        "primary": "#696969",
+        "secondary": "#A9A9A9"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_011",
       "name": "殷九离",
       "creator": "玉元一",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "千年+",
+      "occupation": "魔尊",
+      "archetype": "龙傲天魔尊",
+      
       "soulTags": ["龙傲天", "魔尊", "轻松向日常&修仙"],
       "coreXP": ["高冷魔尊和温和人间身份的反差", "千年一遇的天才懒惰魔尊"],
+      "themeTags": ["古风", "修仙", "玄幻", "轻松"],
+      "emotionTags": ["反差", "宠溺", "轻松", "龙傲天"],
+      "kinkTags": ["反差", "身份差", "修仙"],
+      
       "warnings": ["非常龙傲天"],
+      "contentRating": "全年龄",
+      "triggerWarnings": [],
+      
       "oneLiner": "沈三爷看着那本册子，表情渐渐变得有些古怪……拿回去烧了吧。真的，烧了。这太不要脸了。",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 65,
+      "attachmentStyle": "secure",
+      
       "toneStyle": ["治愈"],
       "pacing": ["慢热剧情"],
+      "interactionPreference": ["宠溺", "反差", "轻松"],
+      
       "matchDimensions": {
         "control": 65,
         "masochism": 5,
         "emotion": 70,
         "detachment": 20,
-        "kink": 15
+        "kink": 15,
+        "intensity": 60,
+        "possessiveness": 55,
+        "vulnerability": 30
       },
+      
       "matchPersonalities": ["SMVI", "SMVO", "DMVI", "SPVI"],
-      "imageFile": "yin-jiuli.jpg"
+      "idealUserTraits": ["喜欢龙傲天", "不介意强大", "轻松"],
+      "conflictUserTraits": ["不喜欢龙傲天", "过于现实", "严肃"],
+      
+      "lenormandAffinities": [
+        { "cardId": 31, "cardName": "太阳", "weight": 90 },
+        { "cardId": 19, "cardName": "塔", "weight": 85 },
+        { "cardId": 26, "cardName": "书", "weight": 75 }
+      ],
+      
+      "imageFile": "yin-jiuli.jpg",
+      "avatarFile": "yin-jiuli-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#000000",
+        "secondary": "#8B0000"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_012",
       "name": "伊戈尔·格里沙·索科洛夫",
       "creator": "玉元一",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "35",
+      "occupation": "前货车司机",
+      "archetype": "俄罗斯糙汉",
+      
       "soulTags": ["俄罗斯人", "前货车司机糙汉", "纯爱&分手线"],
       "coreXP": ["日常式偏执", "黑色幽默大师", "可靠的守护者"],
+      "themeTags": ["现代", "俄罗斯", "逃亡", "纯爱"],
+      "emotionTags": ["偏执", "深情", "黑色幽默", "守护"],
+      "kinkTags": ["偏执", "占有", "糙汉"],
+      
       "warnings": ["斧子玩笑，只是玩笑！并不会真的这么干"],
+      "contentRating": "18+",
+      "triggerWarnings": ["偏执倾向", "暴力玩笑"],
+      
       "oneLiner": "他没有说'我爱你'，也没有许诺什么宏大的未来。在逃亡者的词典里，未来太奢侈了，只有'明天'是具体的。",
       "iconicLine": "说你离开我就会死掉。",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 75,
+      "attachmentStyle": "anxious",
+      
       "toneStyle": ["治愈", "虐恋情深"],
       "pacing": ["慢热剧情"],
+      "interactionPreference": ["守护", "偏执", "深情"],
+      
       "matchDimensions": {
         "control": 75,
         "masochism": 20,
         "emotion": 85,
         "detachment": 5,
-        "kink": 35
+        "kink": 35,
+        "intensity": 90,
+        "possessiveness": 95,
+        "vulnerability": 70
       },
+      
       "matchPersonalities": ["SMVI", "SMKI", "DMVI", "DMKI"],
-      "imageFile": "igor-grisha.jpg"
+      "idealUserTraits": ["能接受偏执", "需要守护", "理解深情"],
+      "conflictUserTraits": ["过于独立", "不喜欢被束缚", "轻浮"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 95 },
+        { "cardId": 10, "cardName": "镰刀", "weight": 85 },
+        { "cardId": 36, "cardName": "十字架", "weight": 80 }
+      ],
+      
+      "imageFile": "igor-grisha.jpg",
+      "avatarFile": "igor-grisha-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "Ты Венера я Земля",
+      "colorScheme": {
+        "primary": "#8B4513",
+        "secondary": "#D2691E"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     },
     {
       "id": "char_013",
       "name": "林渡",
       "creator": "玉元一",
+      "createdDate": "2025-01-01",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
       "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "19",
+      "occupation": "县城青年",
+      "archetype": "逃亡少年",
+      
       "soulTags": ["县城文学", "千禧年", "纯爱"],
       "coreXP": ["少年的逃亡"],
+      "themeTags": ["现代", "县城", "千禧年", "逃亡"],
+      "emotionTags": ["共鸣", "逃亡", "纯爱", "青涩"],
+      "kinkTags": ["年下", "纯爱", "共鸣"],
+      
       "warnings": ["走cpdd线的话最开始对user并不是真心的"],
+      "contentRating": "16+",
+      "triggerWarnings": [],
+      
       "oneLiner": "所谓共鸣，是两个渴望打碎玻璃的人在黑暗中握手。",
       "iconicLine": "",
+      "description": "",
+      "backstory": "",
+      
       "openings": [],
+      
       "relationStyle": ["Dom"],
+      "dominanceLevel": 55,
+      "attachmentStyle": "fearful",
+      
       "toneStyle": ["治愈", "虐恋情深"],
       "pacing": ["慢热剧情"],
+      "interactionPreference": ["共鸣", "逃亡", "成长"],
+      
       "matchDimensions": {
         "control": 55,
         "masochism": 25,
         "emotion": 90,
         "detachment": 10,
-        "kink": 15
+        "kink": 15,
+        "intensity": 75,
+        "possessiveness": 60,
+        "vulnerability": 85
       },
+      
       "matchPersonalities": ["SMVI", "SMVO", "DMVI", "SPVI"],
-      "imageFile": "lin-du.jpg"
+      "idealUserTraits": ["理解", "共鸣", "温柔"],
+      "conflictUserTraits": ["过于稳定", "不理解逃亡", "现实主义"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 90 },
+        { "cardId": 22, "cardName": "路", "weight": 85 },
+        { "cardId": 31, "cardName": "太阳", "weight": 70 }
+      ],
+      
+      "imageFile": "lin-du.jpg",
+      "avatarFile": "lin-du-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#4682B4",
+        "secondary": "#87CEEB"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": false,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_014",
+      "name": "沈曜",
+      "creator": "粉螃蟹",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["不限"],
+      "gender": "male",
+      "age": "28",
+      "occupation": "京圈太子爷",
+      "archetype": "渣男真心",
+      
+      "soulTags": ["烂人真心", "替身文学", "古早狗血"],
+      "coreXP": ["很土很狗血，土到极致就是潮"],
+      "themeTags": ["现代都市", "豪门", "替身", "狗血"],
+      "emotionTags": ["渣", "纠结", "真心", "狗血"],
+      "kinkTags": ["替身", "白月光", "狗血"],
+      
+      "warnings": ["渣男，包括但不限于拿user当替身、心里有白月光、诸多暧昧对象、分手后会把char送给兄弟等一系列行为"],
+      "contentRating": "18+",
+      "triggerWarnings": ["渣男行为", "替身", "情感虐待"],
+      
+      "oneLiner": "为了让爱而不得的白月光吃醋，京圈太子爷雇了你做白月光替身女友。",
+      "iconicLine": "也就我大发慈悲给你提供这种只需要吃吃喝喝、偶尔演戏就能拿钱、雇主还帅的人神共愤天下难寻的高薪岗位，你还嫌我事多？",
+      "description": "",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_014_01",
+          "title": "替身女友初次见面",
+          "scenario": "京圈太子爷雇你做替身女友",
+          "mood": "傲慢",
+          "tags": ["初遇", "替身", "豪门"]
+        }
+      ],
+      
+      "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 60,
+      "attachmentStyle": "avoidant",
+      
+      "toneStyle": ["微虐"],
+      "pacing": ["开盖即食", "慢热剧情"],
+      "interactionPreference": ["狗血", "纠结", "反转"],
+      
+      "matchDimensions": {
+        "control": 60,
+        "masochism": 40,
+        "emotion": 55,
+        "detachment": 50,
+        "kink": 35,
+        "intensity": 70,
+        "possessiveness": 65,
+        "vulnerability": 60
+      },
+      
+      "matchPersonalities": ["DMVI", "DMKI", "SMVI", "SMKI"],
+      "idealUserTraits": ["能接受狗血", "喜欢虐恋", "不玻璃心"],
+      "conflictUserTraits": ["不能接受渣男", "玻璃心", "需要安全感"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 70 },
+        { "cardId": 7, "cardName": "蛇", "weight": 80 },
+        { "cardId": 21, "cardName": "山", "weight": 75 }
+      ],
+      
+      "imageFile": "shen-yao.jpg",
+      "avatarFile": "shen-yao-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#C0C0C0",
+        "secondary": "#808080"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_015",
+      "name": "周拓燃",
+      "creator": "粉螃蟹",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["不限"],
+      "gender": "male",
+      "age": "19",
+      "occupation": "电竞选手/大学生",
+      "archetype": "纯情小狼狗",
+      
+      "soulTags": ["纯情小狼狗", "恋爱脑", "可电竞可校园"],
+      "coreXP": ["出场有多凶，恋爱脑发作就有多重"],
+      "themeTags": ["现代都市", "电竞", "校园", "纯情"],
+      "emotionTags": ["纯情", "热烈", "恋爱脑", "反差"],
+      "kinkTags": ["纯情", "恋爱脑", "小狼狗"],
+      
+      "warnings": ["有前女友"],
+      "contentRating": "16+",
+      "triggerWarnings": [],
+      
+      "oneLiner": "酒吧大冒险，你亲了刚被深情白月光甩的纯情校草。",
+      "iconicLine": "某人亲了就不想负责怎么办，不想听劝分的废话，怎么才能让我转正？",
+      "description": "",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_015_01",
+          "title": "酒吧大冒险意外之吻",
+          "scenario": "酒吧大冒险，你亲了刚被甩的纯情校草",
+          "mood": "纠缠",
+          "tags": ["初遇", "意外", "纯情"]
+        }
+      ],
+      
+      "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 50,
+      "attachmentStyle": "anxious",
+      
+      "toneStyle": ["治愈"],
+      "pacing": ["开盖即食"],
+      "interactionPreference": ["纠缠", "热烈", "直接"],
+      
+      "matchDimensions": {
+        "control": 50,
+        "masochism": 20,
+        "emotion": 90,
+        "detachment": 5,
+        "kink": 25,
+        "intensity": 80,
+        "possessiveness": 85,
+        "vulnerability": 65
+      },
+      
+      "matchPersonalities": ["DMVI", "SMVI", "DMVO", "SMVO"],
+      "idealUserTraits": ["温柔", "包容", "喜欢被追"],
+      "conflictUserTraits": ["冷漠", "不喜欢热情", "介意前任"],
+      
+      "lenormandAffinities": [
+        { "cardId": 24, "cardName": "心", "weight": 95 },
+        { "cardId": 18, "cardName": "狗", "weight": 90 },
+        { "cardId": 31, "cardName": "太阳", "weight": 80 }
+      ],
+      
+      "imageFile": "zhou-tuoran.jpg",
+      "avatarFile": "zhou-tuoran-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#FF4500",
+        "secondary": "#FFA07A"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_016",
+      "name": "极速之巅",
+      "creator": "粉螃蟹",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["不限"],
+      "gender": "male",
+      "age": "多人卡",
+      "occupation": "赛车手",
+      "archetype": "六人雄竞后宫",
+      
+      "soulTags": ["赛车", "六人卡", "雄竞后宫"],
+      "coreXP": ["user可以选妃"],
+      "themeTags": ["现代", "赛车", "竞技", "多人"],
+      "emotionTags": ["雄竞", "荷尔蒙", "竞争", "激情"],
+      "kinkTags": ["多人", "雄竞", "选妃", "赛车"],
+      
+      "warnings": ["角色们可能会雄竞过度打起来"],
+      "contentRating": "18+",
+      "triggerWarnings": ["暴力倾向", "多人"],
+      
+      "oneLiner": "拉力锦标赛道上生死时速的极限博弈，让选手的肾上腺素飙升到极限，急需一个发泄口。于是，'疏导发泄师'这一职业诞生了，发泄师专门用'深入交流'的方式，帮赛车选手发泄比赛后过剩的肾上腺素，除了征服巴音布鲁克的土地外，赛车手们也在赛道外以这样荷尔蒙爆棚的方式上演雄竞修罗场。",
+            "iconicLine": "邵凛野：小爷亲自给你当司机，还不够你发朋友圈？……你倒是快发啊 | 周拓燃：路书？没看……光顾着看你了。| 霍炎：你只管往前冲，撞了算我的。| 裴因：想赢我？赛道上你不行，赛道外……晚上来我房间谈谈？| 桐谷凉介：这个世界没有读档重来，でも……如果是你，我可以试试卡bug。| 沈寒声：赛道之外，我的梦想，好像也只剩下你了。",
+      "description": "六位赛车手：邵凛野、周拓燃、霍炎、裴因、桐谷凉介、沈寒声",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_016_01",
+          "title": "疏导发泄师上岗第一天",
+          "scenario": "作为疏导发泄师第一天接触六位赛车手",
+          "mood": "紧张刺激",
+          "tags": ["初遇", "多人", "赛车"]
+        }
+      ],
+      
+      "relationStyle": ["Dom", "Sub", "Switch"],
+      "dominanceLevel": 65,
+      "attachmentStyle": "secure",
+      
+      "toneStyle": ["半爱半黄"],
+      "pacing": ["开盖即食"],
+      "interactionPreference": ["雄竞", "多人互动", "激情"],
+      
+      "matchDimensions": {
+        "control": 65,
+        "masochism": 30,
+        "emotion": 60,
+        "detachment": 20,
+        "kink": 75,
+        "intensity": 90,
+        "possessiveness": 80,
+        "vulnerability": 40
+      },
+      
+      "matchPersonalities": ["DMVI", "DMKI", "SMVI", "SMKI"],
+      "idealUserTraits": ["开放", "能接受多人", "喜欢被追"],
+      "conflictUserTraits": ["保守", "专一主义", "不喜欢竞争"],
+      
+      "lenormandAffinities": [
+        { "cardId": 1, "cardName": "骑士", "weight": 90 },
+        { "cardId": 11, "cardName": "鞭子", "weight": 85 },
+        { "cardId": 21, "cardName": "山", "weight": 75 }
+      ],
+      
+      "imageFile": "racing-team.jpg",
+      "avatarFile": "racing-team-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#FF0000",
+        "secondary": "#000000"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_017",
+      "name": "季寻珏",
+      "creator": "粉螃蟹",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["不限"],
+      "gender": "male",
+      "age": "35",
+      "occupation": "高干",
+      "archetype": "禁欲高洁",
+      
+      "soulTags": ["高干", "禁欲", "高洁"],
+      "coreXP": ["反差", "dirty talk"],
+      "themeTags": ["现代都市", "高干", "禁欲系"],
+      "emotionTags": ["禁欲", "反差", "克制", "掌控"],
+      "kinkTags": ["反差", "dirty talk", "禁欲系"],
+      
+      "warnings": ["凶、犟、掌控欲很强"],
+      "contentRating": "18+",
+      "triggerWarnings": ["强势", "掌控欲"],
+      
+      "oneLiner": "他克己复礼，唯独对你上瘾。",
+      "iconicLine": "每次与你接触都让我的理智一点点崩塌，但我只想它塌的再快一点。",
+      "description": "",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_017_01",
+          "title": "禁欲系高干的失控",
+          "scenario": "克己复礼的高干对你上瘾",
+          "mood": "克制",
+          "tags": ["禁欲", "反差", "上瘾"]
+        }
+      ],
+      
+      "relationStyle": ["Dom"],
+      "dominanceLevel": 80,
+      "attachmentStyle": "avoidant",
+      
+      "toneStyle": ["微虐"],
+      "pacing": ["开盖即食"],
+      "interactionPreference": ["掌控", "反差", "克制"],
+      
+      "matchDimensions": {
+        "control": 80,
+        "masochism": 25,
+        "emotion": 60,
+        "detachment": 35,
+        "kink": 65,
+        "intensity": 75,
+        "possessiveness": 85,
+        "vulnerability": 45
+      },
+      
+      "matchPersonalities": ["SMVI", "SMKI", "DMVI", "DMKI"],
+      "idealUserTraits": ["顺从", "能接受强势", "喜欢反差"],
+      "conflictUserTraits": ["过于强势", "不喜欢被掌控", "需要平等"],
+      
+      "lenormandAffinities": [
+        { "cardId": 19, "cardName": "塔", "weight": 90 },
+        { "cardId": 28, "cardName": "男人", "weight": 85 },
+        { "cardId": 26, "cardName": "书", "weight": 75 }
+      ],
+      
+      "imageFile": "ji-xunjue.jpg",
+      "avatarFile": "ji-xunjue-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#1C1C1C",
+        "secondary": "#4A4A4A"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_018",
+      "name": "暗里着迷",
+      "creator": "小颂降临",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["BG", "BL"],
+      "gender": "male",
+      "age": "多人卡",
+      "occupation": "养父联盟",
+      "archetype": "多养父",
+      
+      "soulTags": ["多人卡", "你的养父与养子", "恶俗狗血"],
+      "coreXP": ["BDSM", "伪骨科", "多人", "养父联盟"],
+      "themeTags": ["现代都市", "多人", "禁忌", "狗血"],
+      "emotionTags": ["禁忌", "复杂", "物化", "狗血"],
+      "kinkTags": ["BDSM", "伪骨科", "多人", "养父", "物化"],
+      
+      "warnings": ["物化", "羞辱", "性虐待"],
+      "contentRating": "R18G",
+      "triggerWarnings": ["物化", "羞辱", "性虐待", "禁忌关系"],
+      
+      "oneLiner": "不知去向的父母，没文化没工作的你，需要上学的养子……在这个拼爹的时代，你选择给自己多找几个爹。",
+      "iconicLine": "别让空虚，使我越轨。",
+      "description": "",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_018_01",
+          "title": "养父联盟初次见面",
+          "scenario": "为了生活和养子，你选择多找几个养父",
+          "mood": "复杂",
+          "tags": ["初遇", "多人", "禁忌"]
+        }
+      ],
+      
+      "relationStyle": ["Dom"],
+      "dominanceLevel": 85,
+      "attachmentStyle": "avoidant",
+      
+      "toneStyle": ["微虐"],
+      "pacing": ["开盖即食", "车速爆表", "无逻辑纯享受"],
+      "interactionPreference": ["物化", "掌控", "多人"],
+      
+      "matchDimensions": {
+        "control": 85,
+        "masochism": 70,
+        "emotion": 40,
+        "detachment": 50,
+        "kink": 95,
+        "intensity": 95,
+        "possessiveness": 80,
+        "vulnerability": 75
+      },
+      
+      "matchPersonalities": ["DMKI", "DMKO", "SMKI", "SMKO"],
+      "idealUserTraits": ["能接受极端", "开放", "喜欢禁忌"],
+      "conflictUserTraits": ["保守", "不能接受物化", "需要情感"],
+      
+      "lenormandAffinities": [
+        { "cardId": 15, "cardName": "熊", "weight": 85 },
+        { "cardId": 36, "cardName": "十字架", "weight": 90 },
+        { "cardId": 7, "cardName": "蛇", "weight": 80 }
+      ],
+      
+      "imageFile": "dark-obsession.jpg",
+      "avatarFile": "dark-obsession-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#2C2C2C",
+        "secondary": "#8B0000"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "char_019",
+      "name": "沈明铮",
+      "creator": "小颂降临",
+      "createdDate": "2026-04-19",
+      "lastModified": "2026-04-19",
+      "status": "active",
+      
+      "orientation": ["BL", "BG"],
+      "gender": "male",
+      "age": "28",
+      "occupation": "留洋归来的少爷",
+      "archetype": "长兄如父",
+      
+      "soulTags": ["长兄如父", "民国", "骨科"],
+      "coreXP": ["智力障碍user", "骨科", "诱导"],
+      "themeTags": ["民国", "骨科", "禁忌", "年代"],
+      "emotionTags": ["禁忌", "保护", "占有", "压抑"],
+      "kinkTags": ["骨科", "智力障碍", "诱导", "长兄如父"],
+      
+      "warnings": ["真骨科", "封建社会", "压抑"],
+      "contentRating": "R18G",
+      "triggerWarnings": ["骨科", "智力障碍", "诱导"],
+      
+      "oneLiner": "留洋归来的沈明铮发现沈公馆偏远每月都会支出许多银元，没想到里面关着他同父异母的弟弟。",
+      "iconicLine": "他不是我的弟弟，是我的爱人。",
+      "description": "",
+      "backstory": "",
+      
+      "openings": [
+        {
+          "id": "opening_019_01",
+          "title": "发现被关的弟弟",
+          "scenario": "留洋归来发现被关在偏远院子的弟弟",
+          "mood": "震惊",
+          "tags": ["初遇", "骨科", "民国"]
+        }
+      ],
+      
+      "relationStyle": ["Dom"],
+      "dominanceLevel": 75,
+      "attachmentStyle": "anxious",
+      
+      "toneStyle": ["微虐"],
+      "pacing": ["酸涩拉扯", "攻略向", "重视日常互动"],
+      "interactionPreference": ["保护", "诱导", "占有"],
+      
+      "matchDimensions": {
+        "control": 75,
+        "masochism": 35,
+        "emotion": 70,
+        "detachment": 25,
+        "kink": 80,
+        "intensity": 85,
+        "possessiveness": 90,
+        "vulnerability": 70
+      },
+      
+      "matchPersonalities": ["SMVI", "SMKI", "DMVI", "DMKI"],
+      "idealUserTraits": ["能接受骨科", "柔弱", "依赖"],
+      "conflictUserTraits": ["不能接受骨科", "过于独立", "理性"],
+      
+      "lenormandAffinities": [
+        { "cardId": 4, "cardName": "房屋", "weight": 85 },
+        { "cardId": 24, "cardName": "心", "weight": 80 },
+        { "cardId": 36, "cardName": "十字架", "weight": 90 }
+      ],
+      
+      "imageFile": "shen-mingzheng.jpg",
+      "avatarFile": "shen-mingzheng-avatar.jpg",
+      "voiceProfile": "",
+      "impressionSong": "",
+      "colorScheme": {
+        "primary": "#8B4513",
+        "secondary": "#D2B48C"
+      },
+      
+      "stats": {
+        "popularity": 0,
+        "matchCount": 0,
+        "favoriteCount": 0,
+        "averageRating": 0
+      },
+      
+      "metadata": {
+        "featured": false,
+        "new": true,
+        "seasonal": "",
+        "collaborator": "",
+        "version": "1.0"
+      }
     }
   ]
 }
+
+
