@@ -1,0 +1,677 @@
+{
+  "version": "1.0",
+  "type": "lenormand",
+  "totalCards": 36,
+  "lastUpdated": "2026-04-19",
+  "instructions": "雷诺曼卡牌系统 - 36张传统卡牌，每张卡牌包含关键词、解读和角色匹配标签",
+  
+  "cards": [
+    {
+      "id": 1,
+      "name": "骑士",
+      "nameEn": "Rider",
+      "emoji": "🏇",
+      "playingCard": "♥9",
+      "keywords": ["消息", "行动", "迅速", "新开始"],
+      "coreEssence": "动态的传递，能量与进程的开端",
+      "modernMetaphor": "网络推送通知、交通系统中的快车、启动项目的发射按钮",
+      "positiveReading": "好消息即将到来，新的机会正在路上，行动会带来进展",
+      "negativeReading": "消息延迟，计划受阻，缺乏持久力",
+      "characterTags": ["行动派", "外向", "迅速", "新鲜感", "活力"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 60,
+        "kink": 30
+      }
+    },
+    {
+      "id": 2,
+      "name": "幸运草",
+      "nameEn": "Clover",
+      "emoji": "🍀",
+      "playingCard": "♦6",
+      "keywords": ["好运", "机会", "短暂", "惊喜"],
+      "coreEssence": "微小而即时的幸运，生活中的小确幸",
+      "modernMetaphor": "社交媒体上的暖心评论、突然的晴天、抽到的小奖",
+      "positiveReading": "幸运降临，把握当下的小机会，轻松愉快的时光",
+      "negativeReading": "好运短暂，机会稍纵即逝，不要过度依赖运气",
+      "characterTags": ["幸运", "轻松", "乐观", "随性", "治愈"],
+      "matchDimensions": {
+        "control": 20,
+        "emotion": 70,
+        "kink": 15
+      }
+    },
+    {
+      "id": 3,
+      "name": "船",
+      "nameEn": "Ship",
+      "emoji": "⛵",
+      "playingCard": "♠10",
+      "keywords": ["旅行", "距离", "探索", "转变"],
+      "coreEssence": "物理或心理上的移动与距离，离开与探索",
+      "modernMetaphor": "职业调动、开启新课程、思想上的出海",
+      "positiveReading": "旅行带来新视野，转变是积极的，探索未知领域",
+      "negativeReading": "距离造成疏远，漂泊不定，缺乏归属感",
+      "characterTags": ["自由", "探索", "国际化", "冒险", "距离"],
+      "matchDimensions": {
+        "control": 35,
+        "emotion": 45,
+        "kink": 40
+      }
+    },
+    {
+      "id": 4,
+      "name": "房子",
+      "nameEn": "House",
+      "emoji": "🏠",
+      "playingCard": "♥K",
+      "keywords": ["家庭", "安全", "归属", "稳定"],
+      "coreEssence": "个人领域、家族、归属感与内在结构",
+      "modernMetaphor": "个人舒适区、核心家庭、公司文化、身体这个灵魂的居所",
+      "positiveReading": "家庭和睦，内心安定，找到归属感",
+      "negativeReading": "家庭纠纷，缺乏安全感，被困在舒适区",
+      "characterTags": ["稳定", "家庭", "温暖", "保护", "传统"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 80,
+        "kink": 25
+      }
+    },
+    {
+      "id": 5,
+      "name": "树",
+      "nameEn": "Tree",
+      "emoji": "🌳",
+      "playingCard": "♥7",
+      "keywords": ["健康", "成长", "根基", "传承"],
+      "coreEssence": "生命力的根基与缓慢生长，健康与传统",
+      "modernMetaphor": "DNA与遗传健康、企业文化、需要长期投入的项目",
+      "positiveReading": "健康良好，稳步成长，根基扎实",
+      "negativeReading": "健康问题，成长缓慢，被过去束缚",
+      "characterTags": ["健康", "耐心", "深度", "传承", "稳重"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 75,
+        "kink": 20
+      }
+    },
+    {
+      "id": 6,
+      "name": "乌云",
+      "nameEn": "Clouds",
+      "emoji": "☁️",
+      "playingCard": "♣K",
+      "keywords": ["困惑", "不确定", "模糊", "焦虑"],
+      "coreEssence": "模糊、混乱、尚未清晰的情绪或局势",
+      "modernMetaphor": "信息过载、假新闻、焦虑情绪、项目前期的不明确阶段",
+      "positiveReading": "困惑是暂时的，云开雾散后会更清晰",
+      "negativeReading": "持续的迷茫，沟通不畅，看不清方向",
+      "characterTags": ["复杂", "神秘", "不确定", "焦虑", "深沉"],
+      "matchDimensions": {
+        "control": 30,
+        "emotion": 55,
+        "kink": 45
+      }
+    },
+    {
+      "id": 7,
+      "name": "蛇",
+      "nameEn": "Snake",
+      "emoji": "🐍",
+      "playingCard": "♣Q",
+      "keywords": ["复杂", "诱惑", "智慧", "迂回"],
+      "coreEssence": "曲折的道路、诱惑、以及深层的本能智慧",
+      "modernMetaphor": "办公室政治、复杂的法律条款、深刻的心理学洞察",
+      "positiveReading": "运用智慧解决问题，直觉敏锐，灵活应对",
+      "negativeReading": "背叛欺骗，关系复杂，陷入纠缠",
+      "characterTags": ["智慧", "复杂", "诱惑", "神秘", "危险"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 50,
+        "kink": 70
+      }
+    },
+    {
+      "id": 8,
+      "name": "棺材",
+      "nameEn": "Coffin",
+      "emoji": "⚰️",
+      "playingCard": "♦9",
+      "keywords": ["结束", "转化", "释放", "重生"],
+      "coreEssence": "彻底的终结与转化，为新生腾出空间",
+      "modernMetaphor": "项目终止、关系彻底分手、戒掉习惯、公司破产",
+      "positiveReading": "旧的结束带来新的开始，释放过去，转化重生",
+      "negativeReading": "痛苦的结束，失去，停滞不前",
+      "characterTags": ["结束", "转化", "深刻", "释放", "重生"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 65,
+        "kink": 55
+      }
+    },
+    {
+      "id": 9,
+      "name": "花束",
+      "nameEn": "Bouquet",
+      "emoji": "💐",
+      "playingCard": "♠Q",
+      "keywords": ["美丽", "赞美", "礼物", "魅力"],
+      "coreEssence": "被认可的优雅与价值，社交魅力",
+      "modernMetaphor": "社交媒体上的点赞、工作认可、精心准备的演讲",
+      "positiveReading": "受到赞美，展现魅力，收获认可",
+      "negativeReading": "过于注重外表，虚荣，表面功夫",
+      "characterTags": ["美丽", "优雅", "魅力", "社交", "赞美"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 75,
+        "kink": 35
+      }
+    },
+    {
+      "id": 10,
+      "name": "镰刀",
+      "nameEn": "Scythe",
+      "emoji": "🔪",
+      "playingCard": "♦J",
+      "keywords": ["切断", "决断", "突然", "危险"],
+      "coreEssence": "突然的切割与决定，果断的行动",
+      "modernMetaphor": "临时的裁员、果断的止损、突如其来的灵感解决方案",
+      "positiveReading": "果断决定，快速解决，切断束缚",
+      "negativeReading": "突然的伤害，危险，痛苦的分离",
+      "characterTags": ["果断", "危险", "突然", "锋利", "决绝"],
+      "matchDimensions": {
+        "control": 70,
+        "emotion": 40,
+        "kink": 60
+      }
+    },
+    {
+      "id": 11,
+      "name": "鞭子",
+      "nameEn": "Whip",
+      "emoji": "🔗",
+      "playingCard": "♣J",
+      "keywords": ["冲突", "重复", "激情", "争吵"],
+      "coreEssence": "重复、冲突与激情，能量激烈的互动",
+      "modernMetaphor": "日常健身、辩论赛、周期性复盘、亲密关系中的权力动态",
+      "positiveReading": "激情四射，规律训练，建设性的辩论",
+      "negativeReading": "反复争吵，消耗性冲突，虐待关系",
+      "characterTags": ["激情", "冲突", "重复", "强度", "争吵"],
+      "matchDimensions": {
+        "control": 65,
+        "emotion": 60,
+        "kink": 80
+      }
+    },
+    {
+      "id": 12,
+      "name": "鸟",
+      "nameEn": "Birds",
+      "emoji": "🐦",
+      "playingCard": "♦7",
+      "keywords": ["交流", "焦虑", "社交", "思维"],
+      "coreEssence": "轻快的交流与焦虑，思维的快速流动",
+      "modernMetaphor": "微信群聊、播客、团队小会议、内心的自我对话",
+      "positiveReading": "良好的沟通，思维活跃，社交愉快",
+      "negativeReading": "过度焦虑，闲言碎语，精神内耗",
+      "characterTags": ["交流", "活跃", "社交", "焦虑", "轻快"],
+      "matchDimensions": {
+        "control": 35,
+        "emotion": 65,
+        "kink": 30
+      }
+    },
+    {
+      "id": 13,
+      "name": "孩子",
+      "nameEn": "Child",
+      "emoji": "👶",
+      "playingCard": "♠J",
+      "keywords": ["新开始", "天真", "纯净", "脆弱"],
+      "coreEssence": "天真、新的开始与脆弱，需要被照顾的事物",
+      "modernMetaphor": "创业公司、新学习的技能、初入职场者、重新开始的心态",
+      "positiveReading": "新的开始，纯真可爱，充满潜力",
+      "negativeReading": "不成熟，脆弱，需要保护",
+      "characterTags": ["天真", "新鲜", "纯净", "可爱", "脆弱"],
+      "matchDimensions": {
+        "control": 25,
+        "emotion": 85,
+        "kink": 20
+      }
+    },
+    {
+      "id": 14,
+      "name": "狐狸",
+      "nameEn": "Fox",
+      "emoji": "🦊",
+      "playingCard": "♣9",
+      "keywords": ["工作", "策略", "机智", "怀疑"],
+      "coreEssence": "机智、职业与孤军奋战，策略与适应力",
+      "modernMetaphor": "自由职业者、战略顾问、需要高度专注的任务",
+      "positiveReading": "工作顺利，策略得当，机智应对",
+      "negativeReading": "欺骗狡诈，过度怀疑，职场陷阱",
+      "characterTags": ["机智", "工作", "策略", "独立", "狡猾"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 45,
+        "kink": 40
+      }
+    },
+    {
+      "id": 15,
+      "name": "熊",
+      "nameEn": "Bear",
+      "emoji": "🐻",
+      "playingCard": "♣10",
+      "keywords": ["力量", "权威", "财富", "保护"],
+      "coreEssence": "强大的力量与资源，权威与母性",
+      "modernMetaphor": "董事会主席、市场巨头、个人影响力、固定资产",
+      "positiveReading": "强大有力，财富丰厚，得到保护",
+      "negativeReading": "压迫控制，过度保护，权力滥用",
+      "characterTags": ["强大", "权威", "财富", "保护", "支配"],
+      "matchDimensions": {
+        "control": 85,
+        "emotion": 60,
+        "kink": 50
+      }
+    },
+    {
+      "id": 16,
+      "name": "星星",
+      "nameEn": "Stars",
+      "emoji": "⭐",
+      "playingCard": "♥6",
+      "keywords": ["希望", "灵感", "指引", "梦想"],
+      "coreEssence": "希望、灵感与指引，清晰的愿景",
+      "modernMetaphor": "人生愿景、科学发现、艺术灵感、导航的北极星",
+      "positiveReading": "充满希望，灵感迸发，找到方向",
+      "negativeReading": "不切实际，空想，失去方向",
+      "characterTags": ["希望", "灵感", "梦想", "指引", "理想"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 80,
+        "kink": 25
+      }
+    },
+    {
+      "id": 17,
+      "name": "鹳",
+      "nameEn": "Stork",
+      "emoji": "🦢",
+      "playingCard": "♥Q",
+      "keywords": ["转变", "提升", "迁徙", "更新"],
+      "coreEssence": "转变与更新，积极的改变",
+      "modernMetaphor": "职位晋升、家庭升级、个人认知的突破",
+      "positiveReading": "积极转变，向上提升，迎接新生",
+      "negativeReading": "变动不安，适应困难，怀孕焦虑",
+      "characterTags": ["转变", "提升", "更新", "迁徙", "新生"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 70,
+        "kink": 30
+      }
+    },
+    {
+      "id": 18,
+      "name": "狗",
+      "nameEn": "Dog",
+      "emoji": "🐕",
+      "playingCard": "♥10",
+      "keywords": ["忠诚", "友谊", "信任", "陪伴"],
+      "coreEssence": "忠诚与友谊，可靠的同盟",
+      "modernMetaphor": "长期合作伙伴、心理导师、支持系统、职业道德",
+      "positiveReading": "忠诚可靠，真挚友谊，得到支持",
+      "negativeReading": "过度依赖，盲目忠诚，被背叛",
+      "characterTags": ["忠诚", "友谊", "可靠", "陪伴", "信任"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 90,
+        "kink": 25
+      }
+    },
+    {
+      "id": 19,
+      "name": "塔",
+      "nameEn": "Tower",
+      "emoji": "🗼",
+      "playingCard": "♠6",
+      "keywords": ["孤独", "权威", "隔离", "结构"],
+      "coreEssence": "制度、隔离与结构，官僚机构",
+      "modernMetaphor": "政府机构、大学、公司层级、个人的心理边界",
+      "positiveReading": "独立自主，权威地位，清晰边界",
+      "negativeReading": "孤独隔离，僵化制度，冷漠疏离",
+      "characterTags": ["孤独", "权威", "独立", "冷静", "隔离"],
+      "matchDimensions": {
+        "control": 75,
+        "emotion": 35,
+        "kink": 45
+      }
+    },
+    {
+      "id": 20,
+      "name": "花园",
+      "nameEn": "Garden",
+      "emoji": "🌺",
+      "playingCard": "♠8",
+      "keywords": ["社交", "公众", "聚会", "声誉"],
+      "coreEssence": "公众、社群与市场，集体与声誉",
+      "modernMetaphor": "网络论坛、行业峰会、品牌知名度、公共利益",
+      "positiveReading": "社交愉快，公众认可，人脉广阔",
+      "negativeReading": "过度社交，虚假繁荣，声誉受损",
+      "characterTags": ["社交", "公众", "热闹", "声誉", "聚会"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 70,
+        "kink": 35
+      }
+    },
+    {
+      "id": 21,
+      "name": "山",
+      "nameEn": "Mountain",
+      "emoji": "⛰️",
+      "playingCard": "♣8",
+      "keywords": ["障碍", "延迟", "挑战", "坚固"],
+      "coreEssence": "障碍与延迟，看似不可逾越的阻碍",
+      "modernMetaphor": "项目瓶颈、法律纠纷、根深蒂固的坏习惯",
+      "positiveReading": "挑战使人成长，坚固稳定，克服困难",
+      "negativeReading": "无法逾越，严重阻碍，长期停滞",
+      "characterTags": ["障碍", "坚固", "挑战", "延迟", "稳重"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 40,
+        "kink": 35
+      }
+    },
+    {
+      "id": 22,
+      "name": "十字路口",
+      "nameEn": "Crossroads",
+      "emoji": "🛤️",
+      "playingCard": "♦Q",
+      "keywords": ["选择", "决策", "可能性", "方向"],
+      "coreEssence": "选择与可能性，决策点",
+      "modernMetaphor": "职业选择、投资选项、人生重大决策",
+      "positiveReading": "多种选择，自由决策，找到方向",
+      "negativeReading": "犹豫不决，选择困难，迷失方向",
+      "characterTags": ["选择", "自由", "可能性", "犹豫", "多样"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 55,
+        "kink": 40
+      }
+    },
+    {
+      "id": 23,
+      "name": "老鼠",
+      "nameEn": "Mice",
+      "emoji": "🐭",
+      "playingCard": "♣7",
+      "keywords": ["损耗", "焦虑", "琐碎", "侵蚀"],
+      "coreEssence": "损耗与琐碎，缓慢的侵蚀",
+      "modernMetaphor": "每月订阅费用、日常琐事、数据泄露、精神内耗",
+      "positiveReading": "注意细节，防患未然，节约资源",
+      "negativeReading": "持续损耗，焦虑不安，被琐事困扰",
+      "characterTags": ["焦虑", "琐碎", "损耗", "细节", "侵蚀"],
+      "matchDimensions": {
+        "control": 30,
+        "emotion": 50,
+        "kink": 35
+      }
+    },
+    {
+      "id": 24,
+      "name": "心",
+      "nameEn": "Heart",
+      "emoji": "❤️",
+      "playingCard": "♥J",
+      "keywords": ["爱", "情感", "热情", "勇气"],
+      "coreEssence": "情感的核心与爱，直觉与勇气",
+      "modernMetaphor": "共情能力、情感智力、内心的真实感受",
+      "positiveReading": "充满爱意，情感丰富，勇敢追随内心",
+      "negativeReading": "情感泛滥，过度感性，心碎失望",
+      "characterTags": ["爱", "情感", "热情", "温柔", "勇气"],
+      "matchDimensions": {
+        "control": 35,
+        "emotion": 95,
+        "kink": 40
+      }
+    },
+    {
+      "id": 25,
+      "name": "戒指",
+      "nameEn": "Ring",
+      "emoji": "💍",
+      "playingCard": "♣A",
+      "keywords": ["承诺", "契约", "循环", "联盟"],
+      "coreEssence": "契约与循环，承诺与联盟",
+      "modernMetaphor": "劳动合同、长期订阅服务、项目周期、因果循环",
+      "positiveReading": "正式承诺，稳定关系，完整循环",
+      "negativeReading": "被束缚，重复循环，契约陷阱",
+      "characterTags": ["承诺", "稳定", "契约", "循环", "联盟"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 75,
+        "kink": 35
+      }
+    },
+    {
+      "id": 26,
+      "name": "书",
+      "nameEn": "Book",
+      "emoji": "📖",
+      "playingCard": "♦10",
+      "keywords": ["知识", "秘密", "学习", "研究"],
+      "coreEssence": "知识与秘密，隐藏的信息",
+      "modernMetaphor": "数据库、机密文件、学术研究、个人日记",
+      "positiveReading": "获得知识，揭开秘密，学习进步",
+      "negativeReading": "信息隐藏，保守秘密，知识匮乏",
+      "characterTags": ["知识", "秘密", "智慧", "研究", "神秘"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 55,
+        "kink": 45
+      }
+    },
+    {
+      "id": 27,
+      "name": "信",
+      "nameEn": "Letter",
+      "emoji": "✉️",
+      "playingCard": "♠7",
+      "keywords": ["消息", "文件", "证据", "沟通"],
+      "coreEssence": "书面信息与证据，具体的信息载体",
+      "modernMetaphor": "电子邮件、法律文件、数字证书、聊天记录",
+      "positiveReading": "收到好消息，文件齐全，沟通顺畅",
+      "negativeReading": "坏消息，文件缺失，沟通不畅",
+      "characterTags": ["沟通", "文件", "消息", "证据", "书面"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 60,
+        "kink": 30
+      }
+    },
+    {
+      "id": 28,
+      "name": "男人",
+      "nameEn": "Man",
+      "emoji": "👨",
+      "playingCard": "♥A",
+      "keywords": ["阳性能量", "主动", "逻辑", "行动"],
+      "coreEssence": "主题人物或阳性能量",
+      "modernMetaphor": "主动出击、逻辑思维、行动导向",
+      "positiveReading": "主动积极，理性决策，行动力强",
+      "negativeReading": "过于强势，缺乏感性，冲动行事",
+      "characterTags": ["主动", "理性", "行动", "阳刚", "逻辑"],
+      "matchDimensions": {
+        "control": 65,
+        "emotion": 50,
+        "kink": 45
+      }
+    },
+    {
+      "id": 29,
+      "name": "女人",
+      "nameEn": "Woman",
+      "emoji": "👩",
+      "playingCard": "♠A",
+      "keywords": ["阴性能量", "接纳", "直觉", "感性"],
+      "coreEssence": "主题人物或阴性能量",
+      "modernMetaphor": "接纳包容、直觉感知、情感导向",
+      "positiveReading": "直觉敏锐，情感丰富，包容接纳",
+      "negativeReading": "过于感性，优柔寡断，被动等待",
+      "characterTags": ["直觉", "感性", "接纳", "温柔", "阴柔"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 85,
+        "kink": 40
+      }
+    },
+    {
+      "id": 30,
+      "name": "百合",
+      "nameEn": "Lily",
+      "emoji": "🌼",
+      "playingCard": "♠K",
+      "keywords": ["平和", "智慧", "纯净", "成熟"],
+      "coreEssence": "纯净、平和与长者，宁静与智慧",
+      "modernMetaphor": "冥想状态、长辈的建议、退休生活、内心的平静",
+      "positiveReading": "内心平和，智慧成熟，精神纯净",
+      "negativeReading": "过于保守，缺乏激情，性冷淡",
+      "characterTags": ["平和", "智慧", "纯净", "成熟", "宁静"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 70,
+        "kink": 15
+      }
+    },
+    {
+      "id": 31,
+      "name": "太阳",
+      "nameEn": "Sun",
+      "emoji": "☀️",
+      "playingCard": "♦A",
+      "keywords": ["成功", "快乐", "活力", "光明"],
+            "coreEssence": "绝对的积极、成功、快乐、生命力",
+      "modernMetaphor": "项目大获成功、公众认可、假期、创作高峰",
+      "positiveReading": "巨大成功，充满快乐，活力四射，目标达成",
+      "negativeReading": "过度自信，骄傲自满，忽视阴影",
+      "characterTags": ["成功", "快乐", "活力", "光明", "自信"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 85,
+        "kink": 30
+      }
+    },
+    {
+      "id": 32,
+      "name": "月亮",
+      "nameEn": "Moon",
+      "emoji": "🌙",
+      "playingCard": "♥8",
+      "keywords": ["直觉", "情感", "周期", "声誉"],
+      "coreEssence": "直觉、公众与循环，潜意识与情感潮汐",
+      "modernMetaphor": "直觉洞察、品牌声誉、情感波动、生物节律",
+      "positiveReading": "直觉敏锐，情感丰富，声誉良好，顺应周期",
+      "negativeReading": "情绪波动，过度敏感，声誉受损，周期失调",
+      "characterTags": ["直觉", "情感", "神秘", "周期", "声誉"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 80,
+        "kink": 50
+      }
+    },
+    {
+      "id": 33,
+      "name": "钥匙",
+      "nameEn": "Key",
+      "emoji": "🔑",
+      "playingCard": "♦8",
+      "keywords": ["解决", "确定", "关键", "开启"],
+      "coreEssence": "解决方案与确定性，关键的答案",
+      "modernMetaphor": "核心技术、密码、决定性因素、定理",
+      "positiveReading": "找到答案，问题解决，确定无疑，开启新局",
+      "negativeReading": "找不到钥匙，无法解决，陷入僵局",
+      "characterTags": ["关键", "解决", "确定", "重要", "开启"],
+      "matchDimensions": {
+        "control": 70,
+        "emotion": 60,
+        "kink": 40
+      }
+    },
+    {
+      "id": 34,
+      "name": "鱼",
+      "nameEn": "Fish",
+      "emoji": "🐟",
+      "playingCard": "♦K",
+      "keywords": ["财富", "流动", "丰盛", "灵感"],
+      "coreEssence": "丰盛、流动与潜意识，财富与灵感",
+      "modernMetaphor": "现金流、投资、艺术灵感、集体无意识",
+      "positiveReading": "财富丰盛，资金流动，灵感涌现，商业成功",
+      "negativeReading": "财务问题，资金枯竭，灵感枯竭，过度消费",
+      "characterTags": ["财富", "流动", "丰盛", "灵感", "商业"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 65,
+        "kink": 35
+      }
+    },
+    {
+      "id": 35,
+      "name": "锚",
+      "nameEn": "Anchor",
+      "emoji": "⚓",
+      "playingCard": "♠9",
+      "keywords": ["稳定", "职业", "坚持", "安全"],
+      "coreEssence": "稳定与坚持，安全感与长期承诺",
+      "modernMetaphor": "终身教职、长期客户、核心习惯、精神支柱",
+      "positiveReading": "稳定可靠，职业稳固，长期坚持，安全感强",
+      "negativeReading": "过于固着，缺乏灵活，被束缚，停滞不前",
+      "characterTags": ["稳定", "职业", "坚持", "安全", "可靠"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 70,
+        "kink": 25
+      }
+    },
+    {
+      "id": 36,
+      "name": "十字架",
+      "nameEn": "Cross",
+      "emoji": "✝️",
+      "playingCard": "♣6",
+      "keywords": ["责任", "业力", "负担", "信仰"],
+      "coreEssence": "业力、责任与信仰，生命的重量",
+      "modernMetaphor": "家庭责任、道德困境、人生课题、信念系统",
+      "positiveReading": "承担责任，信仰坚定，完成使命，灵魂成长",
+      "negativeReading": "沉重负担，业力纠缠，痛苦考验，信仰崩塌",
+      "characterTags": ["责任", "业力", "深刻", "信仰", "使命"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 75,
+        "kink": 45
+      }
+    }
+  ],
+  
+  "drawMethods": {
+    "single": {
+      "name": "单张抽卡",
+      "description": "抽取一张卡牌，获得今日运势指引",
+      "cardCount": 1
+    },
+    "triple": {
+      "name": "三张展开",
+      "description": "过去-现在-未来，或问题-建议-结果",
+      "cardCount": 3
+    },
+    "cross": {
+      "name": "十字展开",
+      "description": "核心-挑战-过去-未来-建议",
+      "cardCount": 5
+    }
+  }
+}
+
