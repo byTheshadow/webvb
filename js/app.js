@@ -24,41 +24,47 @@ const App = {
 
     // ========== 区块A1：初始化方法 开始 ==========
     // 用途：应用启动时执行
-    async init() {
-        console.log('[App] 开始初始化...');
+   async init() {
+    console.log('[App] 开始初始化...');
+    
+    try {
+        // 1. 加载用户设置
+        this.loadUserSettings();
         
-        try {
-            // 1. 加载用户设置
-            this.loadUserSettings();
-            
-            // 2. 初始化路由
-            Router.init();
-            
-            // 3. 初始化主题管理器
-            if (typeof ThemeManager !== 'undefined') {
-                ThemeManager.init();
-            }
-            
-            // 4. 初始化音频播放器
-            if (typeof AudioPlayer !== 'undefined') {
-                AudioPlayer.init();
-            }
-            
-            // 5. 绑定全局事件
-            this.bindEvents();
-            
-            // 6. 隐藏加载动画
-            this.hideLoadingScreen();
-            
-            // 7. 标记为已初始化
-            this.state.initialized = true;
-            
-            console.log('[App] 初始化完成');
-        } catch (error) {
-            console.error('[App] 初始化失败:', error);
-            this.showError('应用初始化失败，请刷新页面重试');
+        // 2. 初始化路由
+        Router.init();
+        
+        // 3. 初始化偏好管理器 ✅ 新增
+        if (typeof PreferenceManager !== 'undefined') {
+            PreferenceManager.init();
         }
-    },
+        
+        // 4. 初始化主题管理器
+        if (typeof ThemeManager !== 'undefined') {
+            ThemeManager.init();
+        }
+        
+        // 5. 初始化音频播放器
+        if (typeof AudioPlayer !== 'undefined') {
+            AudioPlayer.init();
+        }
+        
+        // 6. 绑定全局事件
+        this.bindEvents();
+        
+        // 7. 隐藏加载动画
+        this.hideLoadingScreen();
+        
+        // 8. 标记为已初始化
+        this.state.initialized = true;
+        
+        console.log('[App] 初始化完成');
+    } catch (error) {
+        console.error('[App] 初始化失败:', error);
+        this.showError('应用初始化失败，请刷新页面重试');
+    }
+},
+
     // ========== 区块A1：初始化方法 结束 ==========
 
     // ========== 区块A2：加载用户设置 开始 ==========
