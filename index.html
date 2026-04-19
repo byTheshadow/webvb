@@ -29,7 +29,9 @@
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/test.css">
+    <link rel="stylesheet" href="css/preference.css"> 
     <!-- ========== 区块B：样式表引入 结束 ========== -->
+
 </head>
 
 <body>
@@ -102,6 +104,19 @@
                 <button class="close-btn" id="close-settings">&times;</button>
             </div>
             <div class="modal-body">
+                <!-- ✅ 新增：偏好设置入口 开始 -->
+    <div class="setting-group">
+        <h3 class="setting-title">个性化偏好</h3>
+        <button class="preference-settings-btn" id="open-preference-btn" onclick="PreferenceManager.openSettings()">
+            <span class="btn-icon">💕</span>
+            <div class="btn-content">
+                <span class="btn-title">性向与内容过滤</span>
+                <span class="btn-desc" id="preference-summary">点击设置</span>
+            </div>
+            <span class="btn-arrow">→</span>
+        </button>
+    </div>
+    <!-- ✅ 新增：偏好设置入口 结束 -->
                 
                 <!-- 主题选择 -->
               
@@ -166,7 +181,9 @@
     
     <!-- ========== Phase 3-7: 暂未开发，先注释 ========== -->
     <script src="js/modules/fortune-draw.js"></script>
-    <!-- <script src="js/modules/theme-manager.js"></script> -->
+    <!-- ========== Phase 3: 用户偏好系统 ✅ 新增 ========== -->
+<link rel="stylesheet" href="css/preference.css">
+<script src="js/modules/preference-manager.js"></script>
     <!-- <script src="js/modules/audio-player.js"></script> -->
     <!-- <script src="js/modules/lenormand.js"></script> -->
     <!-- <script src="js/modules/cocktail.js"></script> -->
