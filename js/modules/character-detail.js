@@ -36,14 +36,9 @@ const CharacterDetail = (function() {
      */
     async function loadCharacters() {
         try {
-            if (window.DataLoader && typeof DataLoader.loadCharacters === 'function') {
-                state.allCharacters = await DataLoader.loadCharacters();
-            } else {
-                // 降级方案：直接fetch
-                const response = await fetch('data/characters/list.json');
-                const data = await response.json();
-                state.allCharacters = data.characters || [];
-            }
+            const data = await DataLoader.loadCharacters();
+            // loadCharacters 返回的是完整的 JSON 对象，需要提取 characters 数组
+            state.allCharacters = data.characters || [];
             console.log('[CharacterDetail] 角色数据加载完成:', state.allCharacters.length);
             return state.allCharacters;
         } catch (error) {
@@ -534,3 +529,4 @@ const CharacterDetail = (function() {
 
 // ========== 导出到全局 ==========
 window.CharacterDetail = CharacterDetail;
+
