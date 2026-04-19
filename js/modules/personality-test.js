@@ -391,9 +391,9 @@ const PersonalityTest = (function () {
       return;
     }
 
-    // 检查是否已有保存的结果
-    if (window.StorageManager) {
-      const saved = StorageManager.get('personality-result');
+    // 检查是否已有保存的结果（这里去掉了Manager）
+    if (window.Storage) {
+      const saved = Storage.get('personality-result');
       if (saved && saved.code && !state.resultCode) {
         state.resultCode = saved.code;
         state.scores = saved.scores || state.scores;
@@ -555,9 +555,9 @@ const PersonalityTest = (function () {
         calculateResults();
         state.completed = true;
 
-        // 持久化到 localStorage
-        if (window.StorageManager) {
-          StorageManager.save('personality-result', {
+        // 持久化到 localStorage（修正了Storage和set方法）
+        if (window.Storage) {
+          Storage.set('personality-result', {
             code: state.resultCode,
             scores: state.scores,
             radar: state.radar,
@@ -948,9 +948,9 @@ const PersonalityTest = (function () {
     const retestBtn = container.querySelector('.btn-retest');
     if (retestBtn) {
       retestBtn.addEventListener('click', () => {
-        // 清除保存的结果
-        if (window.StorageManager) {
-          StorageManager.remove('personality-result');
+        // 清除保存的结果（去掉了Manager）
+        if (window.Storage) {
+          Storage.remove('personality-result');
         }
         resetState();
         state.completed = false;
@@ -1011,4 +1011,5 @@ const PersonalityTest = (function () {
 // 挂载到全局命名空间
 window.PersonalityTest = PersonalityTest;
 console.log('[PersonalityTest] 模块加载完成 ✓');
+
 
