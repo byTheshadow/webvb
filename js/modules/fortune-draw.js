@@ -878,15 +878,17 @@ const FortuneDraw = (function () {
     }
   }
 
-  function showCharacterDetail(character) {
-    // TODO: 跳转到角色详情页
+function showCharacterDetail(character) {
     console.log('[FortuneDraw] 显示角色详情:', character.name);
-    // 可以触发路由跳转或显示模态框
-    if (window.Router) {
-      Router.navigateTo(`/character/${character.id}`);
+    
+    // 调用角色详情模块
+    if (window.CharacterDetail) {
+        CharacterDetail.show(character.id);
+    } else {
+        console.error('[FortuneDraw] CharacterDetail 模块未加载');
+        alert('角色详情功能暂未加载，请刷新页面重试');
     }
-  }
-
+}
   /* ----------------------------------------------------------
    * 区块M: 主流程控制
    * 用途: 控制抽卡流程
