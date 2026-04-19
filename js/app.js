@@ -24,7 +24,7 @@ const App = {
 
     // ========== 区块A1：初始化方法 开始 ==========
     // 用途：应用启动时执行
-   async init() {
+async init() {
     console.log('[App] 开始初始化...');
     
     try {
@@ -49,13 +49,18 @@ const App = {
             AudioPlayer.init();
         }
         
-        // 6. 绑定全局事件
+        // ✨ 新增：6. 初始化角色详情页
+        if (typeof CharacterDetail !== 'undefined') {
+            CharacterDetail.init();
+        }
+        
+        // 7. 绑定全局事件
         this.bindEvents();
         
-        // 7. 隐藏加载动画
+        // 8. 隐藏加载动画
         this.hideLoadingScreen();
         
-        // 8. 标记为已初始化
+        // 9. 标记为已初始化
         this.state.initialized = true;
         
         console.log('[App] 初始化完成');
