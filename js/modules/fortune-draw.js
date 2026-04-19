@@ -899,7 +899,7 @@ const FortuneDraw = (function () {
     renderDrawingView(container, method);
   }
 
-  /* ----------------------------------------------------------
+   /* ----------------------------------------------------------
    * 区块N: 公共API
    * 用途: 暴露给外部使用的接口
    * ---------------------------------------------------------- */
@@ -920,18 +920,15 @@ const FortuneDraw = (function () {
   // 暴露公共接口
   return {
     init,
+    render: init, // ✨ 修复：router.js 调用 render 方法
     drawCards,
     interpretCards,
     recommendCharacters,
     getDrawHistory,
-    generateEnhancedInterpretation // ✨ 新增：暴露文案生成函数
+    generateEnhancedInterpretation
   };
 
 })();
 
 // 挂载到全局
 window.FortuneDraw = FortuneDraw;
-
-            
-
-
