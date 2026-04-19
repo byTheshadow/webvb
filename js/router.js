@@ -99,6 +99,14 @@ const Router = {
         this.renderPage(hash);
     },
     // ========== 区块A3：处理路由 结束 ==========
+   // ========== 区块A3.5：导航方法 开始 ==========
+// 用途：程序化导航到指定路由
+navigate(routeName) {
+    console.log('[Router] 导航到:', routeName);
+    window.location.hash = `#/${routeName}`;
+},
+// ========== 区块A3.5：导航方法 结束 ==========
+
 
     // ========== 区块A4：渲染页面 开始 ==========
     // 用途：执行页面渲染函数
