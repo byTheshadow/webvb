@@ -142,21 +142,22 @@ const App = {
 
     // ========== 区块A4：设置面板控制 开始 ==========
     // 用途：打开和关闭设置面板
-    openSettings() {
-        const modal = document.getElementById('settings-modal');
-        if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // 防止背景滚动
+   openSettings() {
+    const modal = document.getElementById('settings-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // ✅ 更新偏好摘要显示
+        if (typeof PreferenceManager !== 'undefined') {
+            const summary = PreferenceManager.getPreferencesSummary();
+            const summaryEl = document.getElementById('preference-summary');
+            if (summaryEl) {
+                summaryEl.textContent = summary;
+            }
         }
-    },
-
-    closeSettings() {
-        const modal = document.getElementById('settings-modal');
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // 恢复滚动
-        }
-    },
+    }
+},
     // ========== 区块A4：设置面板控制 结束 ==========
 
     // ========== 区块A5：加载动画控制 开始 ==========
