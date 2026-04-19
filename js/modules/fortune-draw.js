@@ -6,7 +6,7 @@
  * 主要功能:
  *   1. 加载雷诺曼卡数据
  *   2. 实现抽卡逻辑（单张/三张/十字）
- *   3. 解读卡牌组合
+ *   3. 解读卡牌组合（✨ 新增智能文案生成）
  *   4. 基于抽卡结果推荐角色卡
  *   5. 保存抽卡历史
  *   6. 渲染抽卡界面
@@ -90,8 +90,257 @@ const FortuneDraw = (function () {
     return state.drawnCards;
   }
 
+  /* ========== 区块D: 智能文案生成系统 开始 ========== */
+  /* 用途: 基于雷诺曼组合语言逻辑生成个性化启示文案 */
+
+  // 文案模板库
+  const narrativeTemplates = {
+    // 开场白模板（根据整体基调）
+    openings: {
+      positive: [
+        '卡牌为你展开了一幅充满希望的画卷。',
+        '命运的轮盘正朝着有利的方向转动。',
+        '这是一个值得期待的时刻。',
+        '星辰的排列预示着积极的转变。'
+      ],
+      negative: [
+        '卡牌揭示了一些需要你正视的挑战。',
+        '此刻，你正站在一个需要谨慎的十字路口。',
+        '命运提醒你，有些事情需要被重新审视。',
+        '这是一个需要勇气和智慧的时刻。'
+      ],
+      neutral: [
+        '卡牌为你展开了一个复杂而真实的故事。',
+        '命运的信息既不全然明朗，也非完全晦暗。',
+        '此刻，你正处于一个转折的节点。',
+        '让我们一起解读这些符号的深意。'
+      ]
+    },
+    
+    // 位置连接词
+    transitions: {
+      past: ['从过去的影响来看', '回溯你的来路', '曾经的经历告诉我们', '根源在于'],
+      present: ['而在当下', '此时此刻', '你正面对着', '现在的状况是'],
+      future: ['展望未来', '接下来', '命运指向', '趋势显示'],
+      challenge: ['然而', '但需要注意', '挑战在于', '阻碍来自'],
+      advice: ['因此', '建议你', '智慧的选择是', '行动的方向是']
+    },
+    
+    // 结尾模板
+    closings: {
+      positive: [
+        '相信自己的直觉，好运与你同在。',
+        '保持开放的心态，美好正在路上。',
+        '这是一个值得把握的机会。',
+        '你已经走在正确的道路上。'
+      ],
+      negative: [
+        '记住，挑战也是成长的契机。',
+        '保持警觉，但不要失去信心。',
+        '有时候，停下来重新思考也是一种前进。',
+        '困难是暂时的，智慧是永恒的。'
+      ],
+      neutral: [
+        '倾听内心的声音，答案就在你心中。',
+        '保持平衡，顺应自然的节奏。',
+        '每一步都是你人生故事的一部分。',
+        '接纳当下，准备好迎接变化。'
+      ]
+    }
+  };
+
+  // 特殊组合规则库（基于传统雷诺曼解读）
+  const specialCombinations = {
+    // 格式: "卡牌1ID-卡牌2ID": { meaning: "组合含义", tone: "positive/negative/neutral" }
+    "1-27": { meaning: "好消息即将以书面形式到来", tone: "positive" },
+    "1-11": { meaning: "关于争吵或冲突的消息", tone: "negative" },
+    "2-34": { meaning: "财运亨通，小确幸带来意外之财", tone: "positive" },
+    "3-24": { meaning: "一段远距离的恋情或情感的旅程", tone: "neutral" },
+    "4-5": { meaning: "家族健康与根基稳固", tone: "positive" },
+    "6-7": { meaning: "复杂而混乱的局面，需要理清头绪", tone: "negative" },
+    "7-24": { meaning: "复杂的情感纠葛，需要智慧处理", tone: "negative" },
+    "8-17": { meaning: "旧的结束带来新的转变", tone: "neutral" },
+    "9-24": { meaning: "美好的爱情，受到赞美的关系", tone: "positive" },
+    "10-11": { meaning: "突然的冲突或果断的决裂", tone: "negative" },
+    "12-27": { meaning: "重要的对话或书面沟通", tone: "neutral" },
+    "13-24": { meaning: "纯真的爱，新恋情的开始", tone: "positive" },
+    "14-34": { meaning: "工作带来的财富，商业智慧", tone: "positive" },
+    "15-34": { meaning: "强大的财富力量，金融成功", tone: "positive" },
+    "16-31": { meaning: "希望与成功的完美结合", tone: "positive" },
+    "18-24": { meaning: "忠诚的爱情，真挚的友谊之爱", tone: "positive" },
+    "21-22": { meaning: "障碍中的选择，困难的决策", tone: "negative" },
+    "23-34": { meaning: "财务损耗，金钱流失", tone: "negative" },
+    "24-25": { meaning: "爱情承诺，订婚或婚姻", tone: "positive" },
+    "26-27": { meaning: "秘密的信息即将揭晓", tone: "neutral" },
+    "28-29": { meaning: "重要的人际关系，伴侣或合作", tone: "neutral" },
+    "31-34": { meaning: "巨大的成功与财富", tone: "positive" },
+    "33-35": { meaning: "工作上的关键突破，确定的成功", tone: "positive" },
+    "35-36": { meaning: "长期的责任与承诺", tone: "neutral" }
+  };
+
+  // 分析卡牌整体基调
+  function analyzeOverallTone(cards) {
+    let positiveScore = 0;
+    let negativeScore = 0;
+    
+    // 定义正面卡牌（ID）
+    const positiveCards = [1, 2, 9, 13, 16, 17, 18, 24, 25, 30, 31, 33, 34];
+    // 定义负面卡牌（ID）
+    const negativeCards = [6, 7, 8, 10, 11, 19, 21, 23, 36];
+    
+    cards.forEach(card => {
+      if (positiveCards.includes(card.id)) positiveScore++;
+      if (negativeCards.includes(card.id)) negativeScore++;
+    });
+    
+    if (positiveScore > negativeScore) return 'positive';
+    if (negativeScore > positiveScore) return 'negative';
+    return 'neutral';
+  }
+
+  // 检测特殊组合
+  function detectSpecialCombinations(cards) {
+    const combinations = [];
+    
+    for (let i = 0; i < cards.length - 1; i++) {
+      const key1 = `${cards[i].id}-${cards[i + 1].id}`;
+      const key2 = `${cards[i + 1].id}-${cards[i].id}`; // 反向也检查
+      
+      if (specialCombinations[key1]) {
+        combinations.push({
+          cards: [cards[i], cards[i + 1]],
+          ...specialCombinations[key1]
+        });
+      } else if (specialCombinations[key2]) {
+        combinations.push({
+          cards: [cards[i], cards[i + 1]],
+          ...specialCombinations[key2]
+        });
+      }
+    }
+    
+    return combinations;
+  }
+
+  // 根据位置解读卡牌（雷诺曼位置语义）
+  function interpretCardByPosition(card, position, adjacentCards = []) {
+    const positionMeanings = {
+      past: {
+        prefix: '过去',
+        focus: 'coreEssence', // 关注本质
+        template: (card) => `${card.name}揭示了过去的影响：${card.coreEssence}。`
+      },
+      present: {
+        prefix: '当下',
+        focus: 'positiveReading',
+        template: (card) => `${card.name}描绘着当前的状态：${card.positiveReading}。`
+      },
+      future: {
+        prefix: '未来',
+        focus: 'modernMetaphor',
+        template: (card) => `${card.name}指向未来的可能：${card.modernMetaphor}。`
+      },
+      challenge: {
+        prefix: '挑战',
+        focus: 'negativeReading',
+        template: (card) => `${card.name}揭示了需要面对的挑战：${card.negativeReading}。`
+      },
+      advice: {
+        prefix: '建议',
+        focus: 'positiveReading',
+        template: (card) => `${card.name}给出的行动建议是：${card.positiveReading}。`
+      },
+      core: {
+        prefix: '核心',
+        focus: 'coreEssence',
+        template: (card) => `${card.name}作为核心议题：${card.coreEssence}。`
+      }
+    };
+    
+    const meaning = positionMeanings[position] || positionMeanings.present;
+    return meaning.template(card);
+  }
+
+  // 生成组合叙事（雷诺曼组合语言）
+  function generateCombinationNarrative(cards) {
+    if (cards.length < 2) return '';
+    
+    // 检测特殊组合
+    const specialCombs = detectSpecialCombinations(cards);
+    if (specialCombs.length > 0) {
+      const comb = specialCombs[0];
+      return `${comb.cards[0].name}与${comb.cards[1].name}的组合揭示：${comb.meaning}。`;
+    }
+    
+    // 通用组合解读（中心牌为主题，左右为修饰）
+    if (cards.length === 3) {
+      const [left, center, right] = cards;
+      const leftKeyword = left.keywords[0];
+      const centerKeyword = center.keywords[0];
+      const rightKeyword = right.keywords[0];
+      
+      return `从"${leftKeyword}"的${left.name}，到"${centerKeyword}"的${center.name}，再到"${rightKeyword}"的${right.name}，这是一个关于${centerKeyword}的故事，它被${leftKeyword}所影响，并朝着${rightKeyword}的方向发展。`;
+    }
+    
+    // 多张卡牌的流动叙事
+    const keywords = cards.map(c => c.keywords[0]);
+    return `这些卡牌编织出一个关于${keywords.join('、')}的复杂图景。`;
+  }
+
+  // 主文案生成函数
+  function generateEnhancedInterpretation(cards, method) {
+    console.log('[FortuneDraw] 生成智能文案');
+    
+    const tone = analyzeOverallTone(cards);
+    const opening = narrativeTemplates.openings[tone][
+      Math.floor(Math.random() * narrativeTemplates.openings[tone].length)
+    ];
+    const closing = narrativeTemplates.closings[tone][
+      Math.floor(Math.random() * narrativeTemplates.closings[tone].length)
+    ];
+    
+    let narrative = opening + '\n\n';
+    
+    // 根据抽卡方式生成不同结构的文案
+    if (method === 'single') {
+      const card = cards[0];
+      narrative += `${card.name}（${card.nameEn}）为你带来的启示：\n\n`;
+      narrative += `【核心本质】${card.coreEssence}\n\n`;
+      narrative += `【现代启示】${card.modernMetaphor}\n\n`;
+      narrative += `【正向解读】${card.positiveReading}\n\n`;
+      
+      if (tone === 'negative' || tone === 'neutral') {
+        narrative += `【需要注意】${card.negativeReading}\n\n`;
+      }
+    } else if (method === 'triple') {
+      // 三张牌：过去-现在-未来
+      narrative += interpretCardByPosition(cards[0], 'past') + '\n\n';
+      narrative += interpretCardByPosition(cards[1], 'present') + '\n\n';
+      narrative += interpretCardByPosition(cards[2], 'future') + '\n\n';
+      
+      // 添加组合解读
+      const combination = generateCombinationNarrative(cards);
+      if (combination) {
+        narrative += `【综合解读】${combination}\n\n`;
+      }
+    } else if (method === 'cross') {
+      // 十字展开：核心-挑战-过去-未来-建议
+      narrative += interpretCardByPosition(cards[0], 'core') + '\n\n';
+      narrative += interpretCardByPosition(cards[1], 'challenge') + '\n\n';
+      narrative += interpretCardByPosition(cards[2], 'past') + '\n\n';
+      narrative += interpretCardByPosition(cards[3], 'future') + '\n\n';
+      narrative += interpretCardByPosition(cards[4], 'advice') + '\n\n';
+    }
+    
+    narrative += closing;
+    
+    return narrative;
+  }
+
+  /* ========== 区块D: 智能文案生成系统 结束 ========== */
+
   /* ----------------------------------------------------------
-   * 区块D: 卡牌解读
+   * 区块E: 卡牌解读（更新版）
    * 用途: 根据抽卡方式生成解读文本
    * ---------------------------------------------------------- */
   function interpretCards(cards, method) {
@@ -108,8 +357,11 @@ const FortuneDraw = (function () {
 
   function interpretSingle(cards) {
     const card = cards[0];
+    const enhancedNarrative = generateEnhancedInterpretation(cards, 'single');
+    
     return {
       title: '今日运势',
+      narrative: enhancedNarrative, // ✨ 新增：完整叙事文案
       sections: [
         {
           label: '核心指引',
@@ -128,8 +380,11 @@ const FortuneDraw = (function () {
   }
 
   function interpretTriple(cards) {
+    const enhancedNarrative = generateEnhancedInterpretation(cards, 'triple');
+    
     return {
       title: '三卡展开',
+      narrative: enhancedNarrative, // ✨ 新增：完整叙事文案
       sections: [
         {
           label: '过去影响',
@@ -148,15 +403,18 @@ const FortuneDraw = (function () {
         },
         {
           label: '综合解读',
-          content: generateCombinedReading(cards)
+          content: generateCombinationNarrative(cards)
         }
       ]
     };
   }
 
   function interpretCross(cards) {
+    const enhancedNarrative = generateEnhancedInterpretation(cards, 'cross');
+    
     return {
       title: '十字展开',
+      narrative: enhancedNarrative, // ✨ 新增：完整叙事文案
       sections: [
         {
           label: '核心议题',
@@ -187,13 +445,8 @@ const FortuneDraw = (function () {
     };
   }
 
-  function generateCombinedReading(cards) {
-    const themes = cards.flatMap(c => c.keywords).slice(0, 5);
-    return `这三张卡牌共同编织出一个关于 ${themes.join('、')} 的故事。从${cards[0].name}的影响，到${cards[1].name}的当下，再到${cards[2].name}的未来，你正经历一段重要的转变。`;
-  }
-
   /* ----------------------------------------------------------
-   * 区块E: 角色推荐算法
+   * 区块F: 角色推荐算法
    * 用途: 基于抽卡结果推荐匹配的角色卡
    * ---------------------------------------------------------- */
   function recommendCharacters(cards) {
@@ -330,7 +583,7 @@ const FortuneDraw = (function () {
   }
 
   /* ----------------------------------------------------------
-   * 区块F: 历史记录
+   * 区块G: 历史记录
    * 用途: 保存和读取抽卡历史
    * ---------------------------------------------------------- */
   function saveDrawHistory(cards, interpretation, recommendations) {
@@ -342,6 +595,7 @@ const FortuneDraw = (function () {
       method: state.drawMethod,
       cards: cards.map(c => ({ id: c.id, name: c.name, emoji: c.emoji })),
       interpretation: interpretation.title,
+      narrative: interpretation.narrative, // ✨ 保存完整文案
       recommendations: recommendations.map(r => r.character.name)
     };
     
@@ -361,7 +615,7 @@ const FortuneDraw = (function () {
   }
 
   /* ----------------------------------------------------------
-   * 区块G: UI渲染 - 选择抽卡方式
+   * 区块H: UI渲染 - 选择抽卡方式
    * 用途: 渲染抽卡方式选择界面
    * ---------------------------------------------------------- */
   function renderSelectView(container) {
@@ -389,239 +643,295 @@ const FortuneDraw = (function () {
 
           <div class="method-card" data-method="cross">
             <div class="method-icon">✨</div>
-            <h3 class="method-name">十字展开</h3>
-            <p class="method-desc">深度解析核心议题与行动建议</p>
+                        <h3 class="method-name">十字展开</h3>
+            <p class="method-desc">核心-挑战-过去-未来-建议的全面解读</p>
             <button class="method-btn primary-btn">开始抽卡</button>
           </div>
         </div>
 
-        <div class="fortune-history-section">
-          <h3 class="history-title">抽卡历史</h3>
+        <div class="fortune-history">
+          <h3 class="history-title">历史记录</h3>
           <div class="history-list" id="history-list">
-            ${renderHistoryList()}
+            <!-- 历史记录动态加载 -->
           </div>
         </div>
       </div>
     `;
 
     // 绑定事件
-    container.querySelectorAll('.method-btn').forEach(btn => {
+    const methodBtns = container.querySelectorAll('.method-btn');
+    methodBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const method = e.target.closest('.method-card').dataset.method;
-        startDraw(method, container);
+        startDraw(method);
+      });
+    });
+
+    // 渲染历史记录
+    renderHistory(container.querySelector('#history-list'));
+  }
+
+  /* ----------------------------------------------------------
+   * 区块I: UI渲染 - 抽卡动画
+   * 用途: 渲染抽卡过程的动画效果
+   * ---------------------------------------------------------- */
+  function renderDrawingView(container, method) {
+    const cardCount = method === 'single' ? 1 : method === 'triple' ? 3 : 5;
+    
+    container.innerHTML = `
+      <div class="fortune-page drawing-page">
+        <div class="drawing-animation">
+          <div class="card-deck">
+            <div class="card-back"></div>
+            <div class="card-back"></div>
+            <div class="card-back"></div>
+          </div>
+          <p class="drawing-text">正在为你抽取 ${cardCount} 张卡牌...</p>
+        </div>
+      </div>
+    `;
+
+    // 模拟抽卡延迟
+    setTimeout(() => {
+      const cards = drawCards(cardCount);
+      const interpretation = interpretCards(cards, method);
+      const recommendations = recommendCharacters(cards);
+      
+      // 保存历史
+      saveDrawHistory(cards, interpretation, recommendations);
+      
+      // 显示结果
+      renderResultView(container, cards, interpretation, recommendations, method);
+    }, 2000);
+  }
+
+  /* ----------------------------------------------------------
+   * 区块J: UI渲染 - 结果展示
+   * 用途: 渲染抽卡结果和解读
+   * ---------------------------------------------------------- */
+  function renderResultView(container, cards, interpretation, recommendations, method) {
+    // 构建卡牌展示HTML
+    const cardsHTML = cards.map((card, index) => {
+      let positionLabel = '';
+      if (method === 'triple') {
+        positionLabel = ['过去', '现在', '未来'][index];
+      } else if (method === 'cross') {
+        positionLabel = ['核心', '挑战', '过去', '未来', '建议'][index];
+      }
+      
+      return `
+        <div class="drawn-card" data-card-id="${card.id}">
+          <div class="card-emoji">${card.emoji}</div>
+          <div class="card-name">${card.name}</div>
+          <div class="card-name-en">${card.nameEn}</div>
+          ${positionLabel ? `<div class="card-position">${positionLabel}</div>` : ''}
+          <div class="card-keywords">
+            ${card.keywords.map(kw => `<span class="keyword-tag">${kw}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // 构建解读章节HTML
+    const sectionsHTML = interpretation.sections.map(section => `
+      <div class="interpretation-section">
+        <h4 class="section-label">${section.label}</h4>
+        <p class="section-content">${section.content}</p>
+      </div>
+    `).join('');
+
+    // 构建推荐角色HTML
+    const recommendationsHTML = recommendations.map(rec => `
+      <div class="recommended-character">
+        <div class="character-avatar">
+          ${rec.character.avatar || '👤'}
+        </div>
+        <div class="character-info">
+          <h4 class="character-name">${rec.character.name}</h4>
+          <p class="character-source">${rec.character.source || '未知来源'}</p>
+          <div class="match-score">
+            <div class="score-bar">
+              <div class="score-fill" style="width: ${rec.score}%"></div>
+            </div>
+            <span class="score-text">${Math.round(rec.score)}% 匹配</span>
+          </div>
+          <div class="match-reasons">
+            ${rec.matchReasons.map(reason => `<p class="reason-item">• ${reason}</p>`).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="fortune-page result-page">
+        <div class="result-header">
+          <h2 class="result-title">${interpretation.title}</h2>
+          <button class="back-btn secondary-btn" id="back-to-select">返回</button>
+        </div>
+
+        <!-- ✨ 新增：完整叙事文案展示 -->
+        <div class="narrative-section">
+          <h3 class="narrative-title">✨ 启示文案</h3>
+          <div class="narrative-content">
+            ${interpretation.narrative.split('\n\n').map(para => 
+              para.trim() ? `<p>${para}</p>` : ''
+            ).join('')}
+          </div>
+        </div>
+
+        <div class="drawn-cards-container">
+          <h3 class="section-title">抽取的卡牌</h3>
+          <div class="drawn-cards">
+            ${cardsHTML}
+          </div>
+        </div>
+
+        <div class="interpretation-container">
+          <h3 class="section-title">详细解读</h3>
+          <div class="interpretation-sections">
+            ${sectionsHTML}
+          </div>
+        </div>
+
+        <div class="recommendations-container">
+          <h3 class="section-title">为你推荐的角色卡</h3>
+          <div class="recommended-characters">
+            ${recommendationsHTML}
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="action-btn primary-btn" id="draw-again">再抽一次</button>
+          <button class="action-btn secondary-btn" id="save-result">保存结果</button>
+          <button class="action-btn secondary-btn" id="share-result">分享</button>
+        </div>
+      </div>
+    `;
+
+    // 绑定事件
+    container.querySelector('#back-to-select').addEventListener('click', () => {
+      state.currentView = 'select';
+      renderSelectView(container);
+    });
+
+    container.querySelector('#draw-again').addEventListener('click', () => {
+      startDraw(method);
+    });
+
+    container.querySelector('#save-result').addEventListener('click', () => {
+      alert('结果已保存到历史记录！');
+    });
+
+    container.querySelector('#share-result').addEventListener('click', () => {
+      shareResult(cards, interpretation);
+    });
+
+    // 为角色卡添加点击事件
+    container.querySelectorAll('.recommended-character').forEach((el, index) => {
+      el.addEventListener('click', () => {
+        const character = recommendations[index].character;
+        showCharacterDetail(character);
       });
     });
   }
 
-  function renderHistoryList() {
+  /* ----------------------------------------------------------
+   * 区块K: UI渲染 - 历史记录
+   * 用途: 渲染抽卡历史列表
+   * ---------------------------------------------------------- */
+  function renderHistory(container) {
     const history = getDrawHistory();
     
     if (history.length === 0) {
-      return '<p class="history-empty">暂无抽卡记录</p>';
+      container.innerHTML = '<p class="empty-history">暂无历史记录</p>';
+      return;
     }
-    
-    return history.slice(0, 5).map(record => `
+
+    container.innerHTML = history.slice(0, 5).map(record => `
       <div class="history-item">
         <div class="history-date">${record.date}</div>
         <div class="history-cards">
           ${record.cards.map(c => `<span class="history-card-emoji">${c.emoji}</span>`).join('')}
         </div>
-        <div class="history-method">${getMethodName(record.method)}</div>
+        <div class="history-title">${record.interpretation}</div>
       </div>
     `).join('');
   }
 
-  function getMethodName(method) {
-    const names = {
-      single: '单张',
-      triple: '三张',
-      cross: '十字'
-    };
-    return names[method] || method;
+  /* ----------------------------------------------------------
+   * 区块L: 辅助功能
+   * 用途: 分享、角色详情等辅助功能
+   * ---------------------------------------------------------- */
+  function shareResult(cards, interpretation) {
+    const text = `我在 webvb 抽到了：${cards.map(c => c.emoji + c.name).join('、')}\n\n${interpretation.narrative.substring(0, 100)}...`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'webvb 雷诺曼占卜结果',
+        text: text
+      }).catch(err => console.log('分享失败', err));
+    } else {
+      // 复制到剪贴板
+      navigator.clipboard.writeText(text).then(() => {
+        alert('结果已复制到剪贴板！');
+      });
+    }
+  }
+
+  function showCharacterDetail(character) {
+    // TODO: 跳转到角色详情页
+    console.log('[FortuneDraw] 显示角色详情:', character.name);
+    // 可以触发路由跳转或显示模态框
+    if (window.Router) {
+      Router.navigateTo(`/character/${character.id}`);
+    }
   }
 
   /* ----------------------------------------------------------
-   * 区块H: UI渲染 - 抽卡动画
-   * 用途: 渲染抽卡过程的动画效果
+   * 区块M: 主流程控制
+   * 用途: 控制抽卡流程
    * ---------------------------------------------------------- */
-  function startDraw(method, container) {
+  function startDraw(method) {
     state.drawMethod = method;
     state.currentView = 'drawing';
     
-    const cardCount = method === 'single' ? 1 : method === 'triple' ? 3 : 5;
-    
-    container.innerHTML = `
-      <div class="fortune-page">
-        <div class="drawing-container">
-          <h2 class="drawing-title">正在为你抽取卡牌...</h2>
-          <div class="card-deck">
-            ${Array(cardCount).fill(0).map((_, i) => `
-              <div class="card-back card-flip-in" style="animation-delay: ${i * 0.2}s">
-                <div class="card-back-pattern">🔮</div>
-              </div>
-            `).join('')}
-          </div>
-          <p class="drawing-hint">请静心冥想你的问题</p>
-        </div>
-      </div>
-    `;
-
-    // 2秒后显示结果
-    setTimeout(() => {
-      const cards = drawCards(cardCount);
-      showResult(cards, container);
-    }, 2000 + cardCount * 200);
+    const container = document.getElementById('main-content');
+    renderDrawingView(container, method);
   }
 
   /* ----------------------------------------------------------
-   * 区块I: UI渲染 - 结果展示
-   * 用途: 渲染抽卡结果、解读和角色推荐
+   * 区块N: 公共API
+   * 用途: 暴露给外部使用的接口
    * ---------------------------------------------------------- */
-  function showResult(cards, container) {
-    state.currentView = 'result';
+  async function init(container) {
+    console.log('[FortuneDraw] 初始化雷诺曼抽卡系统');
     
-    const interpretation = interpretCards(cards, state.drawMethod);
-    const recommendations = recommendCharacters(cards);
-    
-    // 保存历史
-    saveDrawHistory(cards, interpretation, recommendations);
-    
-    container.innerHTML = `
-      <div class="fortune-page">
-        <div class="result-container">
-          <!-- 卡牌展示 -->
-          <div class="result-cards">
-            <h2 class="result-title">${interpretation.title}</h2>
-            <div class="cards-display ${state.drawMethod}-layout">
-              ${cards.map((card, index) => `
-                <div class="card-item card-reveal" style="animation-delay: ${index * 0.15}s">
-                  <div class="card-emoji">${card.emoji}</div>
-                  <div class="card-name">${card.name}</div>
-                  <div class="card-name-en">${card.nameEn}</div>
-                  <div class="card-keywords">
-                    ${card.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- 解读内容 -->
-          <div class="interpretation-section">
-            <h3 class="section-title">卡牌解读</h3>
-            ${interpretation.sections.map(section => `
-              <div class="interpretation-item">
-                <h4 class="interpretation-label">${section.label}</h4>
-                <p class="interpretation-content">${section.content}</p>
-              </div>
-            `).join('')}
-          </div>
-
-          <!-- 角色推荐 -->
-          <div class="recommendation-section">
-            <h3 class="section-title">命运推荐的角色卡</h3>
-            <p class="recommendation-intro">根据你的抽卡结果，这些角色与你有特殊的缘分</p>
-            <div class="character-recommendations">
-              ${recommendations.map((rec, index) => `
-                <div class="character-card card-appear" style="animation-delay: ${index * 0.1}s">
-                  <div class="character-rank">#${index + 1}</div>
-                  <div class="character-info">
-                    <h4 class="character-name">${rec.character.name}</h4>
-                    <p class="character-creator">by ${rec.character.creator}</p>
-                    <p class="character-oneliner">${rec.character.oneLiner || '探索这个角色的故事'}</p>
-                    <div class="character-tags">
-                      ${(rec.character.soulTags || []).slice(0, 3).map(tag => 
-                        `<span class="soul-tag">${tag}</span>`
-                      ).join('')}
-                    </div>
-                    <div class="match-reasons">
-                      ${rec.matchReasons.map(reason => 
-                        `<p class="match-reason">✨ ${reason}</p>`
-                      ).join('')}
-                    </div>
-                    <div class="match-score">
-                      <span class="score-label">匹配度</span>
-                      <div class="score-bar">
-                        <div class="score-fill" style="width: ${rec.score}%"></div>
-                      </div>
-                      <span class="score-value">${Math.round(rec.score)}%</span>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- 操作按钮 -->
-          <div class="result-actions">
-            <button class="secondary-btn" id="draw-again-btn">再抽一次</button>
-            <button class="primary-btn" id="save-result-btn">保存结果</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    // 绑定事件
-    container.querySelector('#draw-again-btn').addEventListener('click', () => {
-      render(container);
-    });
-
-    container.querySelector('#save-result-btn').addEventListener('click', () => {
-      alert('结果已保存到历史记录！');
-    });
-  }
-
-  /* ----------------------------------------------------------
-   * 区块J: 主渲染函数
-   * 用途: 模块入口，初始化并渲染界面
-   * ---------------------------------------------------------- */
-  async function render(container) {
-    console.log('[FortuneDraw] 开始渲染');
-    
-    // 显示加载状态
-    container.innerHTML = `
-      <div class="fortune-page">
-        <div class="loading-container">
-          <div class="loading-spinner"></div>
-          <p class="loading-text">正在准备卡牌...</p>
-        </div>
-      </div>
-    `;
-
     // 加载数据
-    if (!state.isLoaded) {
-      const success = await loadData();
-      if (!success) {
-        container.innerHTML = `
-          <div class="fortune-page">
-            <div class="error-container">
-              <h2>⚠️ 加载失败</h2>
-              <p>无法加载雷诺曼卡数据，请刷新页面重试</p>
-              <button class="primary-btn" onclick="location.reload()">刷新页面</button>
-            </div>
-          </div>
-        `;
-        return;
-      }
+    const success = await loadData();
+    if (!success) {
+      container.innerHTML = '<div class="error-message">数据加载失败，请刷新页面重试</div>';
+      return;
     }
 
     // 渲染选择界面
     renderSelectView(container);
   }
 
-  /* ----------------------------------------------------------
-   * 区块K: 公共API
-   * 用途: 暴露给外部使用的接口
-   * ---------------------------------------------------------- */
+  // 暴露公共接口
   return {
-    render,
-    getDrawHistory,
+    init,
     drawCards,
-    recommendCharacters
+    interpretCards,
+    recommendCharacters,
+    getDrawHistory,
+    generateEnhancedInterpretation // ✨ 新增：暴露文案生成函数
   };
 
 })();
 
-// 将模块挂载到全局
+// 挂载到全局
 window.FortuneDraw = FortuneDraw;
+
+            
+
 
