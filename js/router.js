@@ -214,16 +214,27 @@ navigate(routeName) {
 
 
     // 雷诺曼占卜页面
-    renderLenormand() {
-        const mainContent = document.getElementById('main-content');
+renderLenormand() {
+    const mainContent = document.getElementById('main-content');
+    
+    // 检查 FortuneDraw 模块是否已加载
+    if (window.FortuneDraw) {
+        console.log('[Router] 渲染雷诺曼占卜页面');
+        FortuneDraw.render(mainContent);
+    } else {
+        console.error('[Router] FortuneDraw 模块未加载');
         mainContent.innerHTML = `
-            <div class="lenormand-page">
-                <h2>雷诺曼占卜</h2>
-                <p>功能开发中...</p>
-                <p>这里将显示雷诺曼占卜的内容</p>
+            <div class="fortune-page">
+                <div class="error-message">
+                    <h2>⚠️ 加载失败</h2>
+                    <p>雷诺曼占卜模块未正确加载，请刷新页面重试</p>
+                    <button class="primary-btn" onclick="location.reload()">刷新页面</button>
+                </div>
             </div>
         `;
-    },
+    }
+},
+
 
     // 创意功能页面
     renderCreative() {
