@@ -95,60 +95,62 @@ const App = {
     // ========== 区块A2：加载用户设置 结束 ==========
 
     // ========== 区块A3：绑定全局事件 开始 ==========
-    // 用途：监听用户交互事件
-    bindEvents() {
-        console.log('[App] 绑定全局事件...');
-        
-        // 设置按钮点击
-        const settingsBtn = document.getElementById('settings-btn');
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', () => {
-                this.openSettings();
-            });
-        }
-        
-        // 关闭设置按钮
-        const closeSettingsBtn = document.getElementById('close-settings');
-        if (closeSettingsBtn) {
-            closeSettingsBtn.addEventListener('click', () => {
-                this.closeSettings();
-            });
-        }
-        
-        // 点击模态框背景关闭
-        const settingsModal = document.getElementById('settings-modal');
-        if (settingsModal) {
-            settingsModal.addEventListener('click', (e) => {
-                if (e.target === settingsModal) {
-                    this.closeSettings();
-                }
-            });
-        }
-        
-        // 底部导航点击
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                // 移除所有active类
-                navItems.forEach(nav => nav.classList.remove('active'));
-                // 添加active到当前项
-                item.classList.add('active');
-            });
+  
+// 用途：监听用户交互事件
+bindEvents() {
+    console.log('[App] 绑定全局事件...');
+    
+    // 设置按钮点击
+    const settingsBtn = document.getElementById('settings-btn');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', () => {
+            this.openSettings();
         });
-        
-        console.log('[App] 全局事件绑定完成');
-    },
+    }
+    
+    // 关闭设置按钮 - 使用事件委托
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'close-settings') {
+            this.closeSettings();
+        }
+    });
+    
+    // 点击模态框背景关闭
+    const settingsModal = document.getElementById('settings-modal');
+    if (settingsModal) {
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                this.closeSettings();
+            }
+        });
+    }
+    
+    // 底部导航点击
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // 移除所有active类
+            navItems.forEach(nav => nav.classList.remove('active'));
+            // 添加active到当前项
+            item.classList.add('active');
+        });
+    });
+    
+    console.log('[App] 全局事件绑定完成');
+},
+
     // ========== 区块A3：绑定全局事件 结束 ==========
 
     // ========== 区块A4：设置面板控制 开始 ==========
-    // 用途：打开和关闭设置面板
-   openSettings() {
+   // ========== 区块A4：设置面板控制 开始 ==========
+// 用途：打开和关闭设置面板
+openSettings() {
     const modal = document.getElementById('settings-modal');
     if (modal) {
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
         
-        // ✅ 更新偏好摘要显示
+        // 更新偏好摘要显示
         if (typeof PreferenceManager !== 'undefined') {
             const summary = PreferenceManager.getPreferencesSummary();
             const summaryEl = document.getElementById('preference-summary');
@@ -156,6 +158,14 @@ const App = {
                 summaryEl.textContent = summary;
             }
         }
+    }
+},
+
+closeSettings() {
+    const modal = document.getElementById('settings-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // 恢复滚动
     }
 },
     // ========== 区块A4：设置面板控制 结束 ==========
