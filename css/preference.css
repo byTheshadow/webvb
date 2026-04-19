@@ -1,0 +1,409 @@
+/* ================================
+   文件名：preference.css
+   功能：用户偏好设置模态框样式
+   风格：毛玻璃效果 + 冷色调 + 柔和动画
+   最后更新：2026-04-19
+   ================================ */
+
+/* ============================================
+   区块A：模态框容器
+   ============================================ */
+.preference-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.preference-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 遮罩层 */
+.preference-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================
+   区块B：模态框内容
+   ============================================ */
+.preference-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preference-modal.active .preference-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .preference-modal-content,
+[data-theme="midnight"] .preference-modal-content {
+    background: rgba(30, 30, 40, 0.95);
+    color: var(--text-primary);
+}
+
+/* ============================================
+   区块C：头部
+   ============================================ */
+.preference-header {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+    text-align: center;
+    background: linear-gradient(135deg, rgba(147, 197, 253, 0.2), rgba(196, 181, 253, 0.2));
+    border-bottom: 1px solid rgba(147, 197, 253, 0.3);
+}
+
+.preference-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: var(--letter-spacing-loose);
+}
+
+.preference-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* ============================================
+   区块D：主体内容
+   ============================================ */
+.preference-body {
+    padding: var(--spacing-lg);
+    max-height: calc(85vh - 200px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 自定义滚动条 */
+.preference-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.preference-body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.preference-body::-webkit-scrollbar-thumb {
+    background: rgba(147, 197, 253, 0.5);
+    border-radius: 3px;
+}
+
+.preference-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(147, 197, 253, 0.7);
+}
+
+/* ============================================
+   区块E：设置区块
+   ============================================ */
+.preference-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.preference-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.section-icon {
+    font-size: 1.3rem;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+}
+
+/* ============================================
+   区块F：性向选择网格
+   ============================================ */
+.orientation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.orientation-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.orientation-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.orientation-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    background: rgba(147, 197, 253, 0.1);
+    border: 2px solid rgba(147, 197, 253, 0.3);
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+}
+
+.orientation-item:hover .orientation-label {
+    background: rgba(147, 197, 253, 0.2);
+    border-color: rgba(147, 197, 253, 0.5);
+    transform: translateY(-2px);
+}
+
+.orientation-item input:checked + .orientation-label {
+    background: linear-gradient(135deg, rgba(147, 197, 253, 0.3), rgba(196, 181, 253, 0.3));
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(147, 197, 253, 0.3);
+}
+
+.orientation-icon {
+    font-size: 2rem;
+}
+
+.orientation-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+/* ============================================
+   区块G：排除标签网格
+   ============================================ */
+.exclude-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.exclude-tag-item {
+    cursor: pointer;
+}
+
+.exclude-tag-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tag-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(203, 213, 225, 0.3);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    border-radius: var(--border-radius-pill);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.exclude-tag-item:hover .tag-label {
+    background: rgba(203, 213, 225, 0.5);
+    border-color: rgba(203, 213, 225, 0.7);
+}
+
+.exclude-tag-item input:checked + .tag-label {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+    border-color: rgba(239, 68, 68, 0.6);
+    color: #dc2626;
+    font-weight: 500;
+}
+
+/* ============================================
+   区块H：免责声明
+   ============================================ */
+.preference-disclaimer {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: rgba(251, 191, 36, 0.1);
+    border-left: 3px solid rgba(251, 191, 36, 0.6);
+    border-radius: var(--border-radius-sm);
+}
+
+.disclaimer-text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.disclaimer-text strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* ============================================
+   区块I：底部按钮
+   ============================================ */
+.preference-footer {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.preference-footer button {
+    flex: 1;
+    padding: 14px 24px;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background: rgba(203, 213, 225, 0.3);
+    color: var(--text-secondary);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.btn-secondary:hover {
+    background: rgba(203, 213, 225, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(147, 197, 253, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(147, 197, 253, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   区块J：Toast提示
+   ============================================ */
+.preference-toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 16px 32px;
+    background: rgba(34, 197, 94, 0.95);
+    color: white;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.preference-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   区块K：响应式设计
+   ============================================ */
+@media (max-width: 768px) {
+    .preference-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .preference-header {
+        padding: var(--spacing-md);
+    }
+
+    .preference-title {
+        font-size: 1.5rem;
+    }
+
+    .preference-body {
+        padding: var(--spacing-md);
+        max-height: calc(90vh - 180px);
+    }
+
+    .orientation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .orientation-label {
+        padding: var(--spacing-sm);
+    }
+
+    .orientation-icon {
+        font-size: 1.5rem;
+    }
+
+    .orientation-text {
+        font-size: 0.8rem;
+    }
+
+    .tag-label {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .preference-footer {
+        flex-direction: column;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .preference-footer button {
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .orientation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .exclude-tags-grid {
+        gap: 8px;
+    }
+}
