@@ -1,0 +1,417 @@
+/* ============================================================
+ * 文件名: css/home.css
+ * 用途: 首页样式
+ * 依赖: css/themes.css (主题变量)
+ * 
+ * 样式结构:
+ *   1. 欢迎区域
+ *   2. 功能入口卡片
+ *   3. 最近活动
+ *   4. 装饰性效果
+ *   5. 响应式设计
+ * ============================================================ */
+
+/* ========== 区块A: 首页布局 开始 ========== */
+.home-page {
+  padding: 0;
+  max-width: 100%;
+  min-height: calc(100vh - 120px);
+}
+
+/* ========== 区块A: 首页布局 结束 ========== */
+
+/* ========== 区块B: 欢迎区域 开始 ========== */
+.welcome-section {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl, 3rem) var(--spacing-lg, 2rem);
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--background-color, #f8f9fa) 0%,
+    var(--surface-color, #ffffff) 100%
+  );
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.site-slogan {
+  font-family: 'Cormorant Garamond', var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-primary, #2c3e50);
+  margin-bottom: var(--spacing-lg, 2rem);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.site-intro {
+  font-family: var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary, #7f8c8d);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-xl, 3rem);
+  font-weight: 300;
+}
+
+.decrypting-text {
+  margin-top: var(--spacing-xl, 3rem);
+  padding: var(--spacing-lg, 2rem);
+  background: rgba(var(--primary-color-rgb, 108, 92, 231), 0.05);
+  border-radius: var(--border-radius-lg, 16px);
+  border: 1px solid rgba(var(--primary-color-rgb, 108, 92, 231), 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.decrypt-line {
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: var(--primary-color, #6c5ce7);
+  margin-bottom: var(--spacing-sm, 0.75rem);
+  animation: typing 2s steps(40) infinite;
+}
+
+.decrypt-quote {
+  font-family: var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: 1.1rem;
+  color: var(--text-primary, #2c3e50);
+  font-style: italic;
+  opacity: 0;
+  animation: fadeIn 1s ease-in 1s forwards;
+}
+
+@keyframes typing {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 装饰性背景效果 */
+.welcome-bg-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--primary-color, #6c5ce7);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 20s infinite ease-in-out;
+}
+
+.floating-particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.floating-particle:nth-child(2) {
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+  animation-duration: 18s;
+}
+
+.floating-particle:nth-child(3) {
+  top: 40%;
+  left: 30%;
+  animation-delay: 4s;
+  animation-duration: 22s;
+}
+
+.floating-particle:nth-child(4) {
+  top: 70%;
+  left: 60%;
+  animation-delay: 6s;
+  animation-duration: 20s;
+}
+
+.floating-particle:nth-child(5) {
+  top: 30%;
+  left: 90%;
+  animation-delay: 8s;
+  animation-duration: 16s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.5);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-20px, -60px) scale(1);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(30px, -30px) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* ========== 区块B: 欢迎区域 结束 ========== */
+
+/* ========== 区块C: 功能入口卡片 开始 ========== */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg, 2rem);
+  padding: var(--spacing-xl, 3rem) var(--spacing-lg, 2rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  position: relative;
+  background: var(--surface-color, #ffffff);
+  border-radius: var(--border-radius-lg, 16px);
+  padding: var(--spacing-xl, 3rem) var(--spacing-lg, 2rem);
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+  transition: all var(--transition-normal, 0.3s ease);
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color, #6c5ce7),
+    var(--accent-color, #a29bfe)
+  );
+  transform: scaleX(0);
+  transition: transform var(--transition-normal, 0.3s ease);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg, 0 12px 32px rgba(0, 0, 0, 0.15));
+  border-color: var(--primary-color, #6c5ce7);
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-md, 1.5rem);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: transform var(--transition-normal, 0.3s ease);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.feature-title {
+  font-family: var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary, #2c3e50);
+  margin-bottom: var(--spacing-sm, 0.75rem);
+}
+
+.feature-desc {
+  font-size: 1rem;
+  color: var(--text-secondary, #7f8c8d);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md, 1.5rem);
+}
+
+.feature-badge {
+  display: inline-block;
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-md, 1.5rem);
+  background: var(--primary-color, #6c5ce7);
+  color: white;
+  border-radius: var(--border-radius-full, 999px);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--transition-fast, 0.2s ease);
+}
+
+.feature-card:hover .feature-badge {
+  background: var(--primary-hover, #5f4dd1);
+  transform: scale(1.05);
+}
+
+/* 卡片出现动画 */
+.card-appear {
+  animation: cardAppear 0.6s ease-out backwards;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== 区块C: 功能入口卡片 结束 ========== */
+
+/* ========== 区块D: 最近活动 开始 ========== */
+.recent-activity {
+  padding: var(--spacing-xl, 3rem) var(--spacing-lg, 2rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: 1.8rem;
+  color: var(--text-primary, #2c3e50);
+  margin-bottom: var(--spacing-lg, 2rem);
+  text-align: center;
+}
+
+.activity-list {
+  display: grid;
+  gap: var(--spacing-md, 1.5rem);
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md, 1.5rem);
+  padding: var(--spacing-lg, 2rem);
+  background: var(--surface-color, #ffffff);
+  border-radius: var(--border-radius-lg, 16px);
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.08));
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-fast, 0.2s ease);
+  border-left: 4px solid var(--primary-color, #6c5ce7);
+}
+
+.activity-item:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.12));
+}
+
+.activity-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.activity-info {
+  flex: 1;
+}
+
+.activity-title {
+  font-family: var(--font-heading, 'LXGW WenKai'), serif;
+  font-size: 1.1rem;
+  color: var(--text-primary, #2c3e50);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.activity-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary, #7f8c8d);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.activity-date {
+  font-size: 0.85rem;
+  color: var(--text-tertiary, #95a5a6);
+}
+
+/* ========== 区块D: 最近活动 结束 ========== */
+
+/* ========== 区块E: 响应式设计 开始 ========== */
+@media (max-width: 768px) {
+  .welcome-section {
+    min-height: 50vh;
+    padding: var(--spacing-lg, 2rem) var(--spacing-md, 1.5rem);
+  }
+
+  .site-slogan {
+    font-size: 1.5rem;
+  }
+
+  .site-intro {
+    font-size: 1rem;
+  }
+
+  .decrypting-text {
+    padding: var(--spacing-md, 1.5rem);
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md, 1.5rem);
+    padding: var(--spacing-lg, 2rem) var(--spacing-md, 1.5rem);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+  }
+
+  .activity-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ========== 区块E: 响应式设计 结束 ========== */
+
+/* ========== 区块F: 动画效果 开始 ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== 区块F: 动画效果 结束 ========== */
