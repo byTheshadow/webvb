@@ -4,7 +4,7 @@
    依赖：storage.js
    
    主要功能：
-   - 三主题切换（雨幕/春日花园/无人之地）
+   - 三主题切换（rain/spring/wasteland）
    - 保存主题到 localStorage
    - 平滑过渡动画
    - 当前主题高亮显示
@@ -21,88 +21,21 @@ const ThemeManager = {
     themes: {
         rain: {
             id: 'rain',
-            name: '雨幕',
+            name: '落雨日',
             icon: '🌧️',
-            description: '冷色调，忧郁而宁静',
-            colors: {
-                // 背景色
-                '--background-color': '#e8eef5',
-                '--surface-color': 'rgba(255, 255, 255, 0.7)',
-                
-                // 文字色
-                '--text-primary': '#2c3e50',
-                '--text-secondary': '#5a6c7d',
-                '--text-inverse': '#ffffff',
-                
-                // 主题色
-                '--primary-color': '#5b8fb9',
-                '--secondary-color': '#7ba7cc',
-                '--accent-color': '#4a7ba7',
-                
-                // 边框和阴影
-                '--border-color': 'rgba(91, 143, 185, 0.2)',
-                '--shadow-sm': '0 2px 8px rgba(91, 143, 185, 0.1)',
-                '--shadow-md': '0 4px 16px rgba(91, 143, 185, 0.15)',
-                '--shadow-lg': '0 8px 32px rgba(91, 143, 185, 0.2)',
-                
-                // 背景图案
-                '--bg-pattern': 'linear-gradient(135deg, rgba(91, 143, 185, 0.05) 0%, rgba(123, 167, 204, 0.05) 100%)',
-                '--bg-overlay': 'radial-gradient(circle at 20% 50%, rgba(91, 143, 185, 0.1) 0%, transparent 50%)'
-            }
+            description: '冷灰蓝、水汽蒙蒙、淡淡的忧郁与宁静'
         },
-        
         spring: {
             id: 'spring',
-            name: '春日花园',
+            name: '春日序曲',
             icon: '🌸',
-            description: '温暖粉色，浪漫而柔和',
-            colors: {
-                '--background-color': '#fef5f8',
-                '--surface-color': 'rgba(255, 255, 255, 0.8)',
-                
-                '--text-primary': '#4a3842',
-                '--text-secondary': '#8b7a85',
-                '--text-inverse': '#ffffff',
-                
-                '--primary-color': '#e89fb5',
-                '--secondary-color': '#f5b8cc',
-                '--accent-color': '#d88ca3',
-                
-                '--border-color': 'rgba(232, 159, 181, 0.2)',
-                '--shadow-sm': '0 2px 8px rgba(232, 159, 181, 0.1)',
-                '--shadow-md': '0 4px 16px rgba(232, 159, 181, 0.15)',
-                '--shadow-lg': '0 8px 32px rgba(232, 159, 181, 0.2)',
-                
-                '--bg-pattern': 'linear-gradient(135deg, rgba(232, 159, 181, 0.05) 0%, rgba(245, 184, 204, 0.05) 100%)',
-                '--bg-overlay': 'radial-gradient(circle at 80% 20%, rgba(232, 159, 181, 0.1) 0%, transparent 50%)'
-            }
+            description: '柔和、治愈、带着一点清晨冷空气的微暖'
         },
-        
         wasteland: {
             id: 'wasteland',
-            name: '无人之地',
+            name: '无人之境',
             icon: '🌑',
-            description: '深色模式，神秘而深邃',
-            colors: {
-                '--background-color': '#1a1d2e',
-                '--surface-color': 'rgba(42, 47, 69, 0.8)',
-                
-                '--text-primary': '#e8e9f0',
-                '--text-secondary': '#a8aab8',
-                '--text-inverse': '#1a1d2e',
-                
-                '--primary-color': '#6b7fa8',
-                '--secondary-color': '#8a9dc4',
-                '--accent-color': '#5a6d94',
-                
-                '--border-color': 'rgba(107, 127, 168, 0.2)',
-                '--shadow-sm': '0 2px 8px rgba(0, 0, 0, 0.3)',
-                '--shadow-md': '0 4px 16px rgba(0, 0, 0, 0.4)',
-                '--shadow-lg': '0 8px 32px rgba(0, 0, 0, 0.5)',
-                
-                '--bg-pattern': 'linear-gradient(135deg, rgba(107, 127, 168, 0.05) 0%, rgba(138, 157, 196, 0.05) 100%)',
-                '--bg-overlay': 'radial-gradient(circle at 50% 50%, rgba(107, 127, 168, 0.1) 0%, transparent 50%)'
-            }
+            description: '深邃、克制、神秘、极简主义的孤独'
         }
     },
 
@@ -149,17 +82,6 @@ const ThemeManager = {
             return;
         }
 
-        const theme = this.themes[themeName];
-        const root = document.documentElement;
-
-        // 添加过渡效果
-        root.style.transition = 'all 0.3s ease';
-
-        // 应用 CSS 变量
-        Object.entries(theme.colors).forEach(([key, value]) => {
-            root.style.setProperty(key, value);
-        });
-
         // 设置 data-theme 属性
         document.documentElement.setAttribute('data-theme', themeName);
         document.body.setAttribute('data-theme', themeName);
@@ -169,11 +91,6 @@ const ThemeManager = {
 
         // 更新按钮高亮状态
         this.updateButtonStates(themeName);
-
-        // 移除过渡效果（避免影响其他动画）
-        setTimeout(() => {
-            root.style.transition = '';
-        }, 300);
 
         console.log('[ThemeManager] 主题已应用:', themeName);
     },
@@ -241,7 +158,7 @@ const ThemeManager = {
             toast.classList.add('show');
         }, 100);
 
-        // 3秒后移除
+        // 2秒后移除
         setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => {
