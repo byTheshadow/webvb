@@ -1,0 +1,230 @@
+{
+  "presets": [
+    {
+      "id": "mojito",
+      "name": "莫吉托",
+      "nameEn": "Mojito",
+      "category": "经典鸡尾酒",
+      "mood": ["清爽", "活力", "夏日"],
+      "baseSpirit": "white_rum",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "lime_juice", "amount": 20 },
+        { "id": "soda_water", "amount": 100 },
+        { "id": "simple_syrup", "amount": 15 },
+        { "id": "mint_leaves", "amount": 10 }
+      ],
+      "garnish": ["mint_sprig", "lime_wheel"],
+      "technique": "muddle_build",
+      "glassware": "highball",
+      "ice": "crushed",
+      "alcoholContent": 10,
+      "calories": 168,
+      "flavor": {
+        "sweet": 40,
+        "sour": 50,
+        "bitter": 10,
+        "fresh": 80
+      },
+      "description": "清新的薄荷与青柠交织，朗姆酒的温柔在气泡中绽放",
+      "story": "诞生于古巴哈瓦那，海明威最爱的夏日解药",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#98D8C8",
+        "secondary": "#F7FFE5"
+      }
+    },
+    {
+      "id": "margarita",
+      "name": "玛格丽特",
+      "nameEn": "Margarita",
+      "category": "经典鸡尾酒",
+      "mood": ["热情", "浪漫", "微醺"],
+      "baseSpirit": "tequila",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "lime_juice", "amount": 25 },
+        { "id": "triple_sec", "amount": 20 }
+      ],
+      "garnish": ["salt_rim", "lime_wheel"],
+      "technique": "shake",
+      "glassware": "coupe",
+      "ice": "none",
+      "alcoholContent": 22,
+      "calories": 153,
+      "flavor": {
+        "sweet": 30,
+        "sour": 60,
+        "bitter": 20,
+        "fresh": 50
+      },
+      "description": "龙舌兰的烈性被青柠驯服，盐边是最后的温柔",
+      "story": "为纪念逝去的恋人玛格丽特而创作的情书",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#FFE66D",
+        "secondary": "#FF6B6B"
+      }
+    },
+    {
+      "id": "old_fashioned",
+      "name": "老古典",
+      "nameEn": "Old Fashioned",
+      "category": "不朽经典",
+      "mood": ["深沉", "复古", "独酌"],
+      "baseSpirit": "bourbon_whiskey",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "sugar_cube", "amount": 1 },
+        { "id": "angostura_bitters", "amount": 3 }
+      ],
+      "garnish": ["orange_peel", "cocktail_cherry"],
+      "technique": "stir",
+      "glassware": "old_fashioned",
+      "ice": "large_cube",
+      "alcoholContent": 32,
+      "calories": 155,
+      "flavor": {
+        "sweet": 35,
+        "sour": 5,
+        "bitter": 45,
+        "strong": 85
+      },
+      "description": "时间在杯中沉淀，琥珀色的光是往昔的回响。",
+      "story": "并非为时尚而生，而是时尚本身。一杯酒，一块方糖，几滴苦精，是与自我最坦诚的对话。",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#D48C45",
+        "secondary": "#4B2E1A"
+      }
+    },
+    {
+      "id": "negroni",
+      "name": "尼格罗尼",
+      "nameEn": "Negroni",
+      "category": "意式风情",
+      "mood": ["成熟", "苦涩", "回味"],
+      "baseSpirit": "gin",
+      "spiritAmount": 30,
+      "mixers": [
+        { "id": "campari", "amount": 30 },
+        { "id": "sweet_vermouth", "amount": 30 }
+      ],
+      "garnish": ["orange_peel"],
+      "technique": "stir",
+      "glassware": "old_fashioned",
+      "ice": "large_cube",
+      "alcoholContent": 24,
+      "calories": 150,
+      "flavor": {
+        "sweet": 40,
+        "sour": 10,
+        "bitter": 75,
+        "herbaceous": 60
+      },
+      "description": "三分之一的苦，三分之一的甜，三分之一的烈，恰似人生。",
+      "story": "佛罗伦萨的午后，一位伯爵的即兴创作，从此那抹绯红成为成人世界的入场券。",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#B91C1C",
+        "secondary": "#F97316"
+      }
+    },
+    {
+      "id": "dry_martini",
+      "name": "干马提尼",
+      "nameEn": "Dry Martini",
+      "category": "鸡尾酒之王",
+      "mood": ["冷静", "锐利", "权衡"],
+      "baseSpirit": "gin",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "dry_vermouth", "amount": 10 }
+      ],
+      "garnish": ["lemon_twist", "olive"],
+      "technique": "stir",
+      "glassware": "martini_glass",
+      "ice": "none",
+      "alcoholContent": 35,
+      "calories": 140,
+      "flavor": {
+        "sweet": 5,
+        "sour": 5,
+        "bitter": 10,
+        "strong": 90
+      },
+      "description": "冰是它的骨骼，酒是它的灵魂，一颗橄榄是它沉默的眼。",
+      "story": "它不是饮料，是鸡尾酒王座上的宣言。每一滴都考验着调酒师与饮者的心性。",
+      "difficulty": "hard",
+      "colorScheme": {
+        "primary": "#E5E7EB",
+        "secondary": "#65A30D"
+      }
+    },
+    {
+      "id": "whiskey_sour",
+      "name": "威士忌酸",
+      "nameEn": "Whiskey Sour",
+      "category": "经典酸酒",
+      "mood": ["温暖", "平衡", "慰藉"],
+      "baseSpirit": "bourbon_whiskey",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "lemon_juice", "amount": 25 },
+        { "id": "simple_syrup", "amount": 15 },
+        { "id": "egg_white", "amount": 15 }
+      ],
+      "garnish": ["cocktail_cherry", "orange_slice"],
+      "technique": "shake",
+      "glassware": "coupe",
+      "ice": "none",
+      "alcoholContent": 18,
+      "calories": 190,
+      "flavor": {
+        "sweet": 55,
+        "sour": 70,
+        "bitter": 15,
+        "creamy": 60
+      },
+      "description": "烈酒的锋芒被柠檬的温柔包裹，泡沫是它诉说的梦。",
+      "story": "从远航的海员到都市的雅士，它跨越阶层，用最简单的酸甜，抚慰每一个疲惫的灵魂。",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#FBBF24",
+        "secondary": "#FEF3C7"
+      }
+    },
+    {
+      "id": "manhattan",
+      "name": "曼哈顿",
+      "nameEn": "Manhattan",
+      "category": "都市夜曲",
+      "mood": ["优雅", "经典", "夜阑"],
+      "baseSpirit": "rye_whiskey",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "sweet_vermouth", "amount": 30 },
+        { "id": "angostura_bitters", "amount": 2 }
+      ],
+      "garnish": ["cocktail_cherry"],
+      "technique": "stir",
+      "glassware": "martini_glass",
+      "ice": "none",
+      "alcoholContent": 30,
+      "calories": 165,
+      "flavor": {
+        "sweet": 60,
+        "sour": 10,
+        "bitter": 30,
+        "spicy": 50
+      },
+      "description": "黑麦的辛辣与味美思的甜润，是摩天楼下永不落幕的柔情。",
+      "story": "传闻为丘吉尔之母在曼哈顿俱乐部所创，每一口都是镀金时代的辉煌与惆怅。",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#8A2B2B",
+        "secondary": "#FFC0CB"
+      }
+    }
+  ]
+}
