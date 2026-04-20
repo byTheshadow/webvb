@@ -154,29 +154,30 @@ const LoadingScreen = (function() {
         return stars;
     }
 
-    // 开始自动播放
-    function startAutoPlay() {
-        // 第一页停留2秒
-        autoPlayTimer = setTimeout(() => {
-            if (!isSkipped) {
-                nextPage();
-                
-                // 第二页停留3秒
-                autoPlayTimer = setTimeout(() => {
-                    if (!isSkipped) {
-                        nextPage();
-                        
-                        // 第三页停留4秒后自动关闭
-                        autoPlayTimer = setTimeout(() => {
-                            if (!isSkipped) {
-                                closeLoadingScreen();
-                            }
-                        }, 4000);
-                    }
-                }, 3000);
-            }
-        }, 2000);
-    }
+   // 开始自动播放
+function startAutoPlay() {
+    // 第一页停留3秒（欢迎页）
+    autoPlayTimer = setTimeout(() => {
+        if (!isSkipped) {
+            nextPage();
+            
+            // 第二页停留4秒（功能介绍）
+            autoPlayTimer = setTimeout(() => {
+                if (!isSkipped) {
+                    nextPage();
+                    
+                    // 第三页停留6秒后自动关闭（免责声明 - 最重要）
+                    autoPlayTimer = setTimeout(() => {
+                        if (!isSkipped) {
+                            closeLoadingScreen();
+                        }
+                    }, 6000); // 从4秒改为6秒
+                }
+            }, 4000); // 从3秒改为4秒
+        }
+    }, 3000); // 从2秒改为3秒
+}
+
 
     // 翻到下一页
     function nextPage() {
