@@ -366,14 +366,12 @@ renderCreative() {
             mainContent.innerHTML = '<p class="error-message">调酒模块加载失败</p>';
         }
     } else if (subRoute === 'perfume') {
-        // 调香模块（未来）
-        mainContent.innerHTML = `
-            <div class="coming-soon">
-                <h2>🌸 调香工坊</h2>
-                <p>即将开放，敬请期待...</p>
-                <button class="primary-btn" onclick="Router.navigate('creative')">返回创意中心</button>
-            </div>
-        `;
+        // 调香模块 ✅ 已更新
+        if (typeof PerfumeBlender !== 'undefined') {
+            PerfumeBlender.render(mainContent);
+        } else {
+            mainContent.innerHTML = '<p class="error-message">调香模块加载失败</p>';
+        }
     } else {
         // 默认：创意中心入口页
         if (typeof CreativeHub !== 'undefined') {
@@ -395,10 +393,10 @@ renderCreative() {
                             <p>为自己调制专属酒液</p>
                             <button class="primary-btn">开始调酒</button>
                         </div>
-                        <div class="creative-card card">
+                        <div class="creative-card card" onclick="Router.navigate('creative/perfume')">
                             <h3>🌸 调香</h3>
                             <p>创造独特的香水配方</p>
-                            <button class="primary-btn" disabled>即将开放</button>
+                            <button class="primary-btn">开始调香</button>
                         </div>
                     </div>
                 </div>
