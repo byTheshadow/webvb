@@ -23,7 +23,7 @@ const App = {
     },
 
     // ========== 区块A1：初始化方法 开始 ==========
-    // 用途：应用启动时执行
+// 用途：应用启动时执行
 async init() {
     console.log('[App] 开始初始化...');
     
@@ -49,15 +49,25 @@ async init() {
             AudioPlayer.init();
         }
         
-        // ✨ 新增：6. 初始化角色详情页
+        // 6. 初始化角色详情页
         if (typeof CharacterDetail !== 'undefined') {
             CharacterDetail.init();
         }
+        
         // 6.5. 初始化拼贴诗系统
-       if (typeof PoetryCollage !== 'undefined') {
+        if (typeof PoetryCollage !== 'undefined') {
             PoetryCollage.init();
-      }
-
+        }
+        
+        // ✨ 新增：6.6. 初始化创意中心
+        if (typeof CreativeHub !== 'undefined') {
+            CreativeHub.init();
+        }
+        
+        // ✨ 新增：6.7. 初始化调酒系统
+        if (typeof CocktailMixer !== 'undefined') {
+            await CocktailMixer.init(); // 注意这里是 await，因为需要加载数据
+        }
 
         // 7. 绑定全局事件
         this.bindEvents();
@@ -74,6 +84,7 @@ async init() {
         this.showError('应用初始化失败，请刷新页面重试');
     }
 },
+
 
     // ========== 区块A1：初始化方法 结束 ==========
 
