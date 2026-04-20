@@ -1,0 +1,163 @@
+{
+  "templates": [
+    {
+      "id": "short_3",
+      "name": "三词短句",
+      "type": "short",
+      "structure": [
+        { "slot": "nature", "label": "意象" },
+        { "slot": "connector", "label": "连接" },
+        { "slot": "object", "label": "物象" }
+      ],
+      "separator": " / ",
+      "example": "月光 / 洒在 / 屋顶",
+      "mood": ["忧郁", "神秘", "浪漫", "欢快"]
+    },
+    {
+      "id": "short_4",
+      "name": "四词短句",
+      "type": "short",
+      "structure": [
+        { "slot": "nature", "label": "意象" },
+        { "slot": "connector", "label": "连接" },
+        { "slot": "modifier", "label": "修饰" },
+        { "slot": "object", "label": "物象" }
+      ],
+      "separator": " / ",
+      "example": "月光 / 洒在 / 孤独的 / 屋顶",
+      "mood": ["忧郁", "神秘"]
+    },
+    {
+      "id": "short_5",
+      "name": "五词短句",
+      "type": "short",
+      "structure": [
+        { "slot": "time", "label": "时间" },
+        { "slot": "subject", "label": "主语" },
+        { "slot": "action", "label": "动作" },
+        { "slot": "modifier", "label": "修饰" },
+        { "slot": "object", "label": "物象" }
+      ],
+      "separator": " / ",
+      "example": "午后 / 我 / 亲吻 / 凋零的 / 玫瑰",
+      "mood": ["忧郁", "浪漫", "颓废"]
+    },
+    {
+      "id": "parallel_2",
+      "name": "双句对仗",
+      "type": "parallel",
+      "structure": [
+        { "slot": "nature", "label": "意象A" },
+        { "slot": "action", "label": "动作A" },
+        { "slot": "object", "label": "物象A" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "nature", "label": "意象B" },
+        { "slot": "action", "label": "动作B" },
+        { "slot": "object", "label": "物象B" }
+      ],
+      "separator": "",
+      "example": "风吹落叶\n雨打芭蕉",
+      "mood": ["忧郁", "浪漫"]
+    },
+    {
+      "id": "progression_3",
+      "name": "三句递进",
+      "type": "progression",
+      "structure": [
+        { "slot": "nature", "label": "起笔" },
+        { "slot": "action", "label": "动作" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "action", "label": "发展" },
+        { "slot": "object", "label": "物象" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "emotion", "label": "高潮" },
+        { "slot": "abstract", "label": "虚词" }
+      ],
+      "separator": " ",
+      "example": "星光 坠落\n烧毁 森林\n孤独 永生",
+      "mood": ["悲壮", "神秘", "震撼"]
+    },
+    {
+      "id": "imagery_stack",
+      "name": "意象堆叠",
+      "type": "imagery",
+      "structure": [
+        { "slot": "object", "label": "物象1" },
+        { "slot": "object", "label": "物象2" },
+        { "slot": "object", "label": "物象3" },
+        { "slot": "emotion", "label": "情感" }
+      ],
+      "separator": " / ",
+      "example": "玫瑰 / 荆棘 / 血 / 誓言",
+      "mood": ["神秘", "浪漫"]
+    },
+    {
+      "id": "narrative_1",
+      "name": "叙事短句",
+      "type": "narrative",
+      "structure": [
+        { "slot": "emotion", "label": "主语" },
+        { "slot": "connector", "label": "连接" },
+        { "slot": "nature", "label": "时间" },
+        { "slot": "action", "label": "动作" }
+      ],
+      "separator": "",
+      "example": "我在黄昏时分想起你",
+      "mood": ["忧郁", "浪漫"]
+    },
+    {
+      "id": "q_and_a",
+      "name": "问答型",
+      "type": "dialogue",
+      "structure": [
+        { "slot": "question", "label": "疑问" },
+        { "slot": "action", "label": "动作" },
+        { "slot": "object", "label": "物象" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "subject", "label": "主语" },
+        { "slot": "action", "label": "回应" },
+        { "slot": "emotion", "label": "状态" }
+      ],
+      "separator": " ",
+      "example": "谁 谋杀 春天\n众神 保持 沉默",
+      "mood": ["悬疑", "哲理", "冷酷"]
+    },
+    {
+      "id": "monologue_1",
+      "name": "独白型",
+      "type": "monologue",
+      "structure": [
+        { "slot": "subject", "label": "代词" },
+        { "slot": "state", "label": "系词" },
+        { "slot": "modifier", "label": "修饰" },
+        { "slot": "identity", "label": "本体" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "connector", "label": "转折" },
+        { "slot": "action", "label": "动作" },
+        { "slot": "destination", "label": "客体" }
+      ],
+      "separator": "",
+      "example": "我是破碎的镜子\n却照见灵魂",
+      "mood": ["孤独", "自我", "觉醒"]
+    },
+    {
+      "id": "scene_building",
+      "name": "场景型",
+      "type": "scene",
+      "structure": [
+        { "slot": "time", "label": "时间" },
+        { "slot": "location", "label": "地点" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "nature", "label": "意象" },
+        { "slot": "action", "label": "动作" },
+        { "slot": "object", "label": "物象" },
+        { "slot": "linebreak", "label": "换行" },
+        { "slot": "action", "label": "结局" },
+        { "slot": "emotion", "label": "情感" }
+      ],
+      "separator": " ",
+      "example": "深夜 街头\n乌鸦 衔着 钟表\n倒数 绝望",
+      "mood": ["荒诞", "神秘", "电影感"]
+    }
+  ]
+}
