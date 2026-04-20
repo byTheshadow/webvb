@@ -10,7 +10,7 @@
       "families": ["花香调", "东方调"],
       "topNotes": ["佛手柑", "黑加仑芽"],
       "heartNotes": ["茉莉", "晚香玉", "依兰"],
-      "baseNotes": "檀香", "麝香", "琥珀"],
+      "baseNotes": ["檀香", "麝香", "琥珀"],
       "topNoteIds": ["bergamot", "blackcurrantBud"],
       "heartNoteIds": ["jasmine", "tuberose", "ylang-ylang"],
       "baseNoteIds": ["sandalwood", "musk", "amber"],
@@ -96,7 +96,7 @@
       "description": "温暖的果香与木质香，唤起秋天的记忆",
       "mood": "calm",
       "families": ["果香调", "木质调"],
-      "topNotes": ["苹果", "肉桂"],
+      "topNotes": ["苹果", "生姜"],
       "heartNotes": ["桂花", "蜂蜜", "零陵香豆"],
       "baseNotes": ["檀香", "琥珀", "香草"],
       "topNoteIds": ["apple", "ginger"],
@@ -222,3 +222,4 @@
     }
   ]
 }
+
