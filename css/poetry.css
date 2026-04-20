@@ -1,0 +1,718 @@
+/* ================================文件名：poetry.css
+   功能：拼贴诗系统样式
+   主题兼容：使用CSS变量，支持三主题
+   最后更新：2026-04-19================================ */
+
+/* ========== 页面容器 ========== */
+.poetry-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-md) 0;
+}
+
+.poetry-page.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: var(--spacing-md);color: var(--text-secondary);
+}
+
+/* ========== 头部 ========== */
+.poetry-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+}
+
+.poetry-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: var(--letter-spacing-loose);
+}
+
+.poetry-subtitle {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-style: italic;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ========== 模式选择器 ========== */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    padding: 0 var(--spacing-sm);
+}
+
+.mode-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    flex: 1;
+    max-width: 180px;
+}
+
+.mode-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.mode-btn.active {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="wasteland"] .mode-btn.active {
+    background: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(158, 158, 158, 0.15);
+}
+
+.mode-icon {
+    font-size: 24px;
+}
+
+.mode-name {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ========== 诗句展示区 ========== */
+.poem-display {
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-xl);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-md);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poem-canvas {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 24px;
+    line-height: 2.2;
+    color: var(--text-primary);
+    letter-spacing: 0.08em;
+    word-spacing: 0.15em;
+}
+
+/* ========== 诗句中的词语 ========== */
+.poem-word {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.poem-word:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.poem-word:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/*诗句中的分隔符 */
+.poem-canvas br + .poem-word {
+    margin-top: var(--spacing-sm);
+}
+
+/* ========== 操作按钮 ========== */
+.poem-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.action-btn .btn-icon {
+    font-size: 18px;
+}
+
+.regenerate-btn:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+.poem-hint {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-md);
+    font-style: italic;
+}
+
+/* ========== 模板选择器 ========== */
+.selector-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    letter-spacing: var(--letter-spacing-loose);
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+}
+
+.template-card {
+    padding: var(--spacing-md);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: left;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.template-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.template-card.active {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg,
+        rgba(108, 122, 137, 0.08),
+        rgba(168, 178, 185, 0.08)
+    );
+    box-shadow: 0 0 0 3px rgba(108, 122, 137, 0.15);
+}
+
+[data-theme="spring"] .template-card.active {
+    background: linear-gradient(135deg,
+        rgba(143, 160, 140, 0.08),
+        rgba(212, 203, 179, 0.08)
+    );
+    box-shadow: 0 0 0 3px rgba(143, 160, 140, 0.15);
+}
+
+[data-theme="wasteland"] .template-card.active {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(158, 158, 158, 0.2);
+}
+
+.template-name {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.template-example {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-line;
+    font-style: italic;
+}
+
+/* ========== 情绪选择器 ========== */
+.mood-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+}
+
+.mood-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 13px;
+}
+
+.mood-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.mood-btn.active {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    border-color: var(--primary-color);
+}
+
+[data-theme="wasteland"] .mood-btn.active {
+    background: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.mood-emoji {
+    font-size: 18px;
+}
+
+.mood-name {
+    font-size: 13px;
+}
+
+/* ========== 生成按钮 ========== */
+.generate-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto var(--spacing-xl);
+    padding: 16px32px;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+}
+
+/* ========== DIY 模式 ========== */
+.diy-workspace {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.word-library {
+    width: 280px;
+    flex-shrink: 0;max-height: 500px;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.library-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.word-category {
+    margin-bottom: var(--spacing-md);
+}
+
+.category-title {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.word-chip {
+    padding: 4px 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    font-size: 13px;
+    color: var(--text-primary);
+    cursor: grab;
+    transition: all 0.2s;user-select: none;
+}
+
+.word-chip:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.word-chip:active {
+    cursor: grabbing;
+}
+
+/* DIY 画布 */
+.diy-canvas {
+    flex: 1;
+    min-height: 300px;
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
+    transition: all var(--transition-fast);
+}
+
+.diy-canvas.drag-over {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg,
+        rgba(108, 122, 137, 0.05),
+        rgba(168, 178, 185, 0.05)
+    );
+    box-shadow: inset 0 0 30px rgba(108, 122, 137, 0.05);
+}
+
+.canvas-placeholder {
+    width: 100%;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 15px;
+    align-self: center;
+}
+
+.diy-word {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    font-size: 16px;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.delete-word-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    color: var(--text-inverse);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity0.2s;
+    margin-left: 4px;flex-shrink: 0;
+}
+
+.diy-word:hover .delete-word-btn {
+    opacity: 1;
+}
+
+.delete-word-btn:hover {
+    background: #e74c3c;
+}
+
+/* ========== 词语替换器模态框 ========== */
+.word-replacer-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.word-replacer-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.replacer-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.replacer-content {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    max-height: 70vh;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.word-replacer-modal.active .replacer-content {
+    transform: scale(1) translateY(0);
+}
+
+.replacer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.replacer-header h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.replacer-body {
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    max-height: calc(70vh - 60px);
+}
+
+.current-word {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.current-word strong {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.word-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.word-group h4 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 400;
+}
+
+.word-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.word-option {
+    padding: 8px 16px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-pill);
+    font-size: 14px;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.word-option:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);box-shadow: var(--shadow-sm);
+}
+
+/* ========== 动画 ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.poem-word {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.poem-word:nth-child(1) { animation-delay: 0s; }
+.poem-word:nth-child(2) { animation-delay: 0.1s; }
+.poem-word:nth-child(3) { animation-delay: 0.2s; }
+.poem-word:nth-child(4) { animation-delay: 0.3s; }
+.poem-word:nth-child(5) { animation-delay: 0.4s; }
+.poem-word:nth-child(6) { animation-delay: 0.5s; }
+.poem-word:nth-child(7) { animation-delay: 0.6s; }
+.poem-word:nth-child(8) { animation-delay: 0.7s; }
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+    .poetry-title {
+        font-size: 26px;
+    }
+    
+    .mode-selector {
+        gap: 8px;
+    }
+    
+    .mode-btn {
+        padding: 10px 16px;
+    }
+    
+    .mode-icon {
+        font-size: 20px;
+    }
+    
+    .mode-name {
+        font-size: 12px;
+    }
+    
+    .poem-canvas {
+        font-size: 20px;
+        line-height: 2;
+    }
+    
+    .poem-display {
+        padding: var(--spacing-lg);
+    }
+    
+    .template-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .diy-workspace {
+        flex-direction: column;
+    }
+    
+    .word-library {
+        width: 100%;
+        max-height: 250px;
+    }
+    
+    .diy-canvas {
+        min-height: 200px;
+    }
+    
+    .poem-actions {
+        gap: var(--spacing-sm);
+    }
+    
+    .action-btn {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .poetry-title {
+        font-size: 22px;
+    }
+    
+    .poem-canvas {
+        font-size: 18px;
+    }
+    
+    .mood-grid {
+        gap: 8px;
+    }
+    
+    .mood-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+}
+
+/* ========== 暗色主题特殊处理 ========== */
+[data-theme="wasteland"] .poem-display {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="wasteland"] .poem-word:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="wasteland"] .diy-canvas {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="wasteland"] .word-chip:hover {
+    box-shadow: 0 0 12px rgba(158, 158, 158, 0.2);
+}
+
+[data-theme="wasteland"] .word-option:hover {
+    box-shadow: 0 0 12px rgba(158, 158, 158, 0.2);
+}
+
+[data-theme="wasteland"] .replacer-content {
+    border-color: rgba(255, 255, 255, 0.1);
+}
