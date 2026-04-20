@@ -131,32 +131,34 @@
       }
     },
     {
-      "id": "negroni",
-      "name": "内格罗尼",
-      "nameEn": "Negroni",
+      "id": "gin_tonic",
+      "name": "金汤力",
+      "nameEn": "Gin & Tonic",
       "category": "经典鸡尾酒",
-      "mood": ["苦涩", "成熟", "反思"],
+      "mood": ["清爽", "轻松", "社交"],
       "baseSpirit": "gin",
-      "spiritAmount": 30,
-      "mixers": [],
-      "garnish": ["orange_peel_curl"],
-      "technique": "stir",
-      "glassware": "rocks",
-      "ice": "large_cube",
-      "alcoholContent": 24,
-      "calories": 195,
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "tonic_water", "amount": 150 }
+      ],
+      "garnish": ["lemon_slice"],
+      "technique": "build",
+      "glassware": "highball",
+      "ice": "cubes",
+      "alcoholContent": 12,
+      "calories": 120,
       "flavor": {
-        "sweet": 20,
-        "sour": 10,
-        "bitter": 70,
-        "fresh": 30
+        "sweet": 30,
+        "sour": 20,
+        "bitter": 50,
+        "fresh": 70
       },
-      "description": "苦味是成年人的特权，红色是生活的真相",
-      "story": "伯爵在佛罗伦萨的咖啡馆里说：把苏打水换成金酒",
+      "description": "金酒与汤力水的经典对话，苦甜之间是英伦的优雅",
+      "story": "英国殖民地时期的防疟疾良药，如今的社交宠儿",
       "difficulty": "easy",
       "colorScheme": {
-        "primary": "#C41E3A",
-        "secondary": "#8B0000"
+        "primary": "#D4EDDA",
+        "secondary": "#C3E6CB"
       }
     },
     {
@@ -168,6 +170,7 @@
       "baseSpirit": "vodka",
       "spiritAmount": 50,
       "mixers": [
+        { "id": "kahlua", "amount": 25 },
         { "id": "coffee", "amount": 30 },
         { "id": "simple_syrup", "amount": 10 }
       ],
@@ -190,7 +193,137 @@
         "primary": "#3E2723",
         "secondary": "#6D4C41"
       }
+    },
+    {
+      "id": "pina_colada",
+      "name": "椰林飘香",
+      "nameEn": "Piña Colada",
+      "category": "热带鸡尾酒",
+      "mood": ["度假", "热带", "甜蜜"],
+      "baseSpirit": "rum",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "pineapple_juice", "amount": 90 },
+        { "id": "coconut_milk", "amount": 30 }
+      ],
+      "garnish": ["cherry"],
+      "technique": "blend",
+      "glassware": "hurricane",
+      "ice": "crushed",
+      "alcoholContent": 13,
+      "calories": 245,
+      "flavor": {
+        "sweet": 80,
+        "sour": 10,
+        "bitter": 0,
+        "fresh": 60
+      },
+      "description": "菠萝与椰奶的热带梦境，朗姆酒是加勒比海的温度",
+      "story": "波多黎各的国饮，海滩上的液态阳光",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#FFD700",
+        "secondary": "#FFF8DC"
+      }
+    },
+    {
+      "id": "moscow_mule",
+      "name": "莫斯科骡子",
+      "nameEn": "Moscow Mule",
+      "category": "经典鸡尾酒",
+      "mood": ["活力", "辛辣", "清爽"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "ginger_beer", "amount": 120 },
+        { "id": "lemon_juice", "amount": 15 }
+      ],
+      "garnish": ["lemon_slice", "mint_sprig"],
+      "technique": "build",
+      "glassware": "copper_mug",
+      "ice": "cubes",
+      "alcoholContent": 11,
+      "calories": 150,
+      "flavor": {
+        "sweet": 35,
+        "sour": 40,
+        "bitter": 10,
+        "fresh": 70
+      },
+      "description": "姜汁啤酒的辛辣与伏特加的纯净，铜杯里的冰凉革命",
+      "story": "1940年代美国，为了推销伏特加和姜汁啤酒而诞生",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#F5DEB3",
+        "secondary": "#DEB887"
+      }
+    },
+    {
+      "id": "whiskey_sour",
+      "name": "威士忌酸",
+      "nameEn": "Whiskey Sour",
+      "category": "经典鸡尾酒",
+      "mood": ["经典", "平衡", "优雅"],
+      "baseSpirit": "whisky",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "lemon_juice", "amount": 30 },
+        { "id": "simple_syrup", "amount": 20 },
+        { "id": "egg_white", "amount": 15 }
+      ],
+      "garnish": ["cherry", "orange_peel_curl"],
+      "technique": "shake",
+      "glassware": "rocks",
+      "ice": "cubes",
+      "alcoholContent": 25,
+      "calories": 165,
+      "flavor": {
+        "sweet": 40,
+        "sour": 60,
+        "bitter": 15,
+        "fresh": 40
+      },
+      "description": "威士忌的深沉与柠檬的明亮，蛋清的云朵是最后的温柔",
+      "story": "19世纪的经典，酸甜平衡的教科书",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#B5651D",
+        "secondary": "#FFE66D"
+      }
+    },
+    {
+      "id": "bloody_mary",
+      "name": "血腥玛丽",
+      "nameEn": "Bloody Mary",
+      "category": "经典鸡尾酒",
+      "mood": ["宿醉", "早午餐", "咸鲜"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 45,
+      "mixers": [
+        { "id": "tomato_juice", "amount": 90 },
+        { "id": "lemon_juice", "amount": 15 }
+      ],
+      "garnish": ["lemon_slice"],
+      "technique": "build",
+      "glassware": "highball",
+      "ice": "cubes",
+      "alcoholContent": 12,
+      "calories": 125,
+      "flavor": {
+        "sweet": 20,
+        "sour": 40,
+        "bitter": 30,
+        "fresh": 50
+      },
+      "description": "番茄汁的鲜咸与伏特加的清冽，宿醉者的救赎",
+      "story": "巴黎哈里酒吧的传奇，早午餐的灵魂伴侣",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#E34234",
+        "secondary": "#C41E3A"
+      }
     }
   ]
 }
+
 
