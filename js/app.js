@@ -69,6 +69,12 @@ async init() {
             await CocktailMixer.init(); // 注意这里是 await，因为需要加载数据
         }
 
+        // ✨ 新增：6.8. 初始化调香系统
+       if (typeof PerfumeBlender !== 'undefined') {
+       await PerfumeBlender.init();
+       }
+
+
         // 7. 绑定全局事件
         this.bindEvents();
         
