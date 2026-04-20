@@ -100,7 +100,7 @@ const LoadingScreen = (function() {
                                     <div class="disclaimer-text">
                                         大部分角色卡来自 <span class="credit-highlight">锦鲤欧皇食堂</span>
                                         <br>XHS: @一条小锦鲤
-                                        <br>请多多支持原作者！
+                                        <br>来这里加入食堂
                                     </div>
                                 </div>
 
@@ -154,28 +154,28 @@ const LoadingScreen = (function() {
         return stars;
     }
 
-   // 开始自动播放
+  // 开始自动播放
 function startAutoPlay() {
     // 第一页停留3秒（欢迎页）
     autoPlayTimer = setTimeout(() => {
         if (!isSkipped) {
             nextPage();
             
-            // 第二页停留4秒（功能介绍）
+            // 第二页停留5秒（功能介绍）
             autoPlayTimer = setTimeout(() => {
                 if (!isSkipped) {
                     nextPage();
                     
-                    // 第三页停留6秒后自动关闭（免责声明 - 最重要）
+                    // 第三页停留8秒后自动关闭（免责声明）
                     autoPlayTimer = setTimeout(() => {
                         if (!isSkipped) {
                             closeLoadingScreen();
                         }
-                    }, 6000); // 从4秒改为6秒
+                    }, 8000); // 改为8秒
                 }
-            }, 4000); // 从3秒改为4秒
+            }, 5000); // 改为5秒
         }
-    }, 3000); // 从2秒改为3秒
+    }, 3000);
 }
 
 
