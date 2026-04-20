@@ -84,7 +84,7 @@ const CreativeHub = (function() {
                         </button>
                     </div>
 
-                   <!-- 调香 -->
+                                      <!-- 调香 -->
 <div class="hub-card" data-module="perfume">
     <div class="hub-card-icon">🌸</div>
     <h3 class="hub-card-title">调香</h3>
@@ -97,6 +97,22 @@ const CreativeHub = (function() {
     </div>
     <button class="hub-card-btn primary-btn" onclick="Router.navigate('creative/perfume')">
         开始调香
+    </button>
+</div>
+
+<!-- ✨ 新增：我的创作 -->
+<div class="hub-card" data-module="my-creations">
+    <div class="hub-card-icon">📚</div>
+    <h3 class="hub-card-title">我的创作</h3>
+    <p class="hub-card-desc">查看所有保存的作品</p>
+    <div class="hub-card-stats">
+        <span class="stat-item">
+            <span class="stat-icon">✨</span>
+            <span class="stat-value">${state.recentPoems.length + state.recentCocktails.length + state.recentPerfumes.length}</span>
+        </span>
+    </div>
+    <button class="hub-card-btn primary-btn" onclick="Router.navigate('my-creations')">
+        查看作品
     </button>
 </div>
 
