@@ -1,0 +1,224 @@
+{
+  "presets": [
+    {
+      "id": "midnight-garden",
+      "name": "午夜花园",
+      "nameEn": "Midnight Garden",
+      "emoji": "🌙",
+      "description": "月光下的白色花朵，神秘而诱惑，是属于夜晚的香气",
+      "mood": "sensual",
+      "families": ["花香调", "东方调"],
+      "topNotes": ["佛手柑", "黑加仑芽"],
+      "heartNotes": ["茉莉", "晚香玉", "依兰"],
+      "baseNotes": "檀香", "麝香", "琥珀"],
+      "topNoteIds": ["bergamot", "blackcurrantBud"],
+      "heartNoteIds": ["jasmine", "tuberose", "ylang-ylang"],
+      "baseNoteIds": ["sandalwood", "musk", "amber"],
+      "ratios": {
+        "top": 25,
+        "heart": 45,
+        "base": 30
+      },
+      "occasions": ["夜晚", "约会", "派对"],
+      "seasons": ["夏", "秋"]
+    },
+    {
+      "id": "spring-breeze",
+      "name": "春日微风",
+      "nameEn": "Spring Breeze",
+      "emoji": "🌸",
+      "description": "清新淡雅的花香，如春天的第一缕微风拂过花园",
+      "mood": "fresh",
+      "families": ["花香调", "清新调"],
+      "topNotes": ["佛手柑", "梨", "薰衣草"],
+      "heartNotes": ["铃兰", "牡丹", "橙花"],
+      "baseNotes": ["雪松", "麝香"],
+      "topNoteIds": ["bergamot", "pear", "lavender"],
+      "heartNoteIds": ["lily-of-the-valley", "peony", "neroli"],
+      "baseNoteIds": ["cedarwood", "musk"],
+      "ratios": {
+        "top": 30,
+        "heart": 45,
+        "base": 25
+      },
+      "occasions": ["日常", "办公", "约会"],
+      "seasons": ["春", "夏"]
+    },
+    {
+      "id": "oriental-spice",
+      "name": "东方香料",
+      "nameEn": "Oriental Spice",
+      "emoji": "🌶️",
+      "description": "温暖辛辣的东方调，充满异域风情和神秘感",
+      "mood": "mysterious",
+      "families": ["东方调", "辛香调"],
+      "topNotes": ["生姜", "黑加仑芽"],
+      "heartNotes": ["肉桂", "豆蔻", "丁香"],
+      "baseNotes": ["广藿香", "琥珀", "香草"],
+      "topNoteIds": ["ginger", "blackcurrantBud"],
+      "heartNoteIds": ["cinnamon", "cardamom", "clove"],
+      "baseNoteIds": ["patchouli", "amber", "vanilla"],
+      "ratios": {
+        "top": 20,
+        "heart": 50,
+        "base": 30
+      },
+      "occasions": ["夜晚", "特殊场合", "冬日"],
+      "seasons": ["秋", "冬"]
+    },
+    {
+      "id": "citrus-fresh",
+      "name": "柑橘清晨",
+      "nameEn": "Citrus Morning",
+      "emoji": "🍋",
+      "description": "明亮清爽的柑橘香，像清晨的第一缕阳光",
+      "mood": "energetic",
+      "families": ["柑橘调", "清新调"],
+      "topNotes": ["柠檬", "葡萄柚", "薄荷"],
+      "heartNotes": ["天竺葵", "橙花"],
+      "baseNotes": ["雪松", "香根草"],
+      "topNoteIds": ["lemon", "grapefruit", "mint"],
+      "heartNoteIds": ["geranium", "neroli"],
+      "baseNoteIds": ["cedarwood", "vetiver"],
+      "ratios": {
+        "top": 35,
+        "heart": 40,
+        "base": 25
+      },
+      "occasions": ["日常", "运动", "办公"],
+      "seasons": ["春", "夏"]
+    },
+    {
+      "id": "autumn-nostalgia",
+      "name": "秋日怀想",
+      "nameEn": "Autumn Nostalgia",
+      "emoji": "🍂",
+      "description": "温暖的果香与木质香，唤起秋天的记忆",
+      "mood": "calm",
+      "families": ["果香调", "木质调"],
+      "topNotes": ["苹果", "肉桂"],
+      "heartNotes": ["桂花", "蜂蜜", "零陵香豆"],
+      "baseNotes": ["檀香", "琥珀", "香草"],
+      "topNoteIds": ["apple", "ginger"],
+      "heartNoteIds": ["osmanthus", "honey", "tonka-bean"],
+      "baseNoteIds": ["sandalwood", "amber", "vanilla"],
+      "ratios": {
+        "top": 25,
+        "heart": 45,
+        "base": 30
+      },
+      "occasions": ["居家", "休闲", "冥想"],
+      "seasons": ["秋", "冬"]
+    },
+    {
+      "id": "elegant-iris",
+      "name": "优雅鸢尾",
+      "nameEn": "Elegant Iris",
+      "emoji": "🪻",
+      "description": "知性优雅的粉质花香，带着贵族般的气质",
+      "mood": "elegant",
+      "families": ["花香调", "粉质调"],
+      "topNotes": ["佛手柑", "梨"],
+      "heartNotes": ["鸢尾", "紫罗兰", "牡丹"],
+      "baseNotes": ["雪松", "麝香"],
+      "topNoteIds": ["bergamot", "pear"],
+      "heartNoteIds": ["iris", "violet", "peony"],
+      "baseNoteIds": ["cedarwood", "musk"],
+      "ratios": {
+        "top": 25,
+        "heart": 50,
+        "base": 25
+      },
+      "occasions": ["办公", "社交", "晚宴"],
+      "seasons": ["春", "秋"]
+    },
+    {
+      "id": "summer-peach",
+      "name": "仲夏蜜桃",
+      "nameEn": "Summer Peach",
+      "emoji": "🍑",
+      "description": "甜美多汁的果香，充满夏日的活力与甜蜜",
+      "mood": "energetic",
+      "families": ["果香调", "花香调"],
+      "topNotes": ["甜橙", "黑加仑芽"],
+      "heartNotes": ["桃子", "茉莉", "桂花"],
+      "baseNotes": ["麝香", "香草"],
+      "topNoteIds": ["sweetOrange", "blackcurrantBud"],
+      "heartNoteIds": ["peach", "jasmine", "osmanthus"],
+      "baseNoteIds": ["musk", "vanilla"],
+      "ratios": {
+        "top": 30,
+        "heart": 45,
+        "base": 25
+      },
+      "occasions": ["日常", "约会", "派对"],
+      "seasons": ["夏"]
+    },
+    {
+      "id": "leather-tobacco",
+      "name": "皮革烟草",
+      "nameEn": "Leather & Tobacco",
+      "emoji": "🐎",
+      "description": "粗犷而性感的男性香调，充满力量与野性",
+      "mood": "mysterious",
+      "families": ["皮革调", "木质调"],
+      "topNotes": ["黑胡椒", "生姜"],
+      "heartNotes": ["鸢尾", "肉豆蔻"],
+      "baseNotes": ["皮革", "烟草", "香根草"],
+      "topNoteIds": ["black-pepper", "ginger"],
+      "heartNoteIds": ["iris", "nutmeg"],
+      "baseNoteIds": ["leather", "tobacco", "vetiver"],
+      "ratios": {
+        "top": 20,
+        "heart": 40,
+        "base": 40
+      },
+      "occasions": ["夜晚", "社交", "特殊场合"],
+      "seasons": ["秋", "冬"]
+    },
+    {
+      "id": "sacred-incense",
+      "name": "圣殿香薰",
+      "nameEn": "Sacred Incense",
+      "emoji": "⛪",
+      "description": "神圣而宁静的树脂香，带来心灵的平和",
+      "mood": "calm",
+      "families": ["树脂调", "木质调"],
+      "topNotes": ["迷迭香", "薰衣草"],
+      "heartNotes": ["鸢尾", "丁香"],
+      "baseNotes": ["乳香", "没药", "安息香"],
+      "topNoteIds": ["rosemary", "lavender"],
+      "heartNoteIds": ["iris", "clove"],
+      "baseNoteIds": ["frankincense", "myrrh", "benzoin"],
+      "ratios": {
+        "top": 20,
+        "heart": 40,
+        "base": 40
+      },
+      "occasions": ["冥想", "居家", "睡前"],
+      "seasons": ["秋", "冬"]
+    },
+    {
+      "id": "mediterranean-fig",
+      "name": "地中海无花果",
+      "nameEn": "Mediterranean Fig",
+      "emoji": "🟢",
+      "description": "清新的绿色调，带着地中海阳光的温暖",
+      "mood": "calm",
+      "families": ["绿叶调", "木质调"],
+      "topNotes": ["佛手柑", "罗勒"],
+      "heartNotes": ["无花果", "天竺葵"],
+      "baseNotes": ["雪松", "香根草"],
+      "topNoteIds": ["bergamot", "basil"],
+      "heartNoteIds": ["fig", "geranium"],
+      "baseNoteIds": ["cedarwood", "vetiver"],
+      "ratios": {
+        "top": 30,
+        "heart": 40,
+        "base": 30
+      },
+      "occasions": ["日常", "休闲", "旅行"],
+      "seasons": ["夏", "秋"]
+    }
+  ]
+}
