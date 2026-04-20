@@ -323,33 +323,40 @@ renderLenormand() {
 },
 
 
-    // 创意功能页面
+        // 创意功能页面
     renderCreative() {
         const mainContent = document.getElementById('main-content');
-        mainContent.innerHTML = `
-            <div class="creative-page">
-                <h2>创意功能</h2>
-                <div class="creative-options">
-                    <div class="creative-card card">
-                        <h3>🍸 调酒</h3>
-                        <p>为自己和角色调制专属酒液</p>
-                        <button class="primary-btn">开始调酒</button>
-                    </div>
-                    <div class="creative-card card">
-                        <h3>🌸 配香水</h3>
-                        <p>创造独特的香水配方
-                        <button class="primary-btn">开始配香</button>
-                    </div>
-                    <div class="creative-card card">
-                        <h3>📝 拼贴诗</h3>
-                        <p>用词语拼凑出你的诗歌</p>
-                        <button class="primary-btn">开始创作</button>
+        
+        // 检查 PoetryCollage 模块是否已加载
+        if (window.PoetryCollage) {
+            console.log('[Router] 渲染拼贴诗页面');
+            PoetryCollage.render(mainContent);
+        } else {
+            mainContent.innerHTML = `
+                <div class="creative-page">
+                    <h2>✨ 创意工坊</h2>
+                    <p class="creative-subtitle">"在这里，你的情绪可以被调制"</p>
+                    <div class="creative-options">
+                        <div class="creative-card card">
+                            <h3>🍸 调酒</h3>
+                            <p>为自己和角色调制专属酒液</p>
+                            <button class="primary-btn" disabled>即将开放</button>
+                        </div>
+                        <div class="creative-card card">
+                            <h3>🌸 配香水</h3>
+                            <p>创造独特的香水配方</p>
+                            <button class="primary-btn" disabled>即将开放</button>
+                        </div>
+                        <div class="creative-card card">
+                            <h3>📝拼贴诗</h3>
+                            <p>用词语拼凑出你的诗歌</p>
+                            <button class="primary-btn" disabled>加载失败</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        
-        this.injectCreativeStyles();
+            `;
+            this.injectCreativeStyles();
+        }
     },
 
     // CP分析页面
