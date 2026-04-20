@@ -1,0 +1,76 @@
+{
+  "techniques": [
+    {
+      "id": "shake",
+      "name": "摇和",
+      "nameEn": "Shake",
+      "emoji": "🧊",
+      "description": "将材料与冰块放入调酒壶 用力摇晃15-20秒 冰块的撞击声如北极浮冰碎裂 酒液在金属腔壁内奔涌激荡",
+      "effect": "充分混合 冰凉口感 产生细腻泡沫 唤醒沉睡的柑橘精油与乳脂的柔云",
+      "suitableFor": ["含果汁", "含奶油", "含蛋清"],
+      "duration": "15-20秒",
+      "difficulty": "简单",
+      "animation": "shake"
+    },
+    {
+      "id": "stir",
+      "name": "搅拌",
+      "nameEn": "Stir",
+      "emoji": "🥄",
+      "description": "用吧匙在调酒杯中缓缓搅拌30-40秒 吧匙贴着杯壁如僧侣绕塔 不惊动冰块的禅定",
+      "effect": "温和混合 保持清澈透明 口感丝滑 维持烈酒的高贵冷冽与绸缎般的触感",
+      "suitableFor": ["纯酒精饮品", "透明鸡尾酒"],
+      "duration": "30-40秒",
+      "difficulty": "中等",
+      "animation": "stir"
+    },
+    {
+      "id": "build",
+      "name": "直调",
+      "nameEn": "Build",
+      "emoji": "🧱",
+      "description": "直接在饮用杯中依序加入材料与冰块 不经过滤与分离 如同在杯中直接砌一座味觉金字塔",
+      "effect": "层次分明或简单融合 保留原材料的原始性格 冰块在杯中缓缓稀释 风味随时间流动演变",
+      "suitableFor": ["高球类", "含汽水饮品", "烈酒加冰纯饮"],
+      "duration": "1-2分钟",
+      "difficulty": "简单",
+      "animation": "build"
+    },
+    {
+      "id": "muddle",
+      "name": "捣碎",
+      "nameEn": "Muddle",
+      "emoji": "🌿",
+      "description": "以捣棒将杯底的香草 水果或方糖碾压轻旋 释放被封存在植物细胞壁内的古老香气与灵魂汁液",
+      "effect": "萃取新鲜植物精华 油分与香气 赋予酒体深邃的草本骨架与青翠的呼吸感",
+      "suitableFor": ["莫吉托", "古典", "含新鲜薄荷或莓果"],
+      "duration": "30-60秒",
+      "difficulty": "中等",
+      "animation": "muddle"
+    },
+    {
+      "id": "float",
+      "name": "漂浮",
+      "nameEn": "Float/Layer",
+      "emoji": "🌈",
+      "description": "利用液体比重差异 将后一种酒液沿吧匙背部缓缓引流至前一种之上 重力在此刻变得可视且温柔",
+      "effect": "形成泾渭分明又浑然一体的视觉分层 每一口都能尝到由浓至淡或由烈转甜的味觉变奏",
+      "suitableFor": ["彩虹鸡尾酒", "B-52轰炸机", "含利口酒与烈酒"],
+      "duration": "1-2分钟",
+      "difficulty": "困难",
+      "animation": "float"
+    },
+    {
+      "id": "blend",
+      "name": "搅拌机混合",
+      "nameEn": "Blend",
+      "emoji": "🌀",
+      "description": "将冰块 新鲜水果与基酒投入高速旋转的钢铁漩涡 冰晶被暴力粉碎 化作南极洲的冻风与热带果肉的融合体",
+      "effect": "形成霜雪般的绵密冰沙质地 口感如吞云吐雾 极致降温且将风味锁在每一片细小的冰刃之中",
+      "suitableFor": ["冰冻代基里", "冰镇玛格丽特", "含大量水果的饮品"],
+      "duration": "20-30秒",
+      "difficulty": "简单",
+      "animation": "blend"
+    }
+  ]
+}
