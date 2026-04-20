@@ -119,43 +119,37 @@ navigate(routeName) {
 // ========== 区块A3.5：导航方法 结束 ==========
 
 
-    // ========== 区块A4：渲染页面 开始 ==========
-    // 用途：执行页面渲染函数
-    renderPage(routeName) {
-        const route = this.routes[routeName];
-        const mainContent = document.getElementById('main-content');
+   // ========== 区块A4：渲染页面 开始 ==========
+renderPage(routeName, subRoute = null) { // ✨ 新增 subRoute 参数
+    const route = this.routes[routeName];
+    if (!route) return;
+    
+    console.log('[Router] 渲染页面:', routeName, subRoute ? `(子路由: ${subRoute})` : '');
+    
+    // 更新页面标题
+    document.title = `${route.title} - webvb`;
+    
+    // 更新导航状态
+    this.updateNavigation(routeName);
+    
+    // 添加页面切换动画
+    const mainContent = document.getElementById('main-content');
+    mainContent.classList.add('page-exit');
+    
+    setTimeout(() => {
+        // 渲染新页面
+        route.render(subRoute); // ✨ 修改：传入子路由
         
-        if (!mainContent) {
-            console.error('[Router] 找不到main-content元素');
-            return;
-        }
+        mainContent.classList.remove('page-exit');
+        mainContent.classList.add('page-enter');
         
-        // 添加退出动画
-        mainContent.classList.add('page-exit');
-        
-        // 等待动画完成后渲染新页面
         setTimeout(() => {
-            // 清空内容
-            mainContent.innerHTML = '';
-            
-            // 渲染新页面
-            route.render();
-            
-            // 添加进入动画
-            mainContent.classList.remove('page-exit');
-            mainContent.classList.add('page-enter');
-            
-            // 移除动画类
-            setTimeout(() => {
-                mainContent.classList.remove('page-enter');
-            }, 400);
-            
-            // 滚动到顶部
-            window.scrollTo(0, 0);
-            
+            mainContent.classList.remove('page-enter');
         }, 300);
-    },
-    // ========== 区块A4：渲染页面 结束 ==========
+    }, 300);
+},
+// ========== 区块A4：渲染页面 结束 ==========
+
 
     // ========== 区块A5：页面渲染函数 开始 ==========
     // 用途：各个页面的HTML生成
