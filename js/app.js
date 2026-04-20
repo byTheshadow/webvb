@@ -53,7 +53,11 @@ async init() {
         if (typeof CharacterDetail !== 'undefined') {
             CharacterDetail.init();
         }
-        
+                // 6.5. 初始化拼贴诗系统
+        if (typeofPoetryCollage !== 'undefined') {
+            PoetryCollage.init();
+        }
+
         // 7. 绑定全局事件
         this.bindEvents();
         
