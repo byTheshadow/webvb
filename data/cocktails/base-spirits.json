@@ -1,0 +1,327 @@
+{
+  "spirits": [
+    {
+      "id": "vodka",
+      "name": "伏特加",
+      "nameEn": "Vodka",
+      "emoji": "🥃",
+      "description": "纯净如冰川融水 中性而包容",
+      "flavor": ["纯净", "中性", "清爽"],
+      "personality": ["理性", "冷静", "包容"],
+      "abv": 40,
+      "color": "#E8F4F8",
+      "matchMoods": ["深夜独酌", "自由创作"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 40,
+        "intensity": 50
+      }
+    },
+    {
+      "id": "gin",
+      "name": "金酒",
+      "nameEn": "Gin",
+      "emoji": "🌿",
+      "description": "杜松子的清冽 像穿过松林的风",
+      "flavor": ["植物", "清爽", "草本"],
+      "personality": ["自由", "清醒", "独立"],
+      "abv": 43,
+      "color": "#D4EDDA",
+      "matchMoods": ["浪漫约会", "自由创作"],
+      "matchDimensions": {
+        "control": 45,
+        "emotion": 55,
+        "intensity": 55
+      }
+    },
+    {
+      "id": "rum",
+      "name": "朗姆酒",
+      "nameEn": "Rum",
+      "emoji": "🏴‍☠️",
+      "description": "甘蔗田燃烧后的灵魂 加勒比海的体温",
+      "flavor": ["焦糖", "热带水果", "香草"],
+      "personality": ["不羁", "热烈", "浪漫"],
+      "abv": 40,
+      "color": "#D4A373",
+      "matchMoods": ["热情派对", "怀旧时光"],
+      "matchDimensions": {
+        "control": 35,
+        "emotion": 70,
+        "intensity": 65
+      }
+    },
+    {
+      "id": "whisky",
+      "name": "威士忌",
+      "nameEn": "Whisky",
+      "emoji": "🥃",
+      "description": "橡木桶里沉睡的岁月 醒来便是琥珀色的诗",
+      "flavor": ["烟熏", "橡木", "蜂蜜", "香料"],
+      "personality": ["深沉", "睿智", "内敛"],
+      "abv": 43,
+      "color": "#B5651D",
+      "matchMoods": ["深夜独酌", "深度对话"],
+      "matchDimensions": {
+        "control": 70,
+        "emotion": 45,
+        "intensity": 70
+      }
+    },
+    {
+      "id": "tequila",
+      "name": "龙舌兰",
+      "nameEn": "Tequila",
+      "emoji": "🌵",
+      "description": "沙漠心脏里取出的绿色火焰 灼烧而清醒",
+      "flavor": ["草本", "柑橘", "胡椒"],
+      "personality": ["野性", "坦率", "疯狂"],
+      "abv": 40,
+      "color": "#E9F5E9",
+      "matchMoods": ["尽情狂欢", "突破自我"],
+      "matchDimensions": {
+        "control": 30,
+        "emotion": 80,
+        "intensity": 85
+      }
+    },
+    {
+      "id": "brandy",
+      "name": "白兰地",
+      "nameEn": "Brandy",
+      "emoji": "🍇",
+      "description": "葡萄酒的精魂 在橡木桶中修炼出琥珀般的雍容",
+      "flavor": ["葡萄", "果干", "花香", "焦糖"],
+      "personality": ["优雅", "从容", "高贵"],
+      "abv": 40,
+      "color": "#C4722B",
+      "matchMoods": ["优雅独处", "老友重逢"],
+      "matchDimensions": {
+        "control": 65,
+        "emotion": 50,
+        "intensity": 55
+      }
+    },
+    {
+      "id": "baileys",
+      "name": "百利甜",
+      "nameEn": "Baileys",
+      "emoji": "🥛",
+      "description": "爱尔兰奶油与威士忌的私奔 液态的提拉米苏",
+      "flavor": ["奶油", "巧克力", "香草", "焦糖"],
+      "personality": ["温柔", "甜美", "治愈"],
+      "abv": 17,
+      "color": "#EED9C4",
+      "matchMoods": ["温柔慰藉", "甜蜜梦乡"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 75,
+        "intensity": 30
+      }
+    },
+    {
+      "id": "cointreau",
+      "name": "君度橙酒",
+      "nameEn": "Cointreau",
+      "emoji": "🍊",
+      "description": "封存地中海阳光的橙皮水晶 清澈而芬芳",
+      "flavor": ["橙皮", "柑橘", "花香", "清甜"],
+      "personality": ["明朗", "精致", "浪漫"],
+      "abv": 40,
+      "color": "#FFF3E0",
+      "matchMoods": ["浪漫约会", "午后小憩"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 60,
+        "intensity": 45
+      }
+    },
+    {
+      "id": "kahlua",
+      "name": "卡鲁瓦咖啡酒",
+      "nameEn": "Kahlúa",
+      "emoji": "☕",
+      "description": "墨西哥高地咖啡豆与朗姆的暗夜对话",
+      "flavor": ["咖啡", "焦糖", "香草", "巧克力"],
+      "personality": ["神秘", "醇厚", "温暖"],
+      "abv": 20,
+      "color": "#3E2723",
+      "matchMoods": ["深夜独酌", "灵感碰撞"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 55,
+        "intensity": 40
+      }
+    },
+    {
+      "id": "sake",
+      "name": "清酒",
+      "nameEn": "Sake",
+      "emoji": "🍶",
+      "description": "雪国稻米与清泉的俳句 温润了千年时光",
+      "flavor": ["米香", "果香", "旨味", "清冽"],
+      "personality": ["谦和", "细腻", "空灵"],
+      "abv": 15,
+      "color": "#F9F9F0",
+      "matchMoods": ["静谧自省", "君子之交"],
+      "matchDimensions": {
+        "control": 75,
+        "emotion": 35,
+        "intensity": 30
+      }
+    },
+    {
+      "id": "umeshu",
+      "name": "梅酒",
+      "nameEn": "Umeshu",
+      "emoji": "🌸",
+      "description": "青梅在烧酹中封存了整个春天的叹息",
+      "flavor": ["青梅", "杏仁", "蜂蜜", "酸甜"],
+      "personality": ["怀旧", "婉约", "清雅"],
+      "abv": 12,
+      "color": "#FCE4B6",
+      "matchMoods": ["回忆往事", "初夏午后"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 65,
+        "intensity": 25
+      }
+    },
+    {
+      "id": "absinthe",
+      "name": "苦艾酒",
+      "nameEn": "Absinthe",
+      "emoji": "🧚",
+      "description": "绿色缪斯在冰水仪式中苏醒 赐予诗人被禁止的灵感",
+      "flavor": ["茴香", "苦艾", "茴芹", "草本"],
+      "personality": ["迷狂", "叛逆", "诗意"],
+      "abv": 65,
+      "color": "#B4E197",
+      "matchMoods": ["追寻幻觉", "艺术迷狂"],
+      "matchDimensions": {
+        "control": 25,
+        "emotion": 90,
+        "intensity": 90
+      }
+    },
+    {
+      "id": "pisco",
+      "name": "皮斯科",
+      "nameEn": "Pisco",
+      "emoji": "🍇",
+      "description": "安第斯山脉的葡萄烈魂 秘鲁风土的白色火焰",
+      "flavor": ["葡萄", "花香", "柑橘", "草本"],
+      "personality": ["明亮", "热烈", "直接"],
+      "abv": 42,
+      "color": "#FDF5E6",
+      "matchMoods": ["异域探戈", "欢聚时刻"],
+      "matchDimensions": {
+        "control": 40,
+        "emotion": 65,
+        "intensity": 70
+      }
+    },
+    {
+      "id": "calvados",
+      "name": "卡尔瓦多斯",
+      "nameEn": "Calvados",
+      "emoji": "🍎",
+      "description": "诺曼底的苹果园在橡木桶中化为液态的乡愁",
+      "flavor": ["苹果", "梨", "香料", "橡木"],
+      "personality": ["质朴", "温暖", "怀旧"],
+      "abv": 40,
+      "color": "#C5853A",
+      "matchMoods": ["秋日沉思", "田园回忆"],
+      "matchDimensions": {
+        "control": 60,
+        "emotion": 55,
+        "intensity": 50
+      }
+    },
+    {
+      "id": "grappa",
+      "name": "格拉巴",
+      "nameEn": "Grappa",
+      "emoji": "🍇",
+      "description": "葡萄渣滓里重生的烈火 意大利农民的粗粝哲学",
+      "flavor": ["果渣", "辛辣", "花香", "杏仁"],
+      "personality": ["粗犷", "热情", "坚韧"],
+      "abv": 45,
+      "color": "#F8F4E6",
+      "matchMoods": ["餐后长谈", "故土情结"],
+      "matchDimensions": {
+        "control": 35,
+        "emotion": 60,
+        "intensity": 80
+      }
+    },
+    {
+      "id": "soju",
+      "name": "烧酎",
+      "nameEn": "Soju",
+      "emoji": "🍶",
+      "description": "清泉与薯麦的透明呢喃 淡如水的坚韧陪伴",
+      "flavor": ["纯净", "微甜", "清爽"],
+      "personality": ["隐忍", "温和", "平凡"],
+      "abv": 20,
+      "color": "#FCFCFC",
+      "matchMoods": ["市井烟火", "平淡时光"],
+      "matchDimensions": {
+        "control": 70,
+        "emotion": 30,
+        "intensity": 20
+      }
+    },
+    {
+      "id": "campari",
+      "name": "金巴利",
+      "nameEn": "Campari",
+      "emoji": "❤️",
+      "description": "意大利的红宝石苦味剂 将生活的甜与苦搅拌成夕阳",
+      "flavor": ["苦橙", "草本", "辛辣", "甘甜"],
+      "personality": ["世故", "成熟", "矛盾"],
+      "abv": 25,
+      "color": "#C41E3A",
+      "matchMoods": ["日落时分", "反思生活"],
+      "matchDimensions": {
+        "control": 65,
+        "emotion": 50,
+        "intensity": 45
+      }
+    },
+    {
+      "id": "chartreuse",
+      "name": "查特酒",
+      "nameEn": "Chartreuse",
+      "emoji": "💚",
+      "description": "加尔都西修士守口如瓶的秘方 一百三十种草木的祈祷",
+      "flavor": ["草本", "花香", "甜润", "复杂"],
+      "personality": ["神秘", "虔诚", "深邃"],
+      "abv": 55,
+      "color": "#7CFC00",
+      "matchMoods": ["冥想时分", "探索未知"],
+      "matchDimensions": {
+        "control": 50,
+        "emotion": 70,
+        "intensity": 75
+      }
+    },
+    {
+      "id": "amaretto",
+      "name": "杏仁利口酒",
+      "nameEn": "Amaretto",
+      "emoji": "🌰",
+      "description": "意大利苦杏仁与甜杏仁的私语 像爱情里交错的甜与苦",
+      "flavor": ["杏仁", "樱桃核", "香草", "焦糖"],
+      "personality": ["温柔", "怀旧", "包容"],
+      "abv": 28,
+      "color": "#A0522D",
+      "matchMoods": ["甜蜜微醺", "温柔夜晚"],
+      "matchDimensions": {
+        "control": 55,
+        "emotion": 75,
+        "intensity": 25
+      }
+    }
+  ]
+}
