@@ -84,22 +84,22 @@ const CreativeHub = (function() {
                         </button>
                     </div>
 
-                    <!-- 调香 -->
-                    <div class="hub-card" data-module="perfume">
-                        <div class="hub-card-icon">🌸</div>
-                        <h3 class="hub-card-title">调香</h3>
-                        <p class="hub-card-desc">创造独特的香水配方</p>
-                        <div class="hub-card-stats">
-                            <span class="stat-item">
-                                <span class="stat-icon">🧴</span>
-                                <span class="stat-value">${state.recentPerfumes.length}</span>
-                            </span>
-                        </div>
-                        <button class="hub-card-btn secondary-btn" disabled>
-                            即将开放
-                        </button>
-                    </div>
-                </div>
+                   <!-- 调香 -->
+<div class="hub-card" data-module="perfume">
+    <div class="hub-card-icon">🌸</div>
+    <h3 class="hub-card-title">调香</h3>
+    <p class="hub-card-desc">创造独特的香水配方</p>
+    <div class="hub-card-stats">
+        <span class="stat-item">
+            <span class="stat-icon">🧴</span>
+            <span class="stat-value">${state.recentPerfumes.length}</span>
+        </span>
+    </div>
+    <button class="hub-card-btn primary-btn" onclick="Router.navigate('creative/perfume')">
+        开始调香
+    </button>
+</div>
+
 
                 <!-- 最近创作 -->
                 ${renderRecentSection()}
