@@ -328,41 +328,77 @@ renderLenormand() {
 },
 
 
-        // 创意功能页面
-    renderCreative() {
-        const mainContent = document.getElementById('main-content');
-        
-        // 检查 PoetryCollage 模块是否已加载
-        if (window.PoetryCollage) {
-            console.log('[Router] 渲染拼贴诗页面');
+       // 创意功能页面
+renderCreative() {
+    const mainContent = document.getElementById('main-content');
+    
+    // ✨ 新增：解析子路由
+    let hash = window.location.hash.slice(2) || 'creative';
+    let subRoute = null;
+    
+    if (hash.includes('/')) {
+        const parts = hash.split('/');
+        subRoute = parts[1];
+    }
+    
+    console.log('[Router] 渲染创意页面，子路由:', subRoute);
+    
+    // ✨ 根据子路由渲染不同模块
+    if (subRoute === 'poetry') {
+        // 拼贴诗模块
+        if (typeof PoetryCollage !== 'undefined') {
             PoetryCollage.render(mainContent);
         } else {
+            mainContent.innerHTML = '<p class="error-message">拼贴诗模块加载失败</p>';
+        }
+    } else if (subRoute === 'cocktail') {
+        // 调酒模块
+        if (typeof CocktailMixer !== 'undefined') {
+            CocktailMixer.render(mainContent);
+        } else {
+            mainContent.innerHTML = '<p class="error-message">调酒模块加载失败</p>';
+        }
+    } else if (subRoute === 'perfume') {
+        // 调香模块（未来）
+        mainContent.innerHTML = `
+            <div class="coming-soon">
+                <h2>🌸 调香工坊</h2>
+                <p>即将开放，敬请期待...</p>
+                <button class="primary-btn" onclick="Router.navigate('creative')">返回创意中心</button>
+            </div>
+        `;
+    } else {
+        // 默认：创意中心入口页
+        if (typeof CreativeHub !== 'undefined') {
+            CreativeHub.render(mainContent);
+        } else {
+            // 降级方案：显示简单的入口页
             mainContent.innerHTML = `
                 <div class="creative-page">
                     <h2>✨ 创意工坊</h2>
                     <p class="creative-subtitle">"在这里，你的情绪可以被调制"</p>
                     <div class="creative-options">
-                        <div class="creative-card card">
+                        <div class="creative-card card" onclick="Router.navigate('creative/poetry')">
+                            <h3>📝 拼贴诗</h3>
+                            <p>用词语拼凑出你的诗歌</p>
+                            <button class="primary-btn">开始创作</button>
+                        </div>
+                        <div class="creative-card card" onclick="Router.navigate('creative/cocktail')">
                             <h3>🍸 调酒</h3>
-                            <p>为自己和角色调制专属酒液</p>
-                            <button class="primary-btn" disabled>即将开放</button>
+                            <p>为自己调制专属酒液</p>
+                            <button class="primary-btn">开始调酒</button>
                         </div>
                         <div class="creative-card card">
-                            <h3>🌸 配香水</h3>
+                            <h3>🌸 调香</h3>
                             <p>创造独特的香水配方</p>
                             <button class="primary-btn" disabled>即将开放</button>
-                        </div>
-                        <div class="creative-card card">
-                            <h3>📝拼贴诗</h3>
-                            <p>用词语拼凑出你的诗歌</p>
-                            <button class="primary-btn" disabled>加载失败</button>
                         </div>
                     </div>
                 </div>
             `;
-            this.injectCreativeStyles();
         }
-    },
+    }
+},
 
     // CP分析页面
     renderCP() {
