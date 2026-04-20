@@ -1,326 +1,326 @@
 {
-  "spirits": [
+  "presets": [
     {
-      "id": "vodka",
-      "name": "伏特加",
-      "nameEn": "Vodka",
-      "emoji": "🥃",
-      "description": "纯净如冰川融水 中性而包容",
-      "flavor": ["纯净", "中性", "清爽"],
-      "personality": ["理性", "冷静", "包容"],
-      "abv": 40,
-      "color": "#E8F4F8",
-      "matchMoods": ["深夜独酌", "自由创作"],
-      "matchDimensions": {
-        "control": 60,
-        "emotion": 40,
-        "intensity": 50
+      "id": "mojito",
+      "name": "莫吉托",
+      "nameEn": "Mojito",
+      "category": "经典鸡尾酒",
+      "mood": ["清爽", "活力", "夏日"],
+      "baseSpirit": "rum",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "lemon_juice", "amount": 20 },
+        { "id": "soda_water", "amount": 100 },
+        { "id": "simple_syrup", "amount": 15 },
+        { "id": "mint_syrup", "amount": 10 }
+      ],
+      "garnish": ["mint_sprig", "lemon_slice"],
+      "technique": "muddle",
+      "glassware": "highball",
+      "ice": "crushed",
+      "alcoholContent": 10,
+      "calories": 168,
+      "flavor": {
+        "sweet": 40,
+        "sour": 50,
+        "bitter": 10,
+        "fresh": 80
+      },
+      "description": "清新的薄荷与青柠交织，朗姆酒的温柔在气泡中绽放",
+      "story": "诞生于古巴哈瓦那，海明威最爱的夏日解药",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#98D8C8",
+        "secondary": "#F7FFE5"
       }
     },
     {
-      "id": "gin",
-      "name": "金酒",
-      "nameEn": "Gin",
-      "emoji": "🌿",
-      "description": "杜松子的清冽 像穿过松林的风",
-      "flavor": ["植物", "清爽", "草本"],
-      "personality": ["自由", "清醒", "独立"],
-      "abv": 43,
-      "color": "#D4EDDA",
-      "matchMoods": ["浪漫约会", "自由创作"],
-      "matchDimensions": {
-        "control": 45,
-        "emotion": 55,
-        "intensity": 55
+      "id": "margarita",
+      "name": "玛格丽特",
+      "nameEn": "Margarita",
+      "category": "经典鸡尾酒",
+      "mood": ["热情", "浪漫", "微醺"],
+      "baseSpirit": "tequila",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "lemon_juice", "amount": 25 },
+        { "id": "simple_syrup", "amount": 20 }
+      ],
+      "garnish": ["salt_rim", "lemon_slice"],
+      "technique": "shake",
+      "glassware": "coupe",
+      "ice": "none",
+      "alcoholContent": 22,
+      "calories": 153,
+      "flavor": {
+        "sweet": 30,
+        "sour": 60,
+        "bitter": 20,
+        "fresh": 50
+      },
+      "description": "龙舌兰的烈性被青柠驯服，盐边是最后的温柔",
+      "story": "为纪念逝去的恋人玛格丽特而创作的情书",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#FFE66D",
+        "secondary": "#FF6B6B"
       }
     },
     {
-      "id": "rum",
-      "name": "朗姆酒",
-      "nameEn": "Rum",
-      "emoji": "🏴‍☠️",
-      "description": "甘蔗田燃烧后的灵魂 加勒比海的体温",
-      "flavor": ["焦糖", "热带水果", "香草"],
-      "personality": ["不羁", "热烈", "浪漫"],
-      "abv": 40,
-      "color": "#D4A373",
-      "matchMoods": ["热情派对", "怀旧时光"],
-      "matchDimensions": {
-        "control": 35,
-        "emotion": 70,
-        "intensity": 65
+      "id": "old_fashioned",
+      "name": "古典鸡尾酒",
+      "nameEn": "Old Fashioned",
+      "category": "经典鸡尾酒",
+      "mood": ["沉稳", "怀旧", "深沉"],
+      "baseSpirit": "whisky",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "simple_syrup", "amount": 10 },
+        { "id": "angostura_bitters", "amount": 2 }
+      ],
+      "garnish": ["orange_peel_curl", "cherry"],
+      "technique": "stir",
+      "glassware": "rocks",
+      "ice": "large_cube",
+      "alcoholContent": 35,
+      "calories": 180,
+      "flavor": {
+        "sweet": 25,
+        "sour": 5,
+        "bitter": 40,
+        "fresh": 15
+      },
+      "description": "威士忌在冰块中缓缓苏醒，橙皮油雾是它的晨祷",
+      "story": "美国最古老的鸡尾酒之一，时间的味道",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#B5651D",
+        "secondary": "#D4A373"
       }
     },
     {
-      "id": "whisky",
-      "name": "威士忌",
-      "nameEn": "Whisky",
-      "emoji": "🥃",
-      "description": "橡木桶里沉睡的岁月 醒来便是琥珀色的诗",
-      "flavor": ["烟熏", "橡木", "蜂蜜", "香料"],
-      "personality": ["深沉", "睿智", "内敛"],
-      "abv": 43,
-      "color": "#B5651D",
-      "matchMoods": ["深夜独酌", "深度对话"],
-      "matchDimensions": {
-        "control": 70,
-        "emotion": 45,
-        "intensity": 70
+      "id": "cosmopolitan",
+      "name": "大都会",
+      "nameEn": "Cosmopolitan",
+      "category": "经典鸡尾酒",
+      "mood": ["时尚", "优雅", "都市"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 40,
+      "mixers": [
+        { "id": "cranberry_juice", "amount": 30 },
+        { "id": "lemon_juice", "amount": 15 }
+      ],
+      "garnish": ["lemon_slice"],
+      "technique": "shake",
+      "glassware": "martini",
+      "ice": "none",
+      "alcoholContent": 18,
+      "calories": 145,
+      "flavor": {
+        "sweet": 45,
+        "sour": 50,
+        "bitter": 10,
+        "fresh": 60
+      },
+      "description": "粉红色的都市梦境，酸甜之间是欲望的平衡",
+      "story": "《欲望都市》让它成为时尚的代名词",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#FF6B9D",
+        "secondary": "#FFC2D1"
       }
     },
     {
-      "id": "tequila",
-      "name": "龙舌兰",
-      "nameEn": "Tequila",
-      "emoji": "🌵",
-      "description": "沙漠心脏里取出的绿色火焰 灼烧而清醒",
-      "flavor": ["草本", "柑橘", "胡椒"],
-      "personality": ["野性", "坦率", "疯狂"],
-      "abv": 40,
-      "color": "#E9F5E9",
-      "matchMoods": ["尽情狂欢", "突破自我"],
-      "matchDimensions": {
-        "control": 30,
-        "emotion": 80,
-        "intensity": 85
+      "id": "gin_tonic",
+      "name": "金汤力",
+      "nameEn": "Gin & Tonic",
+      "category": "经典鸡尾酒",
+      "mood": ["清爽", "轻松", "社交"],
+      "baseSpirit": "gin",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "tonic_water", "amount": 150 }
+      ],
+      "garnish": ["lemon_slice"],
+      "technique": "build",
+      "glassware": "highball",
+      "ice": "cubes",
+      "alcoholContent": 12,
+      "calories": 120,
+      "flavor": {
+        "sweet": 30,
+        "sour": 20,
+        "bitter": 50,
+        "fresh": 70
+      },
+      "description": "金酒与汤力水的经典对话，苦甜之间是英伦的优雅",
+      "story": "英国殖民地时期的防疟疾良药，如今的社交宠儿",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#D4EDDA",
+        "secondary": "#C3E6CB"
       }
     },
     {
-      "id": "brandy",
-      "name": "白兰地",
-      "nameEn": "Brandy",
-      "emoji": "🍇",
-      "description": "葡萄酒的精魂 在橡木桶中修炼出琥珀般的雍容",
-      "flavor": ["葡萄", "果干", "花香", "焦糖"],
-      "personality": ["优雅", "从容", "高贵"],
-      "abv": 40,
-      "color": "#C4722B",
-      "matchMoods": ["优雅独处", "老友重逢"],
-      "matchDimensions": {
-        "control": 65,
-        "emotion": 50,
-        "intensity": 55
+      "id": "espresso_martini",
+      "name": "浓缩咖啡马天尼",
+      "nameEn": "Espresso Martini",
+      "category": "现代鸡尾酒",
+      "mood": ["清醒", "激情", "夜晚"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "kahlua", "amount": 25 },
+        { "id": "coffee", "amount": 30 },
+        { "id": "simple_syrup", "amount": 10 }
+      ],
+      "garnish": [],
+      "technique": "shake",
+      "glassware": "martini",
+      "ice": "none",
+      "alcoholContent": 20,
+      "calories": 220,
+      "flavor": {
+        "sweet": 40,
+        "sour": 5,
+        "bitter": 60,
+        "fresh": 10
+      },
+      "description": "咖啡因与酒精的危险共舞，午夜的清醒剂",
+      "story": "80年代伦敦，为想要同时清醒和微醺的人而生",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#3E2723",
+        "secondary": "#6D4C41"
       }
     },
     {
-      "id": "baileys",
-      "name": "百利甜",
-      "nameEn": "Baileys",
-      "emoji": "🥛",
-      "description": "爱尔兰奶油与威士忌的私奔 液态的提拉米苏",
-      "flavor": ["奶油", "巧克力", "香草", "焦糖"],
-      "personality": ["温柔", "甜美", "治愈"],
-      "abv": 17,
-      "color": "#EED9C4",
-      "matchMoods": ["温柔慰藉", "甜蜜梦乡"],
-      "matchDimensions": {
-        "control": 50,
-        "emotion": 75,
-        "intensity": 30
+      "id": "pina_colada",
+      "name": "椰林飘香",
+      "nameEn": "Piña Colada",
+      "category": "热带鸡尾酒",
+      "mood": ["度假", "热带", "甜蜜"],
+      "baseSpirit": "rum",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "pineapple_juice", "amount": 90 },
+        { "id": "coconut_milk", "amount": 30 }
+      ],
+      "garnish": ["cherry"],
+      "technique": "blend",
+      "glassware": "hurricane",
+      "ice": "crushed",
+      "alcoholContent": 13,
+      "calories": 245,
+      "flavor": {
+        "sweet": 80,
+        "sour": 10,
+        "bitter": 0,
+        "fresh": 60
+      },
+      "description": "菠萝与椰奶的热带梦境，朗姆酒是加勒比海的温度",
+      "story": "波多黎各的国饮，海滩上的液态阳光",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#FFD700",
+        "secondary": "#FFF8DC"
       }
     },
     {
-      "id": "cointreau",
-      "name": "君度橙酒",
-      "nameEn": "Cointreau",
-      "emoji": "🍊",
-      "description": "封存地中海阳光的橙皮水晶 清澈而芬芳",
-      "flavor": ["橙皮", "柑橘", "花香", "清甜"],
-      "personality": ["明朗", "精致", "浪漫"],
-      "abv": 40,
-      "color": "#FFF3E0",
-      "matchMoods": ["浪漫约会", "午后小憩"],
-      "matchDimensions": {
-        "control": 55,
-        "emotion": 60,
-        "intensity": 45
+      "id": "moscow_mule",
+      "name": "莫斯科骡子",
+      "nameEn": "Moscow Mule",
+      "category": "经典鸡尾酒",
+      "mood": ["活力", "辛辣", "清爽"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 50,
+      "mixers": [
+        { "id": "ginger_beer", "amount": 120 },
+        { "id": "lemon_juice", "amount": 15 }
+      ],
+      "garnish": ["lemon_slice", "mint_sprig"],
+      "technique": "build",
+      "glassware": "copper_mug",
+      "ice": "cubes",
+      "alcoholContent": 11,
+      "calories": 150,
+      "flavor": {
+        "sweet": 35,
+        "sour": 40,
+        "bitter": 10,
+        "fresh": 70
+      },
+      "description": "姜汁啤酒的辛辣与伏特加的纯净，铜杯里的冰凉革命",
+      "story": "1940年代美国，为了推销伏特加和姜汁啤酒而诞生",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#F5DEB3",
+        "secondary": "#DEB887"
       }
     },
     {
-      "id": "kahlua",
-      "name": "卡鲁瓦咖啡酒",
-      "nameEn": "Kahlúa",
-      "emoji": "☕",
-      "description": "墨西哥高地咖啡豆与朗姆的暗夜对话",
-      "flavor": ["咖啡", "焦糖", "香草", "巧克力"],
-      "personality": ["神秘", "醇厚", "温暖"],
-      "abv": 20,
-      "color": "#3E2723",
-      "matchMoods": ["深夜独酌", "灵感碰撞"],
-      "matchDimensions": {
-        "control": 60,
-        "emotion": 55,
-        "intensity": 40
+      "id": "whiskey_sour",
+      "name": "威士忌酸",
+      "nameEn": "Whiskey Sour",
+      "category": "经典鸡尾酒",
+      "mood": ["经典", "平衡", "优雅"],
+      "baseSpirit": "whisky",
+      "spiritAmount": 60,
+      "mixers": [
+        { "id": "lemon_juice", "amount": 30 },
+        { "id": "simple_syrup", "amount": 20 },
+        { "id": "egg_white", "amount": 15 }
+      ],
+      "garnish": ["cherry", "orange_peel_curl"],
+      "technique": "shake",
+      "glassware": "rocks",
+      "ice": "cubes",
+      "alcoholContent": 25,
+      "calories": 165,
+      "flavor": {
+        "sweet": 40,
+        "sour": 60,
+        "bitter": 15,
+        "fresh": 40
+      },
+      "description": "威士忌的深沉与柠檬的明亮，蛋清的云朵是最后的温柔",
+      "story": "19世纪的经典，酸甜平衡的教科书",
+      "difficulty": "medium",
+      "colorScheme": {
+        "primary": "#B5651D",
+        "secondary": "#FFE66D"
       }
     },
     {
-      "id": "sake",
-      "name": "清酒",
-      "nameEn": "Sake",
-      "emoji": "🍶",
-      "description": "雪国稻米与清泉的俳句 温润了千年时光",
-      "flavor": ["米香", "果香", "旨味", "清冽"],
-      "personality": ["谦和", "细腻", "空灵"],
-      "abv": 15,
-      "color": "#F9F9F0",
-      "matchMoods": ["静谧自省", "君子之交"],
-      "matchDimensions": {
-        "control": 75,
-        "emotion": 35,
-        "intensity": 30
-      }
-    },
-    {
-      "id": "umeshu",
-      "name": "梅酒",
-      "nameEn": "Umeshu",
-      "emoji": "🌸",
-      "description": "青梅在烧酹中封存了整个春天的叹息",
-      "flavor": ["青梅", "杏仁", "蜂蜜", "酸甜"],
-      "personality": ["怀旧", "婉约", "清雅"],
-      "abv": 12,
-      "color": "#FCE4B6",
-      "matchMoods": ["回忆往事", "初夏午后"],
-      "matchDimensions": {
-        "control": 55,
-        "emotion": 65,
-        "intensity": 25
-      }
-    },
-    {
-      "id": "absinthe",
-      "name": "苦艾酒",
-      "nameEn": "Absinthe",
-      "emoji": "🧚",
-      "description": "绿色缪斯在冰水仪式中苏醒 赐予诗人被禁止的灵感",
-      "flavor": ["茴香", "苦艾", "茴芹", "草本"],
-      "personality": ["迷狂", "叛逆", "诗意"],
-      "abv": 65,
-      "color": "#B4E197",
-      "matchMoods": ["追寻幻觉", "艺术迷狂"],
-      "matchDimensions": {
-        "control": 25,
-        "emotion": 90,
-        "intensity": 90
-      }
-    },
-    {
-      "id": "pisco",
-      "name": "皮斯科",
-      "nameEn": "Pisco",
-      "emoji": "🍇",
-      "description": "安第斯山脉的葡萄烈魂 秘鲁风土的白色火焰",
-      "flavor": ["葡萄", "花香", "柑橘", "草本"],
-      "personality": ["明亮", "热烈", "直接"],
-      "abv": 42,
-      "color": "#FDF5E6",
-      "matchMoods": ["异域探戈", "欢聚时刻"],
-      "matchDimensions": {
-        "control": 40,
-        "emotion": 65,
-        "intensity": 70
-      }
-    },
-    {
-      "id": "calvados",
-      "name": "卡尔瓦多斯",
-      "nameEn": "Calvados",
-      "emoji": "🍎",
-      "description": "诺曼底的苹果园在橡木桶中化为液态的乡愁",
-      "flavor": ["苹果", "梨", "香料", "橡木"],
-      "personality": ["质朴", "温暖", "怀旧"],
-      "abv": 40,
-      "color": "#C5853A",
-      "matchMoods": ["秋日沉思", "田园回忆"],
-      "matchDimensions": {
-        "control": 60,
-        "emotion": 55,
-        "intensity": 50
-      }
-    },
-    {
-      "id": "grappa",
-      "name": "格拉巴",
-      "nameEn": "Grappa",
-      "emoji": "🍇",
-      "description": "葡萄渣滓里重生的烈火 意大利农民的粗粝哲学",
-      "flavor": ["果渣", "辛辣", "花香", "杏仁"],
-      "personality": ["粗犷", "热情", "坚韧"],
-      "abv": 45,
-      "color": "#F8F4E6",
-      "matchMoods": ["餐后长谈", "故土情结"],
-      "matchDimensions": {
-        "control": 35,
-        "emotion": 60,
-        "intensity": 80
-      }
-    },
-    {
-      "id": "soju",
-      "name": "烧酎",
-      "nameEn": "Soju",
-      "emoji": "🍶",
-      "description": "清泉与薯麦的透明呢喃 淡如水的坚韧陪伴",
-      "flavor": ["纯净", "微甜", "清爽"],
-      "personality": ["隐忍", "温和", "平凡"],
-      "abv": 20,
-      "color": "#FCFCFC",
-      "matchMoods": ["市井烟火", "平淡时光"],
-      "matchDimensions": {
-        "control": 70,
-        "emotion": 30,
-        "intensity": 20
-      }
-    },
-    {
-      "id": "campari",
-      "name": "金巴利",
-      "nameEn": "Campari",
-      "emoji": "❤️",
-      "description": "意大利的红宝石苦味剂 将生活的甜与苦搅拌成夕阳",
-      "flavor": ["苦橙", "草本", "辛辣", "甘甜"],
-      "personality": ["世故", "成熟", "矛盾"],
-      "abv": 25,
-      "color": "#C41E3A",
-      "matchMoods": ["日落时分", "反思生活"],
-      "matchDimensions": {
-        "control": 65,
-        "emotion": 50,
-        "intensity": 45
-      }
-    },
-    {
-      "id": "chartreuse",
-      "name": "查特酒",
-      "nameEn": "Chartreuse",
-      "emoji": "💚",
-      "description": "加尔都西修士守口如瓶的秘方 一百三十种草木的祈祷",
-      "flavor": ["草本", "花香", "甜润", "复杂"],
-      "personality": ["神秘", "虔诚", "深邃"],
-      "abv": 55,
-      "color": "#7CFC00",
-      "matchMoods": ["冥想时分", "探索未知"],
-      "matchDimensions": {
-        "control": 50,
-        "emotion": 70,
-        "intensity": 75
-      }
-    },
-    {
-      "id": "amaretto",
-      "name": "杏仁利口酒",
-      "nameEn": "Amaretto",
-      "emoji": "🌰",
-      "description": "意大利苦杏仁与甜杏仁的私语 像爱情里交错的甜与苦",
-      "flavor": ["杏仁", "樱桃核", "香草", "焦糖"],
-      "personality": ["温柔", "怀旧", "包容"],
-      "abv": 28,
-      "color": "#A0522D",
-      "matchMoods": ["甜蜜微醺", "温柔夜晚"],
-      "matchDimensions": {
-        "control": 55,
-        "emotion": 75,
-        "intensity": 25
+      "id": "bloody_mary",
+      "name": "血腥玛丽",
+      "nameEn": "Bloody Mary",
+      "category": "经典鸡尾酒",
+      "mood": ["宿醉", "早午餐", "咸鲜"],
+      "baseSpirit": "vodka",
+      "spiritAmount": 45,
+      "mixers": [
+        { "id": "tomato_juice", "amount": 90 },
+        { "id": "lemon_juice", "amount": 15 }
+      ],
+      "garnish": ["lemon_slice"],
+      "technique": "build",
+      "glassware": "highball",
+      "ice": "cubes",
+      "alcoholContent": 12,
+      "calories": 125,
+      "flavor": {
+        "sweet": 20,
+        "sour": 40,
+        "bitter": 30,
+        "fresh": 50
+      },
+      "description": "番茄汁的鲜咸与伏特加的清冽，宿醉者的救赎",
+      "story": "巴黎哈里酒吧的传奇，早午餐的灵魂伴侣",
+      "difficulty": "easy",
+      "colorScheme": {
+        "primary": "#E34234",
+        "secondary": "#C41E3A"
       }
     }
   ]
