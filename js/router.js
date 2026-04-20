@@ -421,6 +421,19 @@ renderCreative() {
             </div>
         `;
     },
+   // 我的创作页面
+renderMyCreations() {
+    const mainContent = document.getElementById('main-content');
+    
+    if (typeof MyCreations !== 'undefined') {
+        console.log('[Router] 渲染我的创作页面');
+        MyCreations.render(mainContent);
+    } else {
+        console.error('[Router] MyCreations 模块未加载');
+        mainContent.innerHTML = '<p class="error-message">我的创作模块加载失败</p>';
+    }
+},
+
 
     // 更多功能页面
     renderMore() {
