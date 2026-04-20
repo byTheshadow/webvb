@@ -1,0 +1,947 @@
+/* ================================
+   文件名：cocktail.css
+   功能：调酒系统样式
+   依赖：themes.css, main.css
+   
+   主要样式：
+   - 调酒页面布局
+   - 步骤指示器
+   - 选择卡片
+   - 酒卡展示
+   - 预设配方列表
+   
+   最后更新：2026-04-20
+   ================================ */
+
+/* ========== 区块A：页面布局 开始 ========== */
+.cocktail-mixer-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    min-height: 100vh;
+}
+
+.mixer-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.mixer-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mixer-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.mixer-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    background: transparent;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--text-primary);
+}
+
+.mixer-tab:hover {
+    border-color: var(--primary-color);
+    background: var(--surface-color);
+}
+
+.mixer-tab.active {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+.mixer-content {
+    width: 100%;
+}
+/* ========== 区块A：页面布局 结束 ========== */
+
+/* ========== 区块B：步骤指示器 开始 ========== */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    position: relative;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 0;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.step-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--background-color);
+    border: 3px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all var(--transition-fast);
+}
+
+.step-item.active .step-icon {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.3);
+}
+
+.step-item.completed .step-icon {
+    border-color: var(--success-color);
+    background: var(--success-color);
+}
+
+.step-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.step-item.active .step-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+/* ========== 区块B：步骤指示器 结束 ========== */
+
+/* ========== 区块C：步骤内容 开始 ========== */
+.step-content {
+    margin-bottom: var(--spacing-xl);
+}
+
+.step-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.step-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    font-style: italic;
+}
+
+.step-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.step-actions button {
+    min-width: 120px;
+}
+/* ========== 区块C：步骤内容 结束 ========== */
+
+/* ========== 区块D：心情选择 开始 ========== */
+.mood-selection {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.mood-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mood-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.mood-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-rgb), 0.1));
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
+}
+
+.mood-emoji {
+    font-size: 48px;
+    margin-bottom: var(--spacing-md);
+}
+
+.mood-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.mood-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.next-step-btn {
+    display: block;
+    margin: 0 auto;
+    min-width: 200px;
+}
+/* ========== 区块D：心情选择 结束 ========== */
+
+/* ========== 区块E：基酒选择 开始 ========== */
+.spirit-selection {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.recommended-section,
+.all-spirits-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.spirit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.spirit-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.spirit-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.spirit-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-rgb), 0.1));
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.spirit-card.recommended {
+    border-color: var(--accent-color);
+}
+
+.recommended-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.spirit-emoji {
+    font-size: 40px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spirit-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.spirit-name-en {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-sm);
+    font-style: italic;
+}
+
+.spirit-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spirit-abv {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+/* ========== 区块E：基酒选择 结束 ========== */
+
+/* ========== 区块F：辅料选择 开始 ========== */
+.mixer-selection {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mixer-category {
+    margin-bottom: var(--spacing-xl);
+}
+
+.category-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    padding-left: var(--spacing-sm);
+    border-left: 3px solid var(--primary-color);
+}
+
+.mixer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.mixer-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mixer-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.mixer-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-rgb), 0.1));
+}
+
+.mixer-emoji {
+    font-size: 32px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.mixer-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.mixer-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+/* ========== 区块F：辅料选择 结束 ========== */
+
+/* ========== 区块G：手法选择 开始 ========== */
+.technique-selection {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.technique-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.technique-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.technique-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-rgb), 0.1));
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.technique-emoji {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.technique-name {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.technique-name-en {
+    font-size: 12px;
+    text-align: center;
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+}
+
+.technique-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+}
+
+.technique-meta {
+    display: flex;
+    justify-content: space-around;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.technique-duration,
+.technique-difficulty {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+/* ========== 区块G：手法选择 结束 ========== */
+
+/* ========== 区块H：装饰选择 开始 ========== */
+.garnish-selection {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.garnish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.garnish-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.garnish-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.garnish-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-rgb), 0.1));
+}
+
+.garnish-emoji {
+    font-size: 32px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.garnish-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.garnish-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    margin-bottom: var(--spacing-xs);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.garnish-placement {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+/* ========== 区块H：装饰选择 结束 ========== */
+
+/* ========== 区块I：酒卡展示 开始 ========== */
+.cocktail-result {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.result-card {
+    background: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.result-header {
+    padding: var(--spacing-xl);
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.result-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.cocktail-name {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cocktail-name-en {
+    font-size: 16px;
+    font-style: italic;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+.result-body {
+    padding: var(--spacing-xl);
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.recipe-section,
+.method-section,
+.garnish-section,
+.description-section,
+.mood-tag-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.recipe-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.recipe-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+}
+
+.ingredient-icon {
+    font-size: 24px;
+}
+
+.ingredient-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.ingredient-amount {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+
+.method-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-sm);
+}
+
+.method-emoji {
+    font-size: 32px;
+}
+
+.method-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.method-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.garnish-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.garnish-tag {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.cocktail-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.mood-tag {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: var(--border-radius);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.result-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+.result-actions button {
+    flex: 1;
+}
+/* ========== 区块I：酒卡展示 结束 ========== */
+
+/* ========== 区块J：预设配方 开始 ========== */
+.presets-mode {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.presets-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.presets-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    font-style: italic;
+}
+
+.presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.preset-card {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 2px solid transparent;
+}
+
+.preset-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.preset-header {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.preset-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.preset-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    z-index: 1;
+}
+
+.preset-name-en {
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+.preset-body {
+    padding: var(--spacing-lg);
+}
+
+.preset-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+}
+
+.preset-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.preset-moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.mood-badge {
+    padding: 2px 8px;
+    background: var(--background-color);
+    border-radius: 12px;
+    font-size: 11px;
+    color: var(--text-primary);
+}
+
+.preset-btn {
+    width: 100%;
+}
+/* ========== 区块J：预设配方 结束 ========== */
+
+/* ========== 区块K：选择预览 开始 ========== */
+.selection-preview {
+    position: sticky;
+    bottom: var(--spacing-lg);
+    background: var(--surface-color);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.preview-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.preview-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.preview-label {
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.preview-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+/* ========== 区块K：选择预览 结束 ========== */
+
+/* ========== 区块L：响应式设计 开始 ========== */
+@media (max-width: 768px) {
+    .cocktail-mixer-page {
+        padding: var(--spacing-md);
+    }
+
+    .mixer-title {
+        font-size: 24px;
+    }
+
+    .mixer-tabs {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .mixer-tab {
+        width: 100%;
+    }
+
+    .step-indicator {
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: var(--spacing-md);
+    }
+
+    .step-indicator::before {
+        display: none;
+    }
+
+    .step-item {
+        flex: 0 0 auto;
+    }
+
+    .mood-grid,
+    .spirit-grid,
+    .mixer-grid,
+    .technique-grid,
+    .garnish-grid,
+    .presets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .step-actions {
+        flex-direction: column;
+    }
+
+    .step-actions button {
+        width: 100%;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .selection-preview {
+        position: static;
+        margin-top: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .mixer-title {
+        font-size: 20px;
+    }
+
+    .step-title {
+        font-size: 22px;
+    }
+
+    .cocktail-name {
+        font-size: 24px;
+    }
+}
+/* ========== 区块L：响应式设计 结束 ========== */
