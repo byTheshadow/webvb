@@ -1,0 +1,108 @@
+{
+  "garnishes": [
+    {
+      "id": "lemon_slice",
+      "name": "柠檬片",
+      "emoji": "🍋",
+      "description": "挂在杯沿的一弯新月",
+      "visual": "清新明亮",
+      "placement": "杯沿"
+    },
+    {
+      "id": "mint_sprig",
+      "name": "薄荷叶",
+      "emoji": "🌿",
+      "description": "一小簇绿意 呼吸的味道",
+      "visual": "自然清新",
+      "placement": "杯顶"
+    },
+    {
+      "id": "cherry",
+      "name": "樱桃",
+      "emoji": "🍒",
+      "description": "沉入琥珀色梦境的最后一颗红宝石 甜与醉的标点",
+      "visual": "深邃热烈",
+      "placement": "杯底 或 叉悬于杯沿"
+    },
+    {
+      "id": "orange_peel_curl",
+      "name": "橙皮卷",
+      "emoji": "🍊",
+      "description": "旋绕的夕阳余烬 指尖挤压出的那片薄雾与油光",
+      "visual": "古典优雅",
+      "placement": "杯沿 或 漂浮于液面"
+    },
+    {
+      "id": "olive",
+      "name": "橄榄",
+      "emoji": "🫒",
+      "description": "一颗浸泡在寂静中的青绿星球 咸涩的句读",
+      "visual": "冷峻克制",
+      "placement": "沉底 或 置于签上横搭杯口"
+    },
+    {
+      "id": "cinnamon_stick",
+      "name": "肉桂棒",
+      "emoji": "🥖",
+      "description": "从热带雨季抽出的半截褐色独木舟 搅动满杯的暖香",
+      "visual": "温暖质朴",
+      "placement": "直立于杯中 或 斜倚杯口"
+    },
+    {
+      "id": "star_anise",
+      "name": "星茴香",
+      "emoji": "⭐",
+      "description": "八角垂芒 一枚落在酒面观察众生的褐色星宿",
+      "visual": "神秘异域",
+      "placement": "漂浮于液面"
+    },
+    {
+      "id": "rosemary_sprig",
+      "name": "迷迭香枝",
+      "emoji": "🌲",
+      "description": "截取了一段针叶林的海风 刺破甜腻的清醒记忆",
+      "visual": "清冷凛冽",
+      "placement": "斜插 如风中旗幡"
+    },
+    {
+      "id": "salt_rim",
+      "name": "盐边",
+      "emoji": "🧂",
+      "description": "细雪覆上唇沿 是海浪退去后留在玻璃上的吻痕",
+      "visual": "晶莹如霜",
+      "placement": "杯口边缘"
+    },
+    {
+      "id": "sugar_rim",
+      "name": "糖边",
+      "emoji": "❄️",
+      "description": "少女睫毛上的初霜 是欢愉凝结成的碎钻堤岸",
+      "visual": "闪烁甜蜜",
+      "placement": "杯口边缘"
+    },
+    {
+      "id": "edible_petals",
+      "name": "可食用花瓣",
+      "emoji": "🌸",
+      "description": "春天在此处搁浅 酒面上漂泊的彩绘帆影",
+      "visual": "纤柔浪漫",
+      "placement": "漂浮于液面 或 轻贴杯壁内测"
+    },
+    {
+      "id": "marshmallow",
+      "name": "棉花糖",
+      "emoji": "☁️",
+      "description": "三朵不肯融化的云 搁浅在热可可的沼泽与烈酒的火焰之间",
+      "visual": "天真软糯",
+      "placement": "杯顶 或 串烧"
+    },
+    {
+      "id": "other_garnishes",
+      "name": "其他调酒可用装饰",
+      "emoji": "✨",
+      "description": "诸如菠萝叶的冠冕 黄瓜片的透镜 或是燃烧的陈皮流星",
+      "visual": "无尽变幻",
+      "placement": "随酒赋形"
+    }
+  ]
+}
