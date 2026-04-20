@@ -398,104 +398,118 @@ const CocktailMixer = (function() {
     }
     // ========== 区块A12：装饰选择步骤 结束 ==========
 
-    // ========== 区块A13：结果展示步骤 开始 ==========
-    function renderResultStep() {
-        const cocktail = state.generatedCocktail;
-        if (!cocktail) return '<p>生成失败，请重试</p>';
+   // ========== 区块A13：结果展示步骤 开始 ==========
+function renderResultStep() {
+    const cocktail = state.generatedCocktail;
+    if (!cocktail) return '<p>生成失败，请重试</p>';
 
-        return `
-            <div class="cocktail-result">
-                <div class="result-card">
-                    <!-- 酒卡头部 -->
-                    <div class="result-header" style="background: linear-gradient(135deg, ${cocktail.color}, ${cocktail.secondaryColor});">
-                        <h2 class="cocktail-name">${cocktail.name}</h2>
-                        <p class="cocktail-name-en">${cocktail.nameEn || ''}</p>
+    // ✅ 增加容错检查
+    if (!cocktail.spirit) {
+        console.error('[CocktailMixer] 酒卡数据错误：缺少基酒');
+        return '<p class="error-message">酒卡数据错误，请重新调制</p>';
+    }
+
+    if (!cocktail.technique) {
+        console.error('[CocktailMixer] 酒卡数据错误：缺少手法');
+        return '<p class="error-message">酒卡数据错误，请重新调制</p>';
+    }
+
+    return `
+        <div class="cocktail-result">
+            <div class="result-card">
+                <!-- 酒卡头部 -->
+                <div class="result-header" style="background: linear-gradient(135deg, ${cocktail.color}, ${cocktail.secondaryColor});">
+                    <h2 class="cocktail-name">${cocktail.name}</h2>
+                    ${cocktail.nameEn ? `<p class="cocktail-name-en">${cocktail.nameEn}</p>` : ''}
+                </div>
+
+                <!-- 酒卡主体 -->
+                <div class="result-body">
+                    <!-- 配方信息 -->
+                    <div class="recipe-section">
+                        <h3 class="section-title">🥃 配方</h3>
+                        <div class="recipe-list">
+                            <div class="recipe-item">
+                                <span class="ingredient-icon">${cocktail.spirit.emoji || '🥃'}</span>
+                                <span class="ingredient-name">${cocktail.spirit.name}</span>
+                                <span class="ingredient-amount">50ml</span>
+                            </div>
+                            ${cocktail.mixers && cocktail.mixers.length > 0 ? cocktail.mixers.map(mixer => `
+                                <div class="recipe-item">
+                                    <span class="ingredient-icon">${mixer.emoji || '🧃'}</span>
+                                    <span class="ingredient-name">${mixer.name}</span>
+                                    <span class="ingredient-amount">适量</span>
+                                </div>
+                            `).join('') : ''}
+                        </div>
                     </div>
 
-                    <!-- 酒卡主体 -->
-                    <div class="result-body">
-                        <!-- 配方信息 -->
-                        <div class="recipe-section">
-                            <h3 class="section-title">🥃 配方</h3>
-                            <div class="recipe-list">
-                                <div class="recipe-item">
-                                    <span class="ingredient-icon">${cocktail.spirit.emoji}</span>
-                                    <span class="ingredient-name">${cocktail.spirit.name}</span>
-                                    <span class="ingredient-amount">50ml</span>
-                                </div>
-                                ${cocktail.mixers.map(mixer => `
-                                    <div class="recipe-item">
-                                        <span class="ingredient-icon">${mixer.emoji}</span>
-                                        <span class="ingredient-name">${mixer.name}</span>
-                                        <span class="ingredient-amount">适量</span>
-                                    </div>
+                    <!-- 调制方法 -->
+                    <div class="method-section">
+                        <h3 class="section-title">🧊 手法</h3>
+                        <div class="method-card">
+                            <span class="method-emoji">${cocktail.technique.emoji || '🧊'}</span>
+                            <span class="method-name">${cocktail.technique.name}</span>
+                        </div>
+                        <p class="method-desc">${cocktail.technique.effect || cocktail.technique.description || ''}</p>
+                    </div>
+
+                    <!-- 装饰 -->
+                    ${cocktail.garnishes && cocktail.garnishes.length > 0 ? `
+                        <div class="garnish-section">
+                            <h3 class="section-title">🌿 装饰</h3>
+                            <div class="garnish-list">
+                                ${cocktail.garnishes.map(g => `
+                                    <span class="garnish-tag">${g.emoji || '🌿'} ${g.name}</span>
                                 `).join('')}
                             </div>
                         </div>
+                    ` : ''}
 
-                        <!-- 调制方法 -->
-                        <div class="method-section">
-                            <h3 class="section-title">🧊 手法</h3>
-                            <div class="method-card">
-                                <span class="method-emoji">${cocktail.technique.emoji}</span>
-                                <span class="method-name">${cocktail.technique.name}</span>
-                            </div>
-                            <p class="method-desc">${cocktail.technique.effect}</p>
-                        </div>
+                    <!-- 描述 -->
+                    <div class="description-section">
+                        <h3 class="section-title">✨ 品鉴</h3>
+                        <p class="cocktail-description">${cocktail.description || '一杯独特的调制'}</p>
+                    </div>
 
-                        <!-- 装饰 -->
-                        ${cocktail.garnishes.length > 0 ? `
-                            <div class="garnish-section">
-                                <h3 class="section-title">🌿 装饰</h3>
-                                <div class="garnish-list">
-                                    ${cocktail.garnishes.map(g => `
-                                        <span class="garnish-tag">${g.emoji} ${g.name}</span>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-
-                        <!-- 描述 -->
-                        <div class="description-section">
-                            <h3 class="section-title">✨ 品鉴</h3>
-                            <p class="cocktail-description">${cocktail.description}</p>
-                        </div>
-
-                        <!-- 心情标签 -->
+                    <!-- 心情标签 -->
+                    ${cocktail.mood ? `
                         <div class="mood-tag-section">
                             <span class="mood-tag">💭 ${getMoodName(cocktail.mood)}</span>
                         </div>
-                    </div>
+                    ` : ''}
+                </div>
 
-                    <!-- 操作按钮 -->
-                    <div class="result-actions">
-                        <button class="secondary-btn" onclick="CocktailMixer.reset()">
-                            🔄 重新调制
-                        </button>
-                        <button class="primary-btn" onclick="CocktailMixer.saveCocktail()">
-                            💾 保存酒卡
-                        </button>
-                        <button class="secondary-btn" onclick="CocktailMixer.shareCocktail()">
-                            📤 分享
-                        </button>
-                    </div>
+                <!-- 操作按钮 -->
+                <div class="result-actions">
+                    <button class="secondary-btn" onclick="CocktailMixer.reset()">
+                        🔄 重新调制
+                    </button>
+                    <button class="primary-btn" onclick="CocktailMixer.saveCocktail()">
+                        💾 保存酒卡
+                    </button>
+                    <button class="secondary-btn" onclick="CocktailMixer.shareCocktail()">
+                        📤 分享
+                    </button>
                 </div>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
-    function getMoodName(moodId) {
-        const moodMap = {
-            'calm': '平静',
-            'energetic': '活力',
-            'romantic': '浪漫',
-            'melancholy': '忧郁',
-            'adventurous': '冒险',
-            'nostalgic': '怀旧'
-        };
-        return moodMap[moodId] || moodId;
-    }
-    // ========== 区块A13：结果展示步骤 结束 ==========
+function getMoodName(moodId) {
+    const moodMap = {
+        'calm': '平静',
+        'energetic': '活力',
+        'romantic': '浪漫',
+        'melancholy': '忧郁',
+        'adventurous': '冒险',
+        'nostalgic': '怀旧'
+    };
+    return moodMap[moodId] || moodId;
+}
+// ========== 区块A13：结果展示步骤 结束 ==========
+
 
     // ========== 区块A14：预设配方模式 开始 ==========
     function renderPresetsMode() {
