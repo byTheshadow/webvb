@@ -27,32 +27,37 @@ const Router = {
     
     // ========== 区块A1：路由配置 开始 ==========
     // 用途：定义所有路由和对应的渲染函数
-    routes: {
-        'home': {
-            title: '首页',
-            render: () => Router.renderHome()
-        },
-        'test': {
-            title: '人格测试',
-            render: () => Router.renderTest()
-        },
-        'lenormand': {
-            title: '雷诺曼占卜',
-            render: () => Router.renderLenormand()
-        },
-        'creative': {
-            title: '创意功能',
-            render: () => Router.renderCreative()
-        },
-        'cp': {
-            title: 'CP分析',
-            render: () => Router.renderCP()
-        },
-        'more': {
-            title: '更多',
-            render: () => Router.renderMore()
-        }
+   routes: {
+    'home': {
+        title: '首页',
+        render: () => Router.renderHome()
     },
+    'test': {
+        title: '人格测试',
+        render: () => Router.renderTest()
+    },
+    'lenormand': {
+        title: '雷诺曼占卜',
+        render: () => Router.renderLenormand()
+    },
+    'creative': {
+        title: '创意功能',
+        render: () => Router.renderCreative()
+    },
+    'my-creations': {  // ✨ 新增
+        title: '我的创作',
+        render: () => Router.renderMyCreations()
+    },
+    'cp': {
+        title: 'CP分析',
+        render: () => Router.renderCP()
+    },
+    'more': {
+        title: '更多',
+        render: () => Router.renderMore()
+    }
+},
+
     // ========== 区块A1：路由配置 结束 ==========
 
     // ========== 区块A2：初始化路由 开始 ==========
