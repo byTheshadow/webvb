@@ -6,6 +6,8 @@
     <meta name="description" content="Vibe Coding - 互动人格探索与角色卡推荐平台">
     <link rel="stylesheet" href="css/fortune.css">
     <link rel="stylesheet" href="css/poetry.css"> <!-- ✨ 新增 -->
+    <link rel="stylesheet" href="css/loading.css"> <!-- ✨ 新增 -->
+
     
 
   <!-- ====== 优雅字体库引入 ====== -->
@@ -52,11 +54,7 @@
 
 <body>
     <!-- ========== 区块C：加载动画 开始 ========== -->
-    <!-- 用途：页面加载时显示，加载完成后隐藏 -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-spinner"></div>
-        <p class="loading-text">加载中...</p>
-    </div>
+    <!-- 用途：已更新此区块作废 -->
     <!-- ========== 区块C：加载动画 结束 ========== -->
 
     <!-- ========== 区块D：主容器 开始 ========== -->
@@ -186,6 +184,8 @@
 
     <!-- ========== 区块F：JavaScript引入 开始 ========== -->
     <!-- 用途：引入所有JS文件，顺序很重要 -->
+    <!-- ========== 开屏加载 ========== -->
+<script src="js/modules/loading-screen.js"></script>
     
     <!-- 工具类先加载 -->
     <script src="js/storage.js"></script>
