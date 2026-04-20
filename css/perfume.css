@@ -1,0 +1,930 @@
+/* ================================
+   文件名：perfume.css
+   功能：调香系统样式
+   依赖：themes.css, main.css
+   
+   主要样式：
+   - 调香页面布局
+   - 步骤指示器
+   - 香料卡片
+   - 香水卡片展示
+   - 预设配方列表
+   - 香气金字塔
+   
+   最后更新：2026-04-20
+   ================================ */
+
+/* ========== 区块A：页面布局 开始 ========== */
+.perfume-blender-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    min-height: 100vh;
+}
+
+.blender-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.blender-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, #ff6b9d, #c06c84, #6c5b7b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blender-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.blender-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    background: transparent;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--text-primary);
+}
+
+.blender-tab:hover {
+    border-color: #ff6b9d;
+    background: var(--surface-color);
+}
+
+.blender-tab.active {
+    border-color: #ff6b9d;
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    color: white;
+}
+
+.blender-content {
+    width: 100%;
+}
+/* ========== 区块A：页面布局 结束 ========== */
+
+/* ========== 区块B：步骤指示器 开始 ========== */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    position: relative;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 0;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.step-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    border: 3px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all var(--transition-fast);
+}
+
+.step-item.active .step-icon {
+    border-color: #ff6b9d;
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    transform: scale(1.1);
+}
+
+.step-item.completed .step-icon {
+    border-color: #4caf50;
+    background: #4caf50;
+}
+
+.step-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.step-item.active .step-label {
+    color: #ff6b9d;
+    font-weight: 600;
+}
+/* ========== 区块B：步骤指示器 结束 ========== */
+
+/* ========== 区块C：步骤内容 开始 ========== */
+.step-content {
+    margin-bottom: var(--spacing-xl);
+}
+
+.step-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.step-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.step-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.next-step-btn {
+    display: block;
+    margin: var(--spacing-xl) auto 0;
+    min-width: 200px;
+}
+/* ========== 区块C：步骤内容 结束 ========== */
+
+/* ========== 区块D：心情选择 开始 ========== */
+.mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.mood-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mood-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff6b9d;
+    box-shadow: var(--shadow-md);
+}
+
+.mood-card.selected {
+    border-color: #ff6b9d;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(192, 108, 132, 0.1));
+    box-shadow: var(--shadow-lg);
+}
+
+.mood-emoji {
+    font-size: 48px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.mood-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.mood-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+/* ========== 区块D：心情选择 结束 ========== */
+
+/* ========== 区块E：香料选择 开始 ========== */
+.notes-selection {
+    width: 100%;
+}
+
+.recommended-section,
+.all-notes-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.note-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.note-card:hover {
+    transform: translateY(-3px);
+    border-color: #ff6b9d;
+    box-shadow: var(--shadow-md);
+}
+
+.note-card.selected {
+    border-color: #ff6b9d;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(192, 108, 132, 0.15));
+    box-shadow: var(--shadow-lg);
+}
+
+.note-card.recommended {
+    border-color: #ffd700;
+}
+
+.note-emoji {
+    font-size: 36px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.note-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.note-name-en {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-xs);
+    font-style: italic;
+}
+
+.note-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.4;
+}
+
+.note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    justify-content: center;
+}
+
+.note-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--bg-color);
+    border-radius: 12px;
+    color: var(--text-secondary);
+}
+
+.recommended-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ffd700;
+    color: #333;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.selected-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #ff6b9d;
+    color: white;
+    font-size: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* ========== 区块E：香料选择 结束 ========== */
+
+/* ========== 区块F：比例调整 开始 ========== */
+.ratio-adjustment {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ratio-controls {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.ratio-control {
+    margin-bottom: var(--spacing-lg);
+}
+
+.ratio-control:last-child {
+    margin-bottom: 0;
+}
+
+.ratio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.ratio-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.ratio-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ff6b9d;
+}
+
+.ratio-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border-color);
+    outline: none;
+    -webkit-appearance: none;
+    margin-bottom: var(--spacing-xs);
+}
+
+.ratio-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ratio-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ratio-range {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+/* 香气金字塔 */
+.fragrance-pyramid {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.pyramid-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+}
+
+.pyramid-visual {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pyramid-layer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+    min-height: 60px;
+}
+
+.top-layer {
+    background: linear-gradient(135deg, #fff9c4, #fff59d);
+    color: #333;
+}
+
+.heart-layer {
+    background: linear-gradient(135deg, #ffccbc, #ffab91);
+    color: #333;
+}
+
+.base-layer {
+    background: linear-gradient(135deg, #d7ccc8, #bcaaa4);
+    color: #333;
+}
+
+.layer-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+/* ========== 区块F：比例调整 结束 ========== */
+
+/* ========== 区块G：结果展示 开始 ========== */
+.result-display {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.perfume-card-large {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.perfume-bottle {
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.perfume-name {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.perfume-name-en {
+        font-size: 16px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-bottom: var(--spacing-lg);
+}
+
+.perfume-classification {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.family-tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(192, 108, 132, 0.2));
+    border-radius: 16px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.perfume-notes-display {
+    margin-bottom: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-lg);
+}
+
+.notes-layer {
+    margin-bottom: var(--spacing-md);
+}
+
+.notes-layer:last-child {
+    margin-bottom: 0;
+}
+
+.layer-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.layer-notes {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.perfume-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.info-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.perfume-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    text-align: center;
+    font-style: italic;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+/* ========== 区块G：结果展示 结束 ========== */
+
+/* ========== 区块H：预设配方 开始 ========== */
+.presets-mode {
+    width: 100%;
+}
+
+.presets-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.presets-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.preset-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.preset-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff6b9d;
+    box-shadow: var(--shadow-lg);
+}
+
+.preset-icon {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.preset-name {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.preset-name-en {
+    font-size: 14px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+}
+
+.preset-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.preset-notes {
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.preset-note-line {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: 13px;
+}
+
+.preset-note-line:last-child {
+    margin-bottom: 0;
+}
+
+.note-type {
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 50px;
+}
+
+.note-list {
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.preset-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.preset-apply-btn {
+    width: 100%;
+}
+/* ========== 区块H：预设配方 结束 ========== */
+
+/* ========== 区块I：已保存香水 开始 ========== */
+.my-perfumes-section {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 2px solid var(--border-color);
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: var(--spacing-xl);
+}
+
+.saved-perfumes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.saved-perfume-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.saved-perfume-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.saved-perfume-icon {
+    font-size: 36px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.saved-perfume-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.saved-perfume-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.saved-perfume-notes {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.delete-btn {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: #ff4444;
+    border-color: #ff4444;
+    color: white;
+}
+/* ========== 区块I：已保存香水 结束 ========== */
+
+/* ========== 区块J：选择预览 开始 ========== */
+.selection-preview {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    border: 2px solid var(--border-color);
+}
+
+.preview-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.preview-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.preview-section {
+    display: flex;
+    gap: var(--spacing-sm);
+    font-size: 14px;
+}
+
+.preview-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 80px;
+}
+
+.preview-items {
+    color: var(--text-secondary);
+    flex: 1;
+}
+/* ========== 区块J：选择预览 结束 ========== */
+
+/* ========== 区块K：响应式设计 开始 ========== */
+@media (max-width: 768px) {
+    .perfume-blender-page {
+        padding: var(--spacing-md);
+    }
+
+    .blender-title {
+        font-size: 24px;
+    }
+
+    .blender-tabs {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .blender-tab {
+        width: 100%;
+    }
+
+    .step-indicator {
+        padding: var(--spacing-md);
+        overflow-x: auto;
+    }
+
+    .step-indicator::before {
+        display: none;
+    }
+
+    .step-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .step-label {
+        font-size: 12px;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .notes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .presets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .saved-perfumes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .step-actions {
+        flex-direction: column;
+    }
+
+    .step-actions button {
+        width: 100%;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .result-actions button {
+        width: 100%;
+    }
+
+    .perfume-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .mood-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .saved-perfumes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ========== 区块K：响应式设计 结束 ========== */
+
