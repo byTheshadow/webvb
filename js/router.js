@@ -73,32 +73,43 @@ const Router = {
     // ========== 区块A2：初始化路由 结束 ==========
 
     // ========== 区块A3：处理路由 开始 ==========
-    // 用途：解析URL并渲染对应页面
-    handleRoute() {
-        // 获取hash，去掉#/
-        let hash = window.location.hash.slice(2) || 'home';
-        
-        console.log('[Router] 路由变化:', hash);
-        
-        // 检查路由是否存在
-        if (!this.routes[hash]) {
-            console.warn('[Router] 路由不存在，跳转到首页');
-            hash = 'home';
-            window.location.hash = '#/home';
-        }
-        
-        // 保存当前路由
-        this.currentRoute = hash;
-        
-        // 更新App状态
-        if (window.App) {
-            window.App.setCurrentPage(hash);
-        }
-        
-        // 渲染页面
-        this.renderPage(hash);
-    },
-    // ========== 区块A3：处理路由 结束 ==========
+handleRoute() {
+    // 获取hash，去掉#/
+    let hash = window.location.hash.slice(2) || 'home';
+    
+    console.log('[Router] 路由变化:', hash);
+    
+    // ✨ 新增：处理子路由
+    let mainRoute = hash;
+    let subRoute = null;
+    
+    if (hash.includes('/')) {
+        const parts = hash.split('/');
+        mainRoute = parts[0];
+        subRoute = parts[1];
+    }
+    
+    // 检查主路由是否存在
+    if (!this.routes[mainRoute]) {
+        console.warn('[Router] 路由不存在，跳转到首页');
+        mainRoute = 'home';
+        window.location.hash = '#/home';
+    }
+    
+    // 保存当前路由
+    this.currentRoute = mainRoute;
+    this.currentSubRoute = subRoute; // ✨ 新增
+    
+    // 更新App状态
+    if (window.App) {
+        window.App.setCurrentPage(mainRoute);
+    }
+    
+    // 渲染页面
+    this.renderPage(mainRoute, subRoute); // ✨ 修改：传入子路由
+},
+// ========== 区块A3：处理路由 结束 ==========
+
    // ========== 区块A3.5：导航方法 开始 ==========
 // 用途：程序化导航到指定路由
 navigate(routeName) {
