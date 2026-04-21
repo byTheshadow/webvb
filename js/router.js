@@ -527,25 +527,38 @@ renderMyCreations() {
     },
 
     // 命运扭蛋机页面
-    renderGashapon() {
-        const mainContent = document.getElementById('main-content');
+renderGashapon() {
+    const mainContent = document.getElementById('main-content');
+    
+    // 初始化扭蛋机
+    if (window.GashaponNotes) {
+        // 先显示加载状态
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="loading-container">
+                <p>加载中...</p>
+            </div>
+        `;
         
-        // 初始化扭蛋机
-        if (window.GashaponNotes) {
-            GashaponNotes.init().then(() => {
-                mainContent.innerHTML = `
-                    <div class="sub-page-header">
-                        <button class="back-btn" onclick="Router.navigate('more')">
-                            <span>←</span> 返回
-                        </button>
-                    </div>
-                    ${GashaponNotes.render()}
-                `;
-                
-                // 绑定事件
-                GashaponNotes.bindEvents();
-            });
-        } else {
+        // 异步初始化
+        GashaponNotes.init().then(() => {
+            mainContent.innerHTML = `
+                <div class="sub-page-header">
+                    <button class="back-btn" onclick="Router.navigate('more')">
+                        <span>←</span> 返回
+                    </button>
+                </div>
+                ${GashaponNotes.render()}
+            `;
+            
+            // 绑定事件
+            GashaponNotes.bindEvents();
+        }).catch(error => {
+            console.error('[Gashapon] 初始化失败:', error);
             mainContent.innerHTML = `
                 <div class="sub-page-header">
                     <button class="back-btn" onclick="Router.navigate('more')">
@@ -553,11 +566,24 @@ renderMyCreations() {
                     </button>
                 </div>
                 <div class="error-message">
-                    <p>扭蛋机模块加载失败</p>
+                    <p>扭蛋机加载失败，请刷新重试</p>
                 </div>
             `;
-        }
-    },
+        });
+    } else {
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="error-message">
+                <p>扭蛋机模块未加载</p>
+            </div>
+        `;
+    }
+},
+
 
     // 角色卡图鉴页面（占位）
     renderGallery() {
@@ -633,7 +659,7 @@ renderMyCreations() {
                     
                     <section class="about-section">
                         <h3>角色卡来源</h3>
-                        <p>大部分角色卡来自<strong>锦鲤食堂</strong>，感谢他们的精彩创作！</p>
+                        <p>角色卡来自<strong>锦鲤食堂</strong>，感谢她们的精彩创作！</p>
                     </section>
                     
                     <section class="about-section">
