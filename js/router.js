@@ -526,64 +526,53 @@ renderMyCreations() {
         }
     },
 
-    // 命运扭蛋机页面
-renderGashapon() {
+    renderGashapon() {
     const mainContent = document.getElementById('main-content');
-    
-    // 初始化扭蛋机
-    if (window.GashaponNotes) {
-        // 先显示加载状态
-        mainContent.innerHTML = `
-            <div class="sub-page-header">
-                <button class="back-btn" onclick="Router.navigate('more')">
-                    <span>←</span> 返回
-                </button>
-            </div>
-            <div class="loading-container">
-                <p>加载中...</p>
+
+    const subPageHeader = `
+        <div class="sub-page-header">
+            <button class="back-btn" onclick="Router.navigate('more')">
+                <span>←</span> 返回
+            </button>
+        </div>
+    `;
+
+    if (!window.GashaponNotes) {
+        mainContent.innerHTML = subPageHeader + `
+            <div class="error-message">
+                <p>扭蛋机模块未加载</p>
             </div>
         `;
-        
-        // 异步初始化
-        GashaponNotes.init().then(() => {
-            mainContent.innerHTML = `
-                <div class="sub-page-header">
-                    <button class="back-btn" onclick="Router.navigate('more')">
-                        <span>←</span> 返回
-                    </button>
-                </div>
-                ${GashaponNotes.render()}
-            `;
-            
-            // 绑定事件
-            GashaponNotes.bindEvents();
+        return;
+    }
+
+    mainContent.innerHTML = subPageHeader + `
+        <div class="loading-container">
+            <p>加载中...</p>
+        </div>
+    `;
+
+    const gashapon = window.GashaponNotes;
+    const doRender = () => {
+        mainContent.innerHTML = subPageHeader + gashapon.render();
+        gashapon.bindEvents();
+    };
+
+    if (gashapon.notes && gashapon.notes.length > 0) {
+        doRender();
+    } else {
+        gashapon.init().then(() => {
+            doRender();
         }).catch(error => {
             console.error('[Gashapon] 初始化失败:', error);
-            mainContent.innerHTML = `
-                <div class="sub-page-header">
-                    <button class="back-btn" onclick="Router.navigate('more')">
-                        <span>←</span> 返回
-                    </button>
-                </div>
+            mainContent.innerHTML = subPageHeader + `
                 <div class="error-message">
                     <p>扭蛋机加载失败，请刷新重试</p>
                 </div>
             `;
         });
-    } else {
-        mainContent.innerHTML = `
-            <div class="sub-page-header">
-                <button class="back-btn" onclick="Router.navigate('more')">
-                    <span>←</span> 返回
-                </button>
-            </div>
-            <div class="error-message">
-                <p>扭蛋机模块未加载</p>
-            </div>
-        `;
     }
 },
-
 
     // 角色卡图鉴页面（占位）
     renderGallery() {
