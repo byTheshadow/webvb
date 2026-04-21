@@ -397,4 +397,23 @@ body,
         color var(--transition-normal),
         box-shadow var(--transition-normal);
 }
+/* 自定义背景支持 */
+body[data-custom-bg="true"]::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+    pointer-events: none;
+}
+
+body[data-custom-bg="true"] {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 
