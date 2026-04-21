@@ -124,26 +124,34 @@ const CocktailMixer = (function() {
 
     // ========== 区块A6：渲染步骤指示器 开始 ==========
     function renderStepIndicator() {
-        const steps = [
-            { id: 'mood', label: '心情', icon: '💭' },
-            { id: 'spirit', label: '基酒', icon: '🥃' },
-            { id: 'mixer', label: '辅料', icon: '🧃' },
-            { id: 'technique', label: '手法', icon: '🧊' },
-            { id: 'garnish', label: '装饰', icon: '🌿' },
-            { id: 'result', label: '完成', icon: '✨' }
-        ];
+    const steps = [
+        { id: 'mood', label: '心情', icon: '💭' },
+        { id: 'character', label: '角色', icon: '👥' }, // ✨ 新增
+        { id: 'spirit', label: '基酒', icon: '🥃' },
+        { id: 'mixer', label: '辅料', icon: '🧃' },
+        { id: 'technique', label: '手法', icon: '🧊' },
+        { id: 'garnish', label: '装饰', icon: '🌿' },
+        { id: 'result', label: '完成', icon: '✨' }
+    ];
 
-        return `
-            <div class="step-indicator">
-                ${steps.map((step, index) => `
-                    <div class="step-item ${state.currentStep === step.id ? 'active' : ''} ${isStepCompleted(step.id) ? 'completed' : ''}">
-                        <div class="step-icon">${step.icon}</div>
-                        <div class="step-label">${step.label}</div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
+    return `
+        <div class="step-indicator">
+            ${steps.map((step, index) => `
+                <div class="step-item ${state.currentStep === step.id ? 'active' : ''} ${isStepCompleted(step.id) ? 'completed' : ''}">
+                    <div class="step-icon">${step.icon}</div>
+                    <div class="step-label">${step.label}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function isStepCompleted(stepId) {
+    const stepOrder = ['mood', 'character', 'spirit', 'mixer', 'technique', 'garnish', 'result']; // ✨ 更新
+    const currentIndex = stepOrder.indexOf(state.currentStep);
+    const stepIndex = stepOrder.indexOf(stepId);
+    return stepIndex < currentIndex;
+}
 
     function isStepCompleted(stepId) {
         const stepOrder = ['mood', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
