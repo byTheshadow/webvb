@@ -275,5 +275,8 @@ class GashaponNotes {
     }
 }
 
-// 创建全局实例
+// 导出类和实例
+window.GashaponNotesClass = GashaponNotes;
 window.GashaponNotes = new GashaponNotes();
+
+// 不要在这里自动初始化，等路由调用时再初始化
