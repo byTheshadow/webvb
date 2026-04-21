@@ -740,27 +740,28 @@ const FortuneDraw = (function () {
       </div>
     `).join('');
 
-    // 构建推荐角色HTML
-    const recommendationsHTML = recommendations.map(rec => `
-      <div class="recommended-character">
-        <div class="character-avatar">
-          ${rec.character.avatar || '👤'}
+   // 第 743-763 行
+// 构建推荐角色HTML
+const recommendationsHTML = recommendations.map(rec => `
+  <div class="recommended-character">
+    <div class="character-avatar">
+      ${rec.character.avatar || '👤'}
+    </div>
+    <div class="character-info">
+      <h4 class="character-name">${rec.character.name}</h4>
+      <p class="character-source">${rec.character.creator || '未知创作者'}</p>
+      <div class="match-score">
+        <div class="score-bar">
+          <div class="score-fill" style="width: ${rec.score}%"></div>
         </div>
-        <div class="character-info">
-          <h4 class="character-name">${rec.character.name}</h4>
-          <p class="character-source">${rec.character.source || '未知来源'}</p>
-          <div class="match-score">
-            <div class="score-bar">
-              <div class="score-fill" style="width: ${rec.score}%"></div>
-            </div>
-            <span class="score-text">${Math.round(rec.score)}% 匹配</span>
-          </div>
-          <div class="match-reasons">
-            ${rec.matchReasons.map(reason => `<p class="reason-item">• ${reason}</p>`).join('')}
-          </div>
-        </div>
+        <span class="score-text">${Math.round(rec.score)}% 匹配</span>
       </div>
-    `).join('');
+      <div class="match-reasons">
+        ${rec.matchReasons.map(reason => `<p class="reason-item">• ${reason}</p>`).join('')}
+      </div>
+    </div>
+  </div>
+`).join('');
 
     container.innerHTML = `
       <div class="fortune-page result-page">
