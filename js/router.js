@@ -15,8 +15,13 @@
    #/creative - 创意功能（调酒、配香水、拼贴诗）
    #/cp - CP分析
    #/more - 更多功能
+   #/more/gashapon - 命运扭蛋机
+   #/more/gallery - 角色卡图鉴
+   #/more/favorites - 我的收藏
+   #/more/history - 测试历史
+   #/more/about - 关于
    
-   最后更新：2026-04-18
+   最后更新：2026-04-21
    ================================ */
 
 // ========== 区块A：路由对象 开始 ==========
@@ -24,6 +29,7 @@
 const Router = {
     // 当前路由
     currentRoute: '',
+    currentSubRoute: null,
     
     // ========== 区块A1：路由配置 开始 ==========
     // 用途：定义所有路由和对应的渲染函数
@@ -44,7 +50,7 @@ const Router = {
         title: '创意功能',
         render: () => Router.renderCreative()
     },
-    'my-creations': {  // ✨ 新增
+    'my-creations': {
         title: '我的创作',
         render: () => Router.renderMyCreations()
     },
@@ -84,7 +90,7 @@ handleRoute() {
     
     console.log('[Router] 路由变化:', hash);
     
-    // ✨ 新增：处理子路由
+    // 处理子路由
     let mainRoute = hash;
     let subRoute = null;
     
@@ -103,7 +109,7 @@ handleRoute() {
     
     // 保存当前路由
     this.currentRoute = mainRoute;
-    this.currentSubRoute = subRoute; // ✨ 新增
+    this.currentSubRoute = subRoute;
     
     // 更新App状态
     if (window.App) {
@@ -111,7 +117,7 @@ handleRoute() {
     }
     
     // 渲染页面
-    this.renderPage(mainRoute, subRoute); // ✨ 修改：传入子路由
+    this.renderPage(mainRoute, subRoute);
 },
 // ========== 区块A3：处理路由 结束 ==========
 
@@ -125,7 +131,7 @@ navigate(routeName) {
 
 // ========== 区块A4：渲染页面 开始 ==========
 // 用途：执行页面渲染函数
-renderPage(routeName) {
+renderPage(routeName, subRoute) {
     const route = this.routes[routeName];
     const mainContent = document.getElementById('main-content');
     
@@ -142,8 +148,13 @@ renderPage(routeName) {
         // 清空内容
         mainContent.innerHTML = '';
         
-        // 渲染新页面
-        route.render();
+        // 如果有子路由，特殊处理
+        if (routeName === 'more' && subRoute) {
+            this.renderMoreSubPage(subRoute);
+        } else {
+            // 渲染主页面
+            route.render();
+        }
         
         // 添加进入动画
         mainContent.classList.remove('page-exit');
@@ -344,7 +355,7 @@ renderLenormand() {
 renderCreative() {
     const mainContent = document.getElementById('main-content');
     
-    // ✨ 新增：解析子路由
+    // 解析子路由
     let hash = window.location.hash.slice(2) || 'creative';
     let subRoute = null;
     
@@ -355,7 +366,7 @@ renderCreative() {
     
     console.log('[Router] 渲染创意页面，子路由:', subRoute);
     
-    // ✨ 根据子路由渲染不同模块
+    // 根据子路由渲染不同模块
     if (subRoute === 'poetry') {
         // 拼贴诗模块
         if (typeof PoetryCollage !== 'undefined') {
@@ -371,7 +382,7 @@ renderCreative() {
             mainContent.innerHTML = '<p class="error-message">调酒模块加载失败</p>';
         }
     } else if (subRoute === 'perfume') {
-        // 调香模块 ✅ 已更新
+        // 调香模块
         if (typeof PerfumeBlender !== 'undefined') {
             PerfumeBlender.render(mainContent);
         } else {
@@ -442,40 +453,207 @@ renderMyCreations() {
             <div class="more-page">
                 <h2>更多功能</h2>
                 <div class="more-list">
-                    <div class="more-item card">
+                    <a href="#/more/gashapon" class="more-item card">
+                        <span class="more-icon">🎰</span>
+                        <div class="more-info">
+                            <h3>命运扭蛋机</h3>
+                            <p>抽取今日的温暖话语</p>
+                        </div>
+                        <span class="more-arrow">→</span>
+                    </a>
+                    <a href="#/more/gallery" class="more-item card">
                         <span class="more-icon">📚</span>
                         <div class="more-info">
                             <h3>角色卡图鉴</h3>
                             <p>浏览所有角色卡</p>
                         </div>
-                    </div>
-                    <div class="more-item card">
+                        <span class="more-arrow">→</span>
+                    </a>
+                    <a href="#/more/favorites" class="more-item card">
                         <span class="more-icon">⭐</span>
                         <div class="more-info">
                             <h3>我的收藏</h3>
                             <p>查看收藏的角色卡和结果</p>
                         </div>
-                    </div>
-                    <div class="more-item card">
+                        <span class="more-arrow">→</span>
+                    </a>
+                    <a href="#/more/history" class="more-item card">
                         <span class="more-icon">📊</span>
                         <div class="more-info">
                             <h3>测试历史</h3>
                             <p>查看过往的测试记录</p>
                         </div>
-                    </div>
-                    <div class="more-item card">
+                        <span class="more-arrow">→</span>
+                    </a>
+                    <a href="#/more/about" class="more-item card">
                         <span class="more-icon">ℹ️</span>
                         <div class="more-info">
                             <h3>关于</h3>
-                            <p>了解 webvb 项目</p>
+                            <p>了解灵魂实验室项目</p>
                         </div>
-                    </div>
+                        <span class="more-arrow">→</span>
+                    </a>
                 </div>
             </div>
         `;
         
         this.injectMoreStyles();
     },
+
+    // ========== 更多页面的子页面 开始 ==========
+    // 渲染"更多"页面的子页面
+    renderMoreSubPage(subRoute) {
+        const mainContent = document.getElementById('main-content');
+        
+        switch(subRoute) {
+            case 'gashapon':
+                this.renderGashapon();
+                break;
+            case 'gallery':
+                this.renderGallery();
+                break;
+            case 'favorites':
+                this.renderFavorites();
+                break;
+            case 'history':
+                this.renderHistory();
+                break;
+            case 'about':
+                this.renderAbout();
+                break;
+            default:
+                this.renderMore();
+        }
+    },
+
+    // 命运扭蛋机页面
+    renderGashapon() {
+        const mainContent = document.getElementById('main-content');
+        
+        // 初始化扭蛋机
+        if (window.GashaponNotes) {
+            GashaponNotes.init().then(() => {
+                mainContent.innerHTML = `
+                    <div class="sub-page-header">
+                        <button class="back-btn" onclick="Router.navigate('more')">
+                            <span>←</span> 返回
+                        </button>
+                    </div>
+                    ${GashaponNotes.render()}
+                `;
+                
+                // 绑定事件
+                GashaponNotes.bindEvents();
+            });
+        } else {
+            mainContent.innerHTML = `
+                <div class="sub-page-header">
+                    <button class="back-btn" onclick="Router.navigate('more')">
+                        <span>←</span> 返回
+                    </button>
+                </div>
+                <div class="error-message">
+                    <p>扭蛋机模块加载失败</p>
+                </div>
+            `;
+        }
+    },
+
+    // 角色卡图鉴页面（占位）
+    renderGallery() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="placeholder-page">
+                <div class="placeholder-icon">📚</div>
+                <h2>角色卡图鉴</h2>
+                <p>功能开发中，敬请期待...</p>
+            </div>
+        `;
+    },
+
+    // 我的收藏页面（占位）
+    renderFavorites() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="placeholder-page">
+                <div class="placeholder-icon">⭐</div>
+                <h2>我的收藏</h2>
+                <p>功能开发中，敬请期待...</p>
+            </div>
+        `;
+    },
+
+    // 测试历史页面（占位）
+    renderHistory() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="placeholder-page">
+                <div class="placeholder-icon">📊</div>
+                <h2>测试历史</h2>
+                <p>功能开发中，敬请期待...</p>
+            </div>
+        `;
+    },
+
+    // 关于页面
+    renderAbout() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="sub-page-header">
+                <button class="back-btn" onclick="Router.navigate('more')">
+                    <span>←</span> 返回
+                </button>
+            </div>
+            <div class="about-page">
+                <div class="about-header">
+                    <h1 class="about-title">灵魂实验室</h1>
+                    <p class="about-subtitle">Soul Lab</p>
+                </div>
+                
+                <div class="about-content">
+                    <section class="about-section">
+                        <h3>关于项目</h3>
+                        <p>灵魂实验室是一个互动人格探索与角色卡推荐平台，通过人格测试、占卜、创意功能等多种方式，帮助你更好地了解自己。</p>
+                    </section>
+                    
+                    <section class="about-section">
+                        <h3>角色卡来源</h3>
+                        <p>大部分角色卡来自<strong>锦鲤食堂</strong>，感谢他们的精彩创作！</p>
+                    </section>
+                    
+                    <section class="about-section">
+                        <h3>制作者</h3>
+                        <p>由 <strong>玉元一</strong> 制作</p>
+                    </section>
+                    
+                    <section class="about-section">
+                        <h3>版本信息</h3>
+                        <p>Version 1.0.0</p>
+                        <p>最后更新：2026-04-21</p>
+                    </section>
+                </div>
+            </div>
+        `;
+        
+        this.injectAboutStyles();
+    },
+    // ========== 更多页面的子页面 结束 ==========
+
     // ========== 区块A5：页面渲染函数 结束 ==========
 
     // ========== 区块A6：动态样式注入 开始 ==========
@@ -644,6 +822,9 @@ renderMyCreations() {
                 padding: var(--spacing-lg);
                 cursor: pointer;
                 transition: all var(--transition-fast);
+                position: relative;
+                text-decoration: none;
+                color: inherit;
             }
             
             .more-item:hover {
@@ -666,6 +847,152 @@ renderMyCreations() {
                 font-size: 14px;
                 color: var(--text-secondary);
             }
+            
+            .more-arrow {
+                position: absolute;
+                right: 1.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 1.5rem;
+                color: var(--primary-color);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+            
+            .more-item:hover .more-arrow {
+                opacity: 1;
+                transform: translateY(-50%) translateX(4px);
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    injectAboutStyles() {
+        const styleId = 'about-page-styles';
+        if (document.getElementById(styleId)) return;
+        
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+            .about-page {
+                padding: 2rem 1rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .about-header {
+                text-align: center;
+                margin-bottom: 3rem;
+                padding: 2rem;
+                background: linear-gradient(135deg, var(--surface-color), var(--background-secondary));
+                border-radius: 16px;
+                border: 2px solid var(--primary-color);
+            }
+            
+            .about-title {
+                font-size: 2.5rem;
+                font-weight: 500;
+                color: var(--text-primary);
+                margin-bottom: 0.5rem;
+                font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+            }
+            
+            .about-subtitle {
+                font-size: 1.2rem;
+                color: var(--text-secondary);
+                font-style: italic;
+            }
+            
+            .about-content {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .about-section {
+                background: var(--surface-color);
+                padding: 1.5rem;
+                border-radius: 12px;
+                border: 1px solid var(--primary-color);
+            }
+            
+            .about-section h3 {
+                font-size: 1.3rem;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+                font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+            }
+            
+            .about-section p {
+                line-height: 1.8;
+                color: var(--text-primary);
+                margin-bottom: 0.5rem;
+            }
+            
+            .about-section strong {
+                color: var(--primary-color);
+                font-weight: 600;
+            }
+            
+            .sub-page-header {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                background: var(--surface-color);
+                border: 1px solid var(--primary-color);
+                border-radius: 8px;
+                color: var(--text-primary);
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .back-btn:hover {
+                background: var(--primary-color);
+                color: white;
+                transform: translateX(-4px);
+            }
+            
+            .placeholder-page {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 60vh;
+                text-align: center;
+                padding: 2rem;
+            }
+            
+            .placeholder-icon {
+                font-size: 5rem;
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+            
+            .placeholder-page h2 {
+                font-size: 2rem;
+                color: var(--text-primary);
+                margin-bottom: 1rem;
+                font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+            }
+            
+            .placeholder-page p {
+                font-size: 1.1rem;
+                color: var(--text-secondary);
+                opacity: 0.7;
+            }
+            
+            .error-message {
+                text-align: center;
+                padding: 3rem 1rem;
+                color: var(--text-secondary);
+            }
         `;
         document.head.appendChild(style);
     }
@@ -677,3 +1004,4 @@ renderMyCreations() {
 // 用途：让其他模块可以访问Router对象
 window.Router = Router;
 // ========== 区块B：导出到全局 结束 ==========
+
