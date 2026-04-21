@@ -1,844 +1,599 @@
 /* ================================
-   文件名：character-detail.css
-   功能：角色详情页 - 文件夹档案风格
-   设计理念：艺术品般的档案展示
+   文件名：character-detail.js
+   功能：角色卡详情页（模态框形式）
+   依赖：storage.js, data-loader.js
+   
+   主要功能：
+   - 显示角色完整信息
+   - 绘制维度雷达图（Canvas）
+   - 标签云展示
+   - 相关角色推荐
+   - 支持左右滑动切换角色（移动端）
+   - ✨ 头像上传功能
+   
    最后更新：2026-04-21
    ================================ */
 
-/* ========== 模态框基础 ========== */
-.character-detail-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.character-detail-modal.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* 背景遮罩 */
-.modal-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-[data-theme="wasteland"] .modal-backdrop {
-    background: rgba(0, 0, 0, 0.85);
-}
-
-/* ========== 文件夹容器 ========== */
-.modal-container {
-    position: relative;
-    width: 90%;
-    max-width: 1200px;
-    max-height: 90vh;
-    background: var(--background-color);
-    border-radius: 8px;
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 0 1px var(--border-color);
-    overflow: hidden;
-    transform: scale(0.9) translateY(20px);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+// ========== 区块A：模块状态 开始 ==========
+const CharacterDetail = (function() {
+    'use strict';
     
-    /* 文件夹质感 */
-    position: relative;
-}
-
-.character-detail-modal.active .modal-container {
-    transform: scale(1) translateY(0);
-}
-
-/* 文件夹顶部标签页效果 */
-.modal-container::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 40px;
-    width: 150px;
-    height: 20px;
-    background: var(--surface-color);
-    border-radius: 8px 8px 0 0;
-    border: 1px solid var(--border-color);
-    border-bottom: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* 文件夹纸张纹理 */
-.modal-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            var(--border-color) 2px,
-            var(--border-color) 3px
-        );
-    opacity: 0.02;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ========== 顶部操作栏 ========== */
-.modal-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    background: var(--surface-color);
-    border-bottom: 2px solid var(--border-color);
-    z-index: 10;
-}
-
-.back-btn,
-.close-btn {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.back-btn:hover,
-.close-btn:hover {
-    background: var(--border-color);
-    color: var(--text-primary);
-    transform: translateX(-2px);
-}
-
-.close-btn:hover {
-    transform: rotate(90deg);
-}
-
-/* ========== 侧边标签索引 ========== */
-.side-tabs {
-    position: absolute;
-    right: -12px;
-    top: 120px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.side-tab {
-    position: relative;
-    width: 80px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-    color: var(--text-inverse);
-    border: none;
-    border-radius: 8px 0 0 8px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0 12px 0 8px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 4px;
-    box-shadow: 
-        -2px 2px 8px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transform: translateX(0);
-    overflow: hidden;
-}
-
-.side-tab::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        transparent 50%,
-        rgba(0, 0, 0, 0.1) 100%
-    );
-    pointer-events: none;
-}
-
-.side-tab:hover {
-    transform: translateX(-8px) scale(1.05);
-    box-shadow: 
-        -4px 4px 12px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.side-tab.active {
-    transform: translateX(-12px);
-    width: 90px;
-}
-
-/* 不同颜色的标签 */
-.side-tab:nth-child(1) {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-}
-
-.side-tab:nth-child(2) {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-}
-
-.side-tab:nth-child(3) {
-    background: linear-gradient(135deg, #ffecd2, #fcb69f);
-}
-
-.side-tab:nth-child(4) {
-    background: linear-gradient(135deg, #d4fc79, #96e6a1);
-}
-
-.side-tab:nth-child(5) {
-    background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
-}
-
-/* 暗色主题下的标签 */
-[data-theme="wasteland"] .side-tab {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-primary);
-}
-
-[data-theme="wasteland"] .side-tab:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* ========== 主体内容区 ========== */
-.modal-body {
-    position: relative;
-    height: calc(90vh - 60px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 32px;
-    z-index: 2;
-    scroll-behavior: smooth;
-}
-
-/* 自定义滚动条 */
-.modal-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.modal-body::-webkit-scrollbar-track {
-    background: var(--surface-color);
-    border-radius: 4px;
-}
-
-.modal-body::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
-}
-
-.modal-body::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-light);
-}
-
-/* ========== 角色头部区域 ========== */
-.character-header {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 32px;
-    margin-bottom: 40px;
-    padding: 24px;
-    background: var(--surface-color);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-}
-
-/* 装饰性背景 */
-.character-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
-    opacity: 0.05;
-    pointer-events: none;
-}
-
-/* 头像区域 */
-.character-avatar-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
-.character-avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 4px solid var(--primary-color);
-    box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.15),
-        0 0 0 8px var(--surface-color),
-        0 0 0 9px var(--border-color);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-}
-
-.character-avatar:hover {
-    transform: scale(1.05) rotate(2deg);
-    box-shadow: 
-        0 12px 32px rgba(0, 0, 0, 0.2),
-        0 0 0 8px var(--surface-color),
-        0 0 0 9px var(--primary-color);
-}
-
-.character-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.avatar-placeholder-large {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    background: linear-gradient(135deg, var(--surface-color), var(--background-color));
-}
-
-/* 上传头像按钮 */
-.upload-avatar-btn {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    color: var(--text-inverse);
-    border: 3px solid var(--surface-color);
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 10;
-}
-
-.upload-avatar-btn:hover {
-    transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.upload-avatar-btn:active {
-    transform: scale(1.05) rotate(15deg);
-}
-
-/* ========== 角色信息区 ========== */
-.character-info {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-}
-
-.character-name {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    position: relative;
-    display: inline-block;
-    width: fit-content;
-}
-
-/* 名字下划线装饰 */
-.character-name::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 60%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), transparent);
-    border-radius: 2px;
-}
-
-/* 元信息标签 */
-.character-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-}
-
-.orientation-badge,
-.archetype-badge {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    transition: all 0.3s ease;
-}
-
-.orientation-badge {
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-    color: var(--text-inverse);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.orientation-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.archetype-badge {
-    background: var(--surface-color);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-/* 暗色主题下的标签 */
-[data-theme="wasteland"] .orientation-badge {
-    background: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-}
-
-/* 一句话简介 */
-.character-oneliner {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    font-style: italic;
-    margin: 8px 0 0 0;
-    padding-left: 16px;
-    border-left: 3px solid var(--primary-color);
-    position: relative;
-}
-
-.character-oneliner::before {
-    content: '"';
-    position: absolute;
-    left: -8px;
-    top: -8px;
-    font-size: 2rem;
-    color: var(--primary-color);
-    opacity: 0.3;
-}
-
-/* ========== 创作者署名 ========== */
-.creator-signature {
-    margin-top: 16px;
-    padding: 16px;
-    background: linear-gradient(135deg, 
-        rgba(var(--primary-color-rgb, 108, 122, 137), 0.05),
-        rgba(var(--primary-color-rgb, 108, 122, 137), 0.02)
-    );
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-}
-
-.creator-signature:hover {
-    transform: translateX(4px);
-    border-color: var(--primary-color);
-    box-shadow: -4px 0 0 var(--primary-color);
-}
-
-.creator-icon {
-    font-size: 1.5rem;
-    filter: grayscale(0.3);
-}
-
-.creator-info {
-    flex: 1;
-}
-
-.creator-label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 2px;
-}
-
-.creator-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    font-family: 'Georgia', serif;
-    letter-spacing: 0.02em;
-}
-
-/* ========== 双栏内容布局 ========== */
-.character-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
-}
-
-/* 内容区块 */
-.character-section {
-    background: var(--surface-color);
-    border-radius: 12px;
-    padding: 24px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
-    scroll-margin-top: 80px; /* 用于锚点跳转 */
-}
-
-.character-section:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.section-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 16px 0;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.section-title::before {
-    content: '';
-    width: 4px;
-    height: 20px;
-    background: var(--primary-color);
-    border-radius: 2px;
-}
-
-/* 描述文本 */
-.character-description {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-primary);
-    margin: 0;
-    text-align: justify;
-}
-
-/* ========== 雷达图容器 ========== */
-.radar-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: var(--background-color);
-    border-radius: 8px;
-    min-height: 320px;
-}
-
-#character-radar-chart {
-    max-width: 100%;
-    height: auto;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-}
-
-/* ========== 标签云 ========== */
-.tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag-item {
-    padding: 8px 16px;
-    background: var(--background-color);
-    color: var(--text-primary);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    border: 1px solid var(--border-color);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    cursor: default;
-}
-
-.tag-item:hover {
-    background: var(--primary-color);
-    color: var(--text-inverse);
-    border-color: var(--primary-color);
-    transform: translateY(-4px) rotate(2deg);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* ========== 相关角色卡片 ========== */
-.related-characters {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-.related-card {
-    background: var(--background-color);
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.related-card:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary-color);
-}
-
-.related-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto 12px;
-    overflow: hidden;
-    border: 3px solid var(--primary-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.related-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.avatar-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    background: var(--surface-color);
-}
-
-.related-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-}
-
-.related-archetype {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-/* ========== 操作按钮 ========== */
-.character-actions {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 32px;
-    padding-top: 32px;
-    border-top: 2px dashed var(--border-color);
-}
-
-.favorite-btn {
-    padding: 14px 32px;
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-    color: var(--text-inverse);
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.favorite-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: var(--shadow-md);
-}
-
-.favorite-btn:active {
-    transform: translateY(-2px) scale(1.02);
-}
-
-/* 暗色主题下的按钮 */
-[data-theme="wasteland"] .favorite-btn {
-    background: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-}
-
-[data-theme="wasteland"] .favorite-btn:hover {
-    background: var(--primary-color);
-    color: var(--text-inverse);
-}
-
-/* ========== 响应式设计 ========== */
-@media (max-width: 1024px) {
-    .character-content {
-        grid-template-columns: 1fr;
+    // 模块状态
+    const state = {
+        currentCharacter: null,
+        allCharacters: [],
+        relatedCharacters: [],
+        modalElement: null,
+        canvasContext: null,
+        isOpen: false
+    };
+    
+    // ========== 区块A：模块状态 结束 ==========
+    
+    // ========== 区块B：数据加载 开始 ==========
+    
+    /**
+     * 加载所有角色数据
+     */
+    async function loadCharacters() {
+        try {
+            const data = await DataLoader.loadCharacters();
+            // loadCharacters 返回的是完整的 JSON 对象，需要提取 characters 数组
+            state.allCharacters = data.characters || [];
+            console.log('[CharacterDetail] 角色数据加载完成:', state.allCharacters.length);
+            return state.allCharacters;
+        } catch (error) {
+            console.error('[CharacterDetail] 角色数据加载失败:', error);
+            return [];
+        }
     }
     
-    .related-characters {
-        grid-template-columns: repeat(2, 1fr);
+    /**
+     * 根据ID获取角色
+     */
+    function getCharacterById(characterId) {
+        return state.allCharacters.find(char => char.id === characterId);
     }
-}
+    
+    // ========== 区块B：数据加载 结束 ==========
+    
+    // ========== 区块C：相关角色推荐算法 开始 ==========
+    
+    /**
+     * 计算相关角色（基于标签、性向、维度相似度）
+     */
+    function calculateRelatedCharacters(character, limit = 3) {
+        if (!character) return [];
+        
+        const scored = state.allCharacters
+            .filter(char => char.id !== character.id && char.status === 'active')
+            .map(char => {
+                let score = 0;
+                
+                // 1. 性向匹配（30分）
+                const orientationMatch = character.orientation.some(o => 
+                    char.orientation.includes(o)
+                );
+                if (orientationMatch) score += 30;
+                
+                // 2. 标签匹配（40分）
+                const allTags = [
+                    ...(character.soulTags || []),
+                    ...(character.themeTags || []),
+                    ...(character.emotionTags || [])
+                ];
+                const charTags = [
+                    ...(char.soulTags || []),
+                    ...(char.themeTags || []),
+                    ...(char.emotionTags || [])
+                ];
+                const tagMatches = allTags.filter(tag => charTags.includes(tag)).length;
+                score += Math.min(tagMatches * 8, 40);
+                
+                // 3. 维度相似度（30分）
+                if (character.matchDimensions && char.matchDimensions) {
+                    const dimensions = Object.keys(character.matchDimensions);
+                    let dimScore = 0;
+                    dimensions.forEach(dim => {
+                        const diff = Math.abs(
+                            character.matchDimensions[dim] - char.matchDimensions[dim]
+                        );
+                        dimScore += (100 - diff) / 100;
+                    });
+                    score += (dimScore / dimensions.length) * 30;
+                }
+                
+                return { character: char, score };
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit);
+        
+        return scored.map(item => item.character);
+    }
+    
+    // ========== 区块C：相关角色推荐算法 结束 ==========
+    
+    // ========== 区块D：雷达图绘制 开始 ==========
+    
+    /**
+     * 绘制维度雷达图
+     */
+    function drawRadarChart(canvasId, dimensions) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 40;
+        
+        // 清空画布
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // 获取维度数据
+        const dimensionKeys = Object.keys(dimensions);
+        const dimensionCount = dimensionKeys.length;
+        const angleStep = (Math.PI * 2) / dimensionCount;
+        
+        // 获取主题颜色
+        const primaryColor = getComputedStyle(document.documentElement)
+            .getPropertyValue('--primary-color').trim();
+        const primaryLight = getComputedStyle(document.documentElement)
+            .getPropertyValue('--primary-light').trim();
+        
+        // 绘制背景网格（5层）
+        ctx.strokeStyle = 'rgba(128, 128, 128, 0.1)';
+        ctx.lineWidth = 1;
+        for (let level = 1; level <= 5; level++) {
+            ctx.beginPath();
+            const levelRadius = (radius / 5) * level;
+            for (let i = 0; i <= dimensionCount; i++) {
+                const angle = angleStep * i - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * levelRadius;
+                const y = centerY + Math.sin(angle) * levelRadius;
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+        
+        // 绘制轴线
+        ctx.strokeStyle = 'rgba(128, 128, 128, 0.2)';
+        ctx.lineWidth = 1;
+        dimensionKeys.forEach((key, index) => {
+            const angle = angleStep * index - Math.PI / 2;
+            const x = centerX + Math.cos(angle) * radius;
+            const y = centerY + Math.sin(angle) * radius;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        });
+        
+        // 绘制数据区域
+        ctx.fillStyle = primaryColor + '30'; // 30% 透明度
+        ctx.strokeStyle = primaryColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        dimensionKeys.forEach((key, index) => {
+            const value = dimensions[key] || 0;
+            const angle = angleStep * index - Math.PI / 2;
+            const distance = (value / 100) * radius;
+            const x = centerX + Math.cos(angle) * distance;
+            const y = centerY + Math.sin(angle) * distance;
+            
+            if (index === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        });
+        
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        
+        // 绘制数据点
+        ctx.fillStyle = primaryColor;
+        dimensionKeys.forEach((key, index) => {
+            const value = dimensions[key] || 0;
+            const angle = angleStep * index - Math.PI / 2;
+            const distance = (value / 100) * radius;
+            const x = centerX + Math.cos(angle) * distance;
+            const y = centerY + Math.sin(angle) * distance;
+            
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        
+        // 绘制维度标签
+        ctx.fillStyle = getComputedStyle(document.documentElement)
+            .getPropertyValue('--text-primary').trim();
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        const labelMap = {
+            control: '控制',
+            masochism: '受虐',
+            emotion: '情感',
+            detachment: '疏离',
+            kink: '癖好',
+            intensity: '强度',
+            possessiveness: '占有',
+            vulnerability: '脆弱'
+        };
+        
+        dimensionKeys.forEach((key, index) => {
+            const angle = angleStep * index - Math.PI / 2;
+            const labelDistance = radius + 25;
+            const x = centerX + Math.cos(angle) * labelDistance;
+            const y = centerY + Math.sin(angle) * labelDistance;
+            
+            const label = labelMap[key] || key;
+            ctx.fillText(label, x, y);
+        });
+    }
+    
+    // ========== 区块D：雷达图绘制 结束 ==========
+    
+    // ========== 区块E：UI渲染 开始 ==========
+    
+    /**
+     * 获取角色头像（优先使用用户上传的）
+     */
+    function getCharacterAvatar(character) {
+        // 1. 优先使用用户上传的头像
+        const customAvatar = Storage.get(`character_avatar_${character.id}`);
+        if (customAvatar) {
+            return `<img src="${customAvatar}" alt="${character.name}">`;
+        }
+        
+        // 2. 使用角色的 imageFile
+        if (character.imageFile) {
+            return `<img src="data/characters/images/${character.imageFile}" alt="${character.name}">`;
+        }
+        
+        // 3. 使用占位符
+        return `<div class="avatar-placeholder-large">${character.name[0]}</div>`;
+    }
+    
+    /**
+     * 创建模态框HTML
+     */
+    function createModalHTML(character) {
+        if (!character) return '';
+        
+        // 性向标签
+        const orientationBadges = character.orientation
+            .map(o => `<span class="orientation-badge">${o}</span>`)
+            .join('');
+        
+        // 标签云
+        const allTags = [
+            ...(character.soulTags || []),
+            ...(character.coreXP || []),
+            ...(character.themeTags || []),
+            ...(character.emotionTags || []),
+            ...(character.kinkTags || [])
+        ];
+        const uniqueTags = [...new Set(allTags)];
+        const tagCloud = uniqueTags
+            .map(tag => `<span class="tag-item">#${tag}</span>`)
+            .join('');
+        
+        // 相关角色卡片
+        const relatedCards = state.relatedCharacters
+            .map(char => {
+                // 获取相关角色的头像
+                const relatedAvatar = Storage.get(`character_avatar_${char.id}`);
+                let avatarHTML;
+                if (relatedAvatar) {
+                    avatarHTML = `<img src="${relatedAvatar}" alt="${char.name}">`;
+                } else if (char.avatarFile) {
+                    avatarHTML = `<img src="data/characters/avatars/${char.avatarFile}" alt="${char.name}">`;
+                } else {
+                    avatarHTML = `<div class="avatar-placeholder">${char.name[0]}</div>`;
+                }
+                
+                return `
+                    <div class="related-card" data-character-id="${char.id}">
+                        <div class="related-avatar">
+                            ${avatarHTML}
+                        </div>
+                        <div class="related-name">${char.name}</div>
+                        <div class="related-archetype">${char.archetype || ''}</div>
+                    </div>
+                `;
+            })
+            .join('');
+        
+        return `
+            <div class="character-detail-modal" id="character-detail-modal">
+                <div class="modal-backdrop"></div>
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <button class="back-btn" id="detail-back-btn">
+                            <span>←</span> 返回
+                        </button>
+                        <button class="close-btn" id="detail-close-btn">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <!-- 角色基本信息 -->
+                        <div class="character-header">
+                            <div class="character-avatar-wrapper">
+                                <div class="character-avatar" id="character-avatar-display">
+                                    ${getCharacterAvatar(character)}
+                                </div>
+                                <button class="upload-avatar-btn" id="upload-avatar-btn" title="上传头像">
+                                    📷
+                                </button>
+                            </div>
+                            <div class="character-info">
+                                <h2 class="character-name">${character.name}</h2>
+                                <div class="character-meta">
+                                    ${orientationBadges}
+                                    <span class="archetype-badge">${character.archetype || ''}</span>
+                                </div>
+                                <p class="character-oneliner">${character.oneLiner || ''}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 完整描述 -->
+                        ${character.description ? `
+                        <div class="character-section">
+                            <h3 class="section-title">角色描述</h3>
+                            <p class="character-description">${character.description}</p>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- 维度雷达图 -->
+                        ${character.matchDimensions ? `
+                        <div class="character-section">
+                            <h3 class="section-title">维度分析</h3>
+                            <div class="radar-container">
+                                <canvas id="character-radar-chart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- 标签云 -->
+                        ${uniqueTags.length > 0 ? `
+                        <div class="character-section">
+                            <h3 class="section-title">标签云</h3>
+                            <div class="tag-cloud">
+                                ${tagCloud}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- 相关推荐 -->
+                        ${state.relatedCharacters.length > 0 ? `
+                        <div class="character-section">
+                            <h3 class="section-title">相关角色</h3>
+                            <div class="related-characters">
+                                ${relatedCards}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- 收藏按钮 -->
+                        <div class="character-actions">
+                            <button class="favorite-btn" id="favorite-btn" data-character-id="${character.id}">
+                                ${Storage.isFavoriteCharacter(character.id) ? '★ 已收藏' : '☆ 收藏'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    /**
+     * 显示角色详情
+     */
+    async function showCharacterDetail(characterId) {
+        console.log('[CharacterDetail] 显示角色详情:', characterId);
+        
+        // 确保数据已加载
+        if (state.allCharacters.length === 0) {
+            await loadCharacters();
+        }
+        
+        // 获取角色数据
+        const character = getCharacterById(characterId);
+        if (!character) {
+            console.error('[CharacterDetail] 角色不存在:', characterId);
+            return;
+        }
+        
+        state.currentCharacter = character;
+        
+        // 计算相关角色
+        state.relatedCharacters = calculateRelatedCharacters(character);
+        
+        // 创建模态框
+        const modalHTML = createModalHTML(character);
+        
+        // 移除旧模态框
+        const oldModal = document.getElementById('character-detail-modal');
+        if (oldModal) {
+            oldModal.remove();
+        }
+        
+        // 插入新模态框
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        state.modalElement = document.getElementById('character-detail-modal');
+        
+        // 绑定事件
+        bindModalEvents();
+        
+        // 显示模态框（添加动画）
+        setTimeout(() => {
+            state.modalElement.classList.add('active');
+            state.isOpen = true;
+            document.body.style.overflow = 'hidden';
+        }, 10);
+        
+        // 绘制雷达图
+        if (character.matchDimensions) {
+            setTimeout(() => {
+                drawRadarChart('character-radar-chart', character.matchDimensions);
+            }, 100);
+        }
+    }
+    
+    /**
+     * 关闭详情页
+     */
+    function closeDetail() {
+        if (!state.modalElement) return;
+        
+        state.modalElement.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        setTimeout(() => {
+            if (state.modalElement) {
+                state.modalElement.remove();
+                state.modalElement = null;
+            }
+            state.isOpen = false;
+        }, 300);
+    }
+    
+    // ========== 区块E：UI渲染 结束 ==========
+    
+    // ========== 区块F：事件绑定 开始 ==========
+    
+    /**
+     * 绑定模态框事件
+     */
+    function bindModalEvents() {
+        if (!state.modalElement) return;
+        
+        // 关闭按钮
+        const closeBtn = state.modalElement.querySelector('#detail-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeDetail);
+        }
+        
+        // 返回按钮
+        const backBtn = state.modalElement.querySelector('#detail-back-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', closeDetail);
+        }
+        
+        // 点击背景关闭
+        const backdrop = state.modalElement.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', closeDetail);
+        }
+        
+        // 收藏按钮
+        const favoriteBtn = state.modalElement.querySelector('#favorite-btn');
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', toggleFavorite);
+        }
+        
+        // ✨ 上传头像按钮
+        const uploadAvatarBtn = state.modalElement.querySelector('#upload-avatar-btn');
+        if (uploadAvatarBtn) {
+            uploadAvatarBtn.addEventListener('click', handleAvatarUpload);
+        }
+        
+        // 相关角色卡片点击
+        const relatedCards = state.modalElement.querySelectorAll('.related-card');
+        relatedCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const characterId = card.dataset.characterId;
+                if (characterId) {
+                    // 关闭当前详情，打开新详情
+                    closeDetail();
+                    setTimeout(() => {
+                        showCharacterDetail(characterId);
+                    }, 350);
+                }
+            });
+        });
+        
+        // ESC键关闭
+        const escHandler = (e) => {
+            if (e.key === 'Escape' && state.isOpen) {
+                closeDetail();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+    }
+    
+    /**
+     * 切换收藏状态
+     */
+    function toggleFavorite(e) {
+        const btn = e.currentTarget;
+        const characterId = btn.dataset.characterId;
+        
+        if (Storage.isFavoriteCharacter(characterId)) {
+            Storage.removeFavoriteCharacter(characterId);
+            btn.textContent = '☆ 收藏';
+        } else {
+            Storage.saveFavoriteCharacter(characterId);
+            btn.textContent = '★ 已收藏';
+        }
+    }
+    
+    /**
+     * ✨ 处理头像上传
+     */
+    function handleAvatarUpload() {
+        if (!state.currentCharacter) return;
+        
+        const character = state.currentCharacter;
+        const currentAvatar = Storage.get(`character_avatar_${character.id}`);
+        
+        // 打开头像上传器
+        AvatarUploader.open((avatarData) => {
+            // 保存头像到 localStorage
+            Storage.set(`character_avatar_${character.id}`, avatarData);
+            
+            // 更新页面显示
+            const avatarDisplay = document.getElementById('character-avatar-display');
+            if (avatarDisplay) {
+                avatarDisplay.innerHTML = `<img src="${avatarData}" alt="${character.name}">`;
+            }
+            
+            console.log('[CharacterDetail] 头像上传成功:', character.id);
+        }, {
+            title: `上传 ${character.name} 的头像`,
+            currentAvatar: currentAvatar
+        });
+    }
+    
+    // ========== 区块F：事件绑定 结束 ==========
+    
+    // ========== 区块G：公共API 开始 ==========
+    
+    return {
+        init: loadCharacters,
+        show: showCharacterDetail,
+        close: closeDetail,
+        getCharacter: getCharacterById,
+        uploadAvatar: handleAvatarUpload  // ✨ 新增公开方法
+    };
+    
+    // ========== 区块G：公共API 结束 ==========
+    
+})();
 
-@media (max-width: 768px) {
-    .modal-container {
-        width: 95%;
-        max-height: 95vh;
-    }
-    
-    .modal-container::before {
-        display: none;
-    }
-    
-    .side-tabs {
-        display: none; /* 移动端隐藏侧边标签 */
-    }
-    
-    .modal-body {
-        padding: 20px;
-    }
-    
-    .character-header {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .character-avatar-wrapper {
-        margin: 0 auto;
-    }
-    
-    .character-avatar {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .character-name {
-        font-size: 2rem;
-    }
-    
-    .character-meta {
-        justify-content: center;
-    }
-    
-    .character-oneliner {
-        border-left: none;
-        border-top: 3px solid var(--primary-color);
-        padding-left: 0;
-        padding-top: 12px;
-        text-align: center;
-    }
-    
-    .creator-signature {
-        justify-content: center;
-    }
-    
-    .related-characters {
-        grid-template-columns: 1fr;
-    }
-    
-    .character-actions {
-        flex-direction: column;
-    }
-    
-    .favorite-btn {
-        width: 100%;
-    }
-}
+// ========== 导出到全局 ==========
+window.CharacterDetail = CharacterDetail;
 
-@media (max-width: 480px) {
-    .modal-container {
-        width: 100%;
-        max-height: 100vh;
-        border-radius: 0;
-    }
-    
-    .character-name {
-        font-size: 1.5rem;
-    }
-    
-    .character-section {
-        padding: 16px;
-    }
-    
-    .section-title {
-        font-size: 1.1rem;
-    }
-}
-
-/* ========== 动画效果 ========== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.character-section {
-    animation: fadeInUp 0.5s ease backwards;
-}
-
-.character-section:nth-child(1) { animation-delay: 0.1s; }
-.character-section:nth-child(2) { animation-delay: 0.2s; }
-.character-section:nth-child(3) { animation-delay: 0.3s; }
-.character-section:nth-child(4) { animation-delay: 0.4s; }
-
-/* 主题过渡 */
-.character-detail-modal * {
-    transition: 
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        color 0.3s ease,
-        box-shadow 0.3s ease;
-}
 
