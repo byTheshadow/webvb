@@ -171,33 +171,51 @@ const CharacterSelector = (function() {
         }
 
         return filteredCharacters.map(char => {
-            // ✅ 为角色卡片准备显示用的标签（优先显示 soulTags）
-            const displayTags = char.soulTags || char.themeTags || [];
-            
-            return `
-                <div class="character-card" data-character='${JSON.stringify({
-                    id: char.id,
-                    name: char.name,
-                    occupation: char.occupation,
-                    archetype: char.archetype,
-                    soulTags: char.soulTags
-                })}'>
-                    <div class="character-avatar">
-                        ${char.avatar || char.emoji || '👤'}
-                    </div>
-                    <div class="character-info">
-                        <div class="character-name">${char.name}</div>
-                        ${char.occupation ? `<div class="character-name-en">${char.occupation}</div>` : ''}
-                    </div>
-                    ${displayTags.length > 0 ? `
-                        <div class="character-tags">
-                            ${displayTags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }).join('');
+    // ✅ 为角色卡片准备显示用的标签（优先显示 soulTags）
+    const displayTags = char.soulTags || char.themeTags || [];
+    
+    // ✨ 优先使用用户上传的头像
+    const customAvatar = Storage.get(`character_avatar_${char.id}`);
+    let avatarHTML;
+    
+    if (customAvatar) {
+        // 用户上传的头像（base64 或 URL）
+        avatarHTML = `<img src="${customAvatar}" alt="${char.name}" class="avatar-img">`;
+    } else if (char.avatarFile) {
+        // 角色数据中的头像文件
+        avatarHTML = `<img src="data/characters/avatars/${char.avatarFile}" alt="${char.name}" class="avatar-img">`;
+    } else if (char.imageFile) {
+        // 角色数据中的图片文件
+        avatarHTML = `<img src="data/characters/images/${char.imageFile}" alt="${char.name}" class="avatar-img">`;
+    } else {
+        // 默认占位符
+        avatarHTML = char.avatar || char.emoji || '👤';
     }
+    
+    return `
+        <div class="character-card" data-character='${JSON.stringify({
+            id: char.id,
+            name: char.name,
+            occupation: char.occupation,
+            archetype: char.archetype,
+            soulTags: char.soulTags
+        })}'>
+            <div class="character-avatar">
+                ${avatarHTML}
+            </div>
+            <div class="character-info">
+                <div class="character-name">${char.name}</div>
+                ${char.occupation ? `<div class="character-name-en">${char.occupation}</div>` : ''}
+            </div>
+            ${displayTags.length > 0 ? `
+                <div class="character-tags">
+                    ${displayTags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+            ` : ''}
+        </div>
+    `;
+}).join('');
+
 
     // 绑定事件
     function bindEvents(modal, allowMultiple, maxSelection) {
