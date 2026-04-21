@@ -4,7 +4,7 @@
    依赖：DataLoader, Storage
    
    主要功能：
-   - 选择心情/前调/中调/后调
+   - 选择心情/角色/前调/中调/后调
    - 调整香料比例
    - 生成香水卡片
    - 预设配方推荐
@@ -27,6 +27,7 @@ const PerfumeBlender = (function() {
         
         // 当前选择
         currentMood: null,
+        selectedCharacters: [], // ✨ 新增
         selectedTopNotes: [],
         selectedHeartNotes: [],
         selectedBaseNotes: [],
@@ -39,7 +40,7 @@ const PerfumeBlender = (function() {
         },
         
         // UI状态
-        currentStep: 'mood', // mood, top, heart, base, ratio, result
+        currentStep: 'mood', // mood, character, top, heart, base, ratio, result
         viewMode: 'create' // create, presets
     };
     // ========== 区块A1：模块状态 结束 ==========
@@ -137,11 +138,12 @@ const PerfumeBlender = (function() {
     function renderStepIndicator() {
         const steps = [
             { id: 'mood', label: '心情', icon: '💭' },
-            { id: 'top', label: '前调', icon: '🍋' },
-            { id: 'heart', label: '中调', icon: '🌹' },
-            { id: 'base', label: '后调', icon: '🌲' },
-            { id: 'ratio', label: '比例', icon: '📊' },
-            { id: 'result', label: '完成', icon: '✨' }
+            { id: 'character', label: '角色', icon: '👥' }, // ✨ 新增
+            { id: 'top', label: '前调', icon: '✨' },
+            { id: 'heart', label: '中调', icon: '🌸' },
+            { id: 'base', label: '后调', icon: '🌿' },
+            { id: 'ratio', label: '比例', icon: '⚖️' },
+            { id: 'result', label: '完成', icon: '🎁' }
         ];
 
         return `
@@ -157,7 +159,7 @@ const PerfumeBlender = (function() {
     }
 
     function isStepCompleted(stepId) {
-        const stepOrder = ['mood', 'top', 'heart', 'base', 'ratio', 'result'];
+        const stepOrder = ['mood', 'character', 'top', 'heart', 'base', 'ratio', 'result']; // ✨ 更新
         const currentIndex = stepOrder.indexOf(state.currentStep);
         const stepIndex = stepOrder.indexOf(stepId);
         return stepIndex < currentIndex;
@@ -169,6 +171,8 @@ const PerfumeBlender = (function() {
         switch (state.currentStep) {
             case 'mood':
                 return renderMoodStep();
+            case 'character': // ✨ 新增
+                return renderCharacterStep();
             case 'top':
                 return renderTopNotesStep();
             case 'heart':
@@ -180,7 +184,7 @@ const PerfumeBlender = (function() {
             case 'result':
                 return renderResultStep();
             default:
-                return '';
+                return '<p>未知步骤</p>';
         }
     }
     // ========== 区块A7：渲染当前步骤 结束 ==========
@@ -212,13 +216,59 @@ const PerfumeBlender = (function() {
                 </div>
                 ${state.currentMood ? `
                     <button class="next-step-btn primary-btn" onclick="PerfumeBlender.nextStep()">
-                        下一步：选择前调
+                        下一步：选择角色
                     </button>
                 ` : ''}
             </div>
         `;
     }
     // ========== 区块A8：心情选择步骤 结束 ==========
+
+    // ========== 区块A8：角色选择步骤 开始 ==========
+    function renderCharacterStep() {
+        return `
+            <div class="step-section">
+                <h2 class="step-title">为谁调制这款香水？</h2>
+                <p class="step-desc">选择1-2个角色，或跳过此步骤独自品香</p>
+                
+                <div class="character-selection">
+                    ${state.selectedCharacters.length > 0 ? `
+                        <div class="selected-characters-preview">
+                            <div class="preview-label">已选择：</div>
+                            <div class="preview-list">
+                                ${state.selectedCharacters.map((char, index) => `
+                                    <div class="preview-item">
+                                        <span class="preview-name">${char.name}</span>
+                                        <button class="preview-remove" onclick="PerfumeBlender.removeCharacter(${index})">×</button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="character-actions">
+                        <button class="select-btn primary-btn" onclick="PerfumeBlender.openCharacterSelector()">
+                            ${state.selectedCharacters.length > 0 ? '✏️ 修改角色' : '👥 选择角色'}
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="step-navigation">
+                    <button class="nav-btn secondary" onclick="PerfumeBlender.prevStep()">
+                        ← 上一步
+                    </button>
+                    <button class="nav-btn secondary" onclick="PerfumeBlender.skipCharacterSelection()">
+                        ⏭️ 跳过
+                    </button>
+                    <button class="nav-btn primary" onclick="PerfumeBlender.nextStep()" 
+                            ${state.selectedCharacters.length === 0 ? 'disabled' : ''}>
+                        下一步 →
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    // ========== 区块A8：角色选择步骤 结束 ==========
 
     // ========== 区块A9：前调选择步骤 开始 ==========
     function renderTopNotesStep() {
@@ -851,24 +901,65 @@ const PerfumeBlender = (function() {
         render(document.getElementById('app'));
     }
 
+    function validateCurrentStep() {
+        switch (state.currentStep) {
+            case 'mood':
+                if (!state.currentMood) {
+                    alert('请选择一个心情');
+                    return false;
+                }
+                return true;
+            case 'character':
+                // 角色步骤可以跳过，所以总是返回 true
+                return true;
+            case 'top':
+                if (state.selectedTopNotes.length === 0) {
+                    alert('请至少选择一个前调香料');
+                    return false;
+                }
+                return true;
+            case 'heart':
+                if (state.selectedHeartNotes.length === 0) {
+                    alert('请至少选择一个中调香料');
+                    return false;
+                }
+                return true;
+            case 'base':
+                if (state.selectedBaseNotes.length === 0) {
+                    alert('请至少选择一个后调香料');
+                    return false;
+                }
+                return true;
+            case 'ratio':
+                return true;
+            default:
+                return true;
+        }
+    }
+
     function nextStep() {
-        const stepOrder = ['mood', 'top', 'heart', 'base', 'ratio', 'result'];
+        const stepOrder = ['mood', 'character', 'top', 'heart', 'base', 'ratio', 'result'];
         const currentIndex = stepOrder.indexOf(state.currentStep);
+        
+        // 验证当前步骤
+        if (!validateCurrentStep()) {
+            return;
+        }
         
         if (currentIndex < stepOrder.length - 1) {
             state.currentStep = stepOrder[currentIndex + 1];
-            render(document.getElementById('app'));
+            render(document.getElementById('main-content'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
     function prevStep() {
-        const stepOrder = ['mood', 'top', 'heart', 'base', 'ratio', 'result'];
+        const stepOrder = ['mood', 'character', 'top', 'heart', 'base', 'ratio', 'result'];
         const currentIndex = stepOrder.indexOf(state.currentStep);
         
         if (currentIndex > 0) {
             state.currentStep = stepOrder[currentIndex - 1];
-            render(document.getElementById('app'));
+            render(document.getElementById('main-content'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
@@ -880,31 +971,54 @@ const PerfumeBlender = (function() {
 
     function reset() {
         state.currentMood = null;
+        state.selectedCharacters = []; // ✨ 新增
         state.selectedTopNotes = [];
         state.selectedHeartNotes = [];
         state.selectedBaseNotes = [];
-        state.ratios = { top: 25, heart: 45, base: 30 };
+        state.ratios = {
+            top: 25,
+            heart: 45,
+            base: 30
+        };
+        state.generatedPerfume = null;
         state.currentStep = 'mood';
-        render(document.getElementById('app'));
+        
+        render(document.getElementById('main-content'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function savePerfume() {
-        const perfume = generatePerfume();
-        const saved = Storage.get('savedPerfumes') || [];
+        const savedPerfumes = Storage.get('savedPerfumes') || [];
         
-        // 添加到开头，保持最新的在前面
-        saved.unshift(perfume);
+        // 添加角色信息
+        const perfumeWithCharacters = {
+            ...state.generatedPerfume,
+            characters: state.selectedCharacters
+        };
         
-        // 最多保存50个
-        if (saved.length > 50) {
-            saved.pop();
+        savedPerfumes.unshift(perfumeWithCharacters);
+        
+        // 只保留最近50个
+        if (savedPerfumes.length > 50) {
+            savedPerfumes.length = 50;
         }
         
-        Storage.set('savedPerfumes', saved);
+        Storage.set('savedPerfumes', savedPerfumes);
         
-        alert('香水已保存！');
-        render(document.getElementById('app'));
+        // ✨ 如果选择了角色，生成互动卡片
+        if (state.selectedCharacters.length > 0) {
+            const cardData = InteractionCard.generatePerfumeCard(
+                state.generatedPerfume,
+                state.selectedCharacters
+            );
+            
+            // 显示卡片
+            setTimeout(() => {
+                InteractionCard.showCard(cardData);
+            }, 500);
+        } else {
+            alert('🌸 香水卡片已保存！');
+        }
     }
 
     function deletePerfume(date) {
@@ -966,7 +1080,37 @@ const PerfumeBlender = (function() {
     }
     // ========== 区块A19：交互方法 结束 ==========
 
-    // ========== 区块A20：样式注入 开始 ==========
+    // ========== 区块A20：角色选择功能 开始 ==========
+    function openCharacterSelector() {
+        CharacterSelector.open((characters) => {
+            if (Array.isArray(characters)) {
+                state.selectedCharacters = characters;
+            } else {
+                state.selectedCharacters = [characters];
+            }
+            render(document.getElementById('main-content'));
+        }, {
+            title: '选择角色',
+            allowCustom: true,
+            allowMultiple: true,
+            maxSelection: 2
+        });
+    }
+
+    function removeCharacter(index) {
+        state.selectedCharacters.splice(index, 1);
+        render(document.getElementById('main-content'));
+    }
+
+    function skipCharacterSelection() {
+        state.selectedCharacters = [];
+        state.currentStep = 'top'; // 直接跳到前调选择
+        render(document.getElementById('main-content'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // ========== 区块A20：角色选择功能 结束 ==========
+
+    // ========== 区块A21：样式注入 开始 ==========
     function injectStyles() {
         const styleId = 'perfume-blender-styles';
         if (document.getElementById(styleId)) return;
@@ -977,25 +1121,29 @@ const PerfumeBlender = (function() {
         link.href = 'css/perfume.css';
         document.head.appendChild(link);
     }
-    // ========== 区块A20：样式注入 结束 ==========
+    // ========== 区块A21：样式注入 结束 ==========
 
-    // ========== 区块A21：公共API 开始 ==========
+    // ========== 区块A22：公共API 开始 ==========
     return {
         init,
         render,
         selectMood,
+        openCharacterSelector, // ✨ 新增
+        removeCharacter, // ✨ 新增
+        skipCharacterSelection, // ✨ 新增
         toggleNote,
         updateRatio,
         nextStep,
         prevStep,
         switchView,
-        reset,
+        generatePerfume,
+        applyPreset,
         savePerfume,
         deletePerfume,
         sharePerfume,
-        applyPreset
+        reset
     };
-    // ========== 区块A21：公共API 结束 ==========
+    // ========== 区块A22：公共API 结束 ==========
 
 })();
 
