@@ -34,10 +34,18 @@ async init() {
         // 2. 初始化路由
         Router.init();
         
-        // 3. 初始化偏好管理器 ✅ 新增
-        if (typeof PreferenceManager !== 'undefined') {
-            PreferenceManager.init();
-        }
+        // 找到偏好管理器初始化
+if (typeof PreferenceManager !== 'undefined') {
+    // ❌ 删除或注释掉立即初始化
+    // PreferenceManager.init();
+    
+    // ✅ 监听加载完成事件
+    window.addEventListener('loadingComplete', () => {
+        console.log('[App] 加载页面完成，初始化偏好管理器');
+        PreferenceManager.init();
+    });
+}
+
         
         // 4. 初始化主题管理器
         if (typeof ThemeManager !== 'undefined') {
