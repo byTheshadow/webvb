@@ -66,7 +66,11 @@ if (typeof PreferenceManager !== 'undefined') {
         if (typeof PoetryCollage !== 'undefined') {
             PoetryCollage.init();
         }
-        
+        // 初始化角色选择器
+      if (typeof CharacterSelector !== 'undefined') {
+      CharacterSelector.init();
+      }
+
         // ✨ 新增：6.6. 初始化创意中心
         if (typeof CreativeHub !== 'undefined') {
             CreativeHub.init();
