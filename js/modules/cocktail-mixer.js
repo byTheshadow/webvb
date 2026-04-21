@@ -155,12 +155,6 @@ function isStepCompleted(stepId) {
     return stepIndex < currentIndex;
 }
 
-    function isStepCompleted(stepId) {
-        const stepOrder = ['mood', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
-        const currentIndex = stepOrder.indexOf(state.currentStep);
-        const stepIndex = stepOrder.indexOf(stepId);
-        return stepIndex < currentIndex;
-    }
     // ========== 区块A6：渲染步骤指示器 结束 ==========
 
     // ========== 区块A7：渲染当前步骤 开始 ==========
@@ -700,6 +694,7 @@ function getMoodName(moodId) {
         
         render(document.getElementById('main-content'));
     }
+    // ========== 区块A16：交互逻辑 结束 ==========
 
    // ========== 区块A18：下一步 开始 ==========
 function nextStep() {
@@ -712,40 +707,25 @@ function nextStep() {
         return;
     }
     
-    if (state.currentStep === 'character' && state.selectedCharacters.length === 0) {
-        alert('请选择角色或点击"跳过"');
-        return;
-    }
+    // ✨ 角色步骤允许跳过，不需要验证
     
     if (state.currentStep === 'spirit' && !state.selectedSpirit) {
         alert('请先选择基酒');
         return;
     }
     
-    if (state.currentStep === 'mixer' && state.selectedMixers.length === 0) {
-        alert('请至少选择一种辅料');
-        return;
-    }
+    // ✨ 辅料步骤允许跳过
     
     if (state.currentStep === 'technique' && !state.selectedTechnique) {
         alert('请先选择调制手法');
         return;
     }
     
-    if (state.currentStep === 'garnish' && state.selectedGarnishes.length === 0) {
-        alert('请至少选择一种装饰');
-        return;
-    }
+    // ✨ 装饰步骤允许跳过
     
-    // 移动到下一步
+    // 进入下一步
     if (currentIndex < stepOrder.length - 1) {
         state.currentStep = stepOrder[currentIndex + 1];
-        
-        // 如果到达结果步骤，生成鸡尾酒
-        if (state.currentStep === 'result') {
-            generateCocktail();
-        }
-        
         render(document.getElementById('main-content'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -770,7 +750,6 @@ function prevStep() {
         state.viewMode = mode;
         render(document.getElementById('main-content'));
     }
-    // ========== 区块A16：交互逻辑 结束 ==========
 
     // ========== 区块A17：生成酒卡 开始 ==========
     function generateCocktail() {
@@ -902,38 +881,39 @@ function prevStep() {
 
     // ========== 区块A19：保存和分享 开始 ==========
     function saveCocktail() {
-    const savedCocktails = Storage.get('savedCocktails') || [];
-    
-    // 添加角色信息
-    const cocktailWithCharacters = {
-        ...state.generatedCocktail,
-        characters: state.selectedCharacters
-    };
-    
-    savedCocktails.unshift(cocktailWithCharacters);
-    
-    // 只保留最近50个
-    if (savedCocktails.length > 50) {
-        savedCocktails.length = 50;
-    }
-    
-    Storage.set('savedCocktails', savedCocktails);
-    
-    // ✨ 如果选择了角色，生成互动卡片
-    if (state.selectedCharacters.length > 0) {
-        const cardData = InteractionCard.generateDrinkingCard(
-            state.generatedCocktail,
-            state.selectedCharacters
-        );
+        const savedCocktails = Storage.get('savedCocktails') || [];
         
-        // 显示卡片
-        setTimeout(() => {
-            InteractionCard.showCard(cardData);
-        }, 500);
-    } else {
-        alert('🍸 酒卡已保存！');
+        // 添加角色信息
+        const cocktailWithCharacters = {
+            ...state.generatedCocktail,
+            characters: state.selectedCharacters,
+            mood: state.currentMood
+        };
+        
+        savedCocktails.unshift(cocktailWithCharacters);
+        
+        // 只保留最近50个
+        if (savedCocktails.length > 50) {
+            savedCocktails.length = 50;
+        }
+        
+        Storage.set('savedCocktails', savedCocktails);
+        
+        // ✨ 如果选择了角色，生成互动卡片
+        if (state.selectedCharacters.length > 0 && typeof InteractionCard !== 'undefined') {
+            const cardData = InteractionCard.generateDrinkingCard(
+                cocktailWithCharacters,
+                state.selectedCharacters
+            );
+            
+            // 显示卡片
+            setTimeout(() => {
+                InteractionCard.showCard(cardData);
+            }, 500);
+        } else {
+            alert('🍸 酒卡已保存！');
+        }
     }
-}
 
     function shareCocktail() {
         const cocktail = state.generatedCocktail;
@@ -956,71 +936,74 @@ function prevStep() {
     }
 
     function reset() {
-    state.currentMood = null;
-    state.selectedCharacters = []; // ✨ 新增
-    state.selectedSpirit = null;
-    state.selectedMixers = [];
-    state.selectedTechnique = null;
-    state.selectedGarnishes = [];
-    state.generatedCocktail = null;
-    state.currentStep = 'mood';
-    
-    render(document.getElementById('main-content'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+        state.currentMood = null;
+        state.selectedCharacters = []; // ✨ 新增
+        state.selectedSpirit = null;
+        state.selectedMixers = [];
+        state.selectedTechnique = null;
+        state.selectedGarnishes = [];
+        state.generatedCocktail = null;
+        state.currentStep = 'mood';
         
-    // ========== 区块A19：保存和分享 结束 ==========
-   // ========== 区块A20：角色选择功能 开始 ==========
-function openCharacterSelector() {
-    CharacterSelector.open((characters) => {
-        if (Array.isArray(characters)) {
-            state.selectedCharacters = characters;
-        } else {
-            state.selectedCharacters = [characters];
-        }
         render(document.getElementById('main-content'));
-    }, {
-        title: '选择角色',
-        allowCustom: true,
-        allowMultiple: true,
-        maxSelection: 2
-    });
-}
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // ========== 区块A19：保存和分享 结束 ==========
 
-function removeCharacter(index) {
-    state.selectedCharacters.splice(index, 1);
-    render(document.getElementById('main-content'));
-}
+    // ========== 区块A20：角色选择功能 开始 ==========
+    function openCharacterSelector() {
+        if (typeof CharacterSelector === 'undefined') {
+            alert('角色选择器未加载');
+            return;
+        }
+        
+        CharacterSelector.open((characters) => {
+            if (Array.isArray(characters)) {
+                state.selectedCharacters = characters;
+            } else {
+                state.selectedCharacters = [characters];
+            }
+            render(document.getElementById('main-content'));
+        }, {
+            title: '选择角色',
+            allowCustom: true,
+            allowMultiple: true,
+            maxSelection: 2
+        });
+    }
 
-function skipCharacterSelection() {
-    state.selectedCharacters = [];
-    nextStep();
-}
-// ========== 区块A20：角色选择功能 结束 ==========
+    function removeCharacter(index) {
+        state.selectedCharacters.splice(index, 1);
+        render(document.getElementById('main-content'));
+    }
 
+    function skipCharacterSelection() {
+        state.selectedCharacters = [];
+        nextStep();
+    }
+    // ========== 区块A20：角色选择功能 结束 ==========
 
     // ========== 区块A20：公共API 开始 ==========
     return {
-    init,
-    render,
-    selectMood,
-    openCharacterSelector, // ✨ 新增
-    removeCharacter, // ✨ 新增
-    skipCharacterSelection, // ✨ 新增
-    selectSpirit,
-    toggleMixer,
-    selectTechnique,
-    toggleGarnish,
-    nextStep,
-    prevStep,
-    switchView,
-    generateCocktail,
-    usePreset,
-    saveCocktail,
-    shareCocktail,
-    reset
-};
-
+        init,
+        render,
+        selectMood,
+        openCharacterSelector, // ✨ 新增
+        removeCharacter, // ✨ 新增
+        skipCharacterSelection, // ✨ 新增
+        selectSpirit,
+        toggleMixer,
+        selectTechnique,
+        toggleGarnish,
+        nextStep,
+        prevStep,
+        switchView,
+        generateCocktail,
+        usePreset,
+        saveCocktail,
+        shareCocktail,
+        reset
+    };
     // ========== 区块A20：公共API 结束 ==========
 
 })();
