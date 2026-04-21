@@ -701,25 +701,70 @@ function getMoodName(moodId) {
         render(document.getElementById('main-content'));
     }
 
-    function nextStep() {
-        const stepOrder = ['mood', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
-        const currentIndex = stepOrder.indexOf(state.currentStep);
-        if (currentIndex < stepOrder.length - 1) {
-            state.currentStep = stepOrder[currentIndex + 1];
-            render(document.getElementById('main-content'));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+   // ========== 区块A18：下一步 开始 ==========
+function nextStep() {
+    const stepOrder = ['mood', 'character', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
+    const currentIndex = stepOrder.indexOf(state.currentStep);
+    
+    // 验证当前步骤是否完成
+    if (state.currentStep === 'mood' && !state.currentMood) {
+        alert('请先选择心情');
+        return;
     }
+    
+    if (state.currentStep === 'character' && state.selectedCharacters.length === 0) {
+        alert('请选择角色或点击"跳过"');
+        return;
+    }
+    
+    if (state.currentStep === 'spirit' && !state.selectedSpirit) {
+        alert('请先选择基酒');
+        return;
+    }
+    
+    if (state.currentStep === 'mixer' && state.selectedMixers.length === 0) {
+        alert('请至少选择一种辅料');
+        return;
+    }
+    
+    if (state.currentStep === 'technique' && !state.selectedTechnique) {
+        alert('请先选择调制手法');
+        return;
+    }
+    
+    if (state.currentStep === 'garnish' && state.selectedGarnishes.length === 0) {
+        alert('请至少选择一种装饰');
+        return;
+    }
+    
+    // 移动到下一步
+    if (currentIndex < stepOrder.length - 1) {
+        state.currentStep = stepOrder[currentIndex + 1];
+        
+        // 如果到达结果步骤，生成鸡尾酒
+        if (state.currentStep === 'result') {
+            generateCocktail();
+        }
+        
+        render(document.getElementById('main-content'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+// ========== 区块A18：下一步 结束 ==========
 
-    function prevStep() {
-        const stepOrder = ['mood', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
-        const currentIndex = stepOrder.indexOf(state.currentStep);
-        if (currentIndex > 0) {
-            state.currentStep = stepOrder[currentIndex - 1];
-            render(document.getElementById('main-content'));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+
+   // ========== 区块A19：上一步 开始 ==========
+function prevStep() {
+    const stepOrder = ['mood', 'character', 'spirit', 'mixer', 'technique', 'garnish', 'result'];
+    const currentIndex = stepOrder.indexOf(state.currentStep);
+    
+    if (currentIndex > 0) {
+        state.currentStep = stepOrder[currentIndex - 1];
+        render(document.getElementById('main-content'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+}
+// ========== 区块A19：上一步 结束 ==========
 
     function switchView(mode) {
         state.viewMode = mode;
