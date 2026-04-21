@@ -226,13 +226,12 @@ function closeLoadingScreen() {
             loadingScreen.remove();
             console.log('[LoadingScreen] 加载页面已关闭');
             
-            // ✨ 关闭后触发偏好检查
-            if (window.PreferenceManager && typeof PreferenceManager.checkFirstVisit === 'function') {
-                PreferenceManager.checkFirstVisit();
-            }
+            // ✨ 触发自定义事件
+            window.dispatchEvent(new CustomEvent('loadingComplete'));
         }, 800);
     }
 }
+
 
     // 公开API
     return {
