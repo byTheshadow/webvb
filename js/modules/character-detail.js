@@ -1,15 +1,17 @@
 /* ================================
    文件名：character-detail.js
-   功能：角色卡详情页（模态框形式）
-   依赖：storage.js, data-loader.js
+   功能：角色卡详情页（文件夹档案风格）
+   依赖：storage.js, data-loader.js, avatar-uploader.js
    
    主要功能：
-   - 显示角色完整信息
+   - 文件夹式档案展示
+   - 侧边标签索引导航
+   - 双栏布局
+   - 创作者署名高亮
+   - 头像上传功能
    - 绘制维度雷达图（Canvas）
    - 标签云展示
    - 相关角色推荐
-   - 支持左右滑动切换角色（移动端）
-   - ✨ 头像上传功能
    
    最后更新：2026-04-21
    ================================ */
@@ -38,7 +40,6 @@ const CharacterDetail = (function() {
     async function loadCharacters() {
         try {
             const data = await DataLoader.loadCharacters();
-            // loadCharacters 返回的是完整的 JSON 对象，需要提取 characters 数组
             state.allCharacters = data.characters || [];
             console.log('[CharacterDetail] 角色数据加载完成:', state.allCharacters.length);
             return state.allCharacters;
@@ -176,7 +177,7 @@ const CharacterDetail = (function() {
         });
         
         // 绘制数据区域
-        ctx.fillStyle = primaryColor + '30'; // 30% 透明度
+        ctx.fillStyle = primaryColor + '30';
         ctx.strokeStyle = primaryColor;
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -247,7 +248,7 @@ const CharacterDetail = (function() {
     // ========== 区块E：UI渲染 开始 ==========
     
     /**
-     * 获取角色头像（优先使用用户上传的）
+     * ✨ 获取角色头像（优先使用用户上传的）
      */
     function getCharacterAvatar(character) {
         // 1. 优先使用用户上传的头像
@@ -266,7 +267,7 @@ const CharacterDetail = (function() {
     }
     
     /**
-     * 创建模态框HTML
+     * ✨ 创建模态框HTML（新设计）
      */
     function createModalHTML(character) {
         if (!character) return '';
@@ -297,8 +298,8 @@ const CharacterDetail = (function() {
                 let avatarHTML;
                 if (relatedAvatar) {
                     avatarHTML = `<img src="${relatedAvatar}" alt="${char.name}">`;
-                } else if (char.avatarFile) {
-                    avatarHTML = `<img src="data/characters/avatars/${char.avatarFile}" alt="${char.name}">`;
+                } else if (char.imageFile) {
+                    avatarHTML = `<img src="data/characters/images/${char.imageFile}" alt="${char.name}">`;
                 } else {
                     avatarHTML = `<div class="avatar-placeholder">${char.name[0]}</div>`;
                 }
@@ -319,6 +320,25 @@ const CharacterDetail = (function() {
             <div class="character-detail-modal" id="character-detail-modal">
                 <div class="modal-backdrop"></div>
                 <div class="modal-container">
+                    <!-- ✨ 侧边标签索引 -->
+                    <div class="side-tabs">
+                        <button class="side-tab" data-target="header">
+                            🎭 基本
+                        </button>
+                        <button class="side-tab" data-target="description">
+                            📝 描述
+                        </button>
+                        <button class="side-tab" data-target="dimensions">
+                            📊 维度
+                        </button>
+                        <button class="side-tab" data-target="tags">
+                            🏷️ 标签
+                        </button>
+                        <button class="side-tab" data-target="related">
+                            👥 相关
+                        </button>
+                    </div>
+                    
                     <div class="modal-header">
                         <button class="back-btn" id="detail-back-btn">
                             <span>←</span> 返回
@@ -327,8 +347,8 @@ const CharacterDetail = (function() {
                     </div>
                     
                     <div class="modal-body">
-                        <!-- 角色基本信息 -->
-                        <div class="character-header">
+                        <!-- ✨ 角色头部区域 -->
+                        <div class="character-header" id="header">
                             <div class="character-avatar-wrapper">
                                 <div class="character-avatar" id="character-avatar-display">
                                     ${getCharacterAvatar(character)}
@@ -344,46 +364,62 @@ const CharacterDetail = (function() {
                                     <span class="archetype-badge">${character.archetype || ''}</span>
                                 </div>
                                 <p class="character-oneliner">${character.oneLiner || ''}</p>
+                                
+                                <!-- ✨ 创作者署名 -->
+                                ${character.creator ? `
+                                <div class="creator-signature">
+                                    <div class="creator-icon">✍️</div>
+                                    <div class="creator-info">
+                                        <div class="creator-label">Created by</div>
+                                        <div class="creator-name">${character.creator}</div>
+                                    </div>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
                         
-                        <!-- 完整描述 -->
-                        ${character.description ? `
-                        <div class="character-section">
-                            <h3 class="section-title">角色描述</h3>
-                            <p class="character-description">${character.description}</p>
-                        </div>
-                        ` : ''}
-                        
-                        <!-- 维度雷达图 -->
-                        ${character.matchDimensions ? `
-                        <div class="character-section">
-                            <h3 class="section-title">维度分析</h3>
-                            <div class="radar-container">
-                                <canvas id="character-radar-chart" width="300" height="300"></canvas>
+                        <!-- ✨ 双栏内容布局 -->
+                        <div class="character-content">
+                            <!-- 左栏 -->
+                            <div class="content-column">
+                                ${character.description ? `
+                                <div class="character-section" id="description">
+                                    <h3 class="section-title">角色描述</h3>
+                                    <p class="character-description">${character.description}</p>
+                                </div>
+                                ` : ''}
+                                
+                                ${uniqueTags.length > 0 ? `
+                                <div class="character-section" id="tags">
+                                    <h3 class="section-title">标签云</h3>
+                                    <div class="tag-cloud">
+                                        ${tagCloud}
+                                    </div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <!-- 右栏 -->
+                            <div class="content-column">
+                                ${character.matchDimensions ? `
+                                <div class="character-section" id="dimensions">
+                                    <h3 class="section-title">维度分析</h3>
+                                    <div class="radar-container">
+                                        <canvas id="character-radar-chart" width="300" height="300"></canvas>
+                                    </div>
+                                </div>
+                                ` : ''}
+                                
+                                ${state.relatedCharacters.length > 0 ? `
+                                <div class="character-section" id="related">
+                                    <h3 class="section-title">相关角色</h3>
+                                    <div class="related-characters">
+                                        ${relatedCards}
+                                    </div>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
-                        ` : ''}
-                        
-                        <!-- 标签云 -->
-                        ${uniqueTags.length > 0 ? `
-                        <div class="character-section">
-                            <h3 class="section-title">标签云</h3>
-                            <div class="tag-cloud">
-                                ${tagCloud}
-                            </div>
-                        </div>
-                        ` : ''}
-                        
-                        <!-- 相关推荐 -->
-                        ${state.relatedCharacters.length > 0 ? `
-                        <div class="character-section">
-                            <h3 class="section-title">相关角色</h3>
-                            <div class="related-characters">
-                                ${relatedCards}
-                            </div>
-                        </div>
-                        ` : ''}
                         
                         <!-- 收藏按钮 -->
                         <div class="character-actions">
@@ -509,6 +545,28 @@ const CharacterDetail = (function() {
             uploadAvatarBtn.addEventListener('click', handleAvatarUpload);
         }
         
+        // ✨ 侧边标签点击（平滑滚动到对应区域）
+        const sideTabs = state.modalElement.querySelectorAll('.side-tab');
+        sideTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.target;
+                const targetElement = state.modalElement.querySelector(`#${targetId}`);
+                
+                if (targetElement) {
+                    // 移除所有激活状态
+                    sideTabs.forEach(t => t.classList.remove('active'));
+                    // 添加当前激活状态
+                    tab.classList.add('active');
+                    
+                    // 平滑滚动到目标
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            });
+        });
+        
         // 相关角色卡片点击
         const relatedCards = state.modalElement.querySelectorAll('.related-card');
         relatedCards.forEach(card => {
@@ -595,5 +653,7 @@ const CharacterDetail = (function() {
 
 // ========== 导出到全局 ==========
 window.CharacterDetail = CharacterDetail;
+
+
 
 
