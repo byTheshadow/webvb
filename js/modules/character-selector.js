@@ -20,7 +20,8 @@ const CharacterSelector = (function() {
     // 初始化
     async function init() {
         try {
-            const data = await DataLoader.loadJSON('data/characters.json');
+            // ✅ 修复：使用正确的数据路径
+            const data = await DataLoader.loadJSON('data/characters/list.json');
             characters = data.characters || [];
             console.log('[CharacterSelector] 角色数据加载完成', characters.length);
         } catch (error) {
@@ -137,33 +138,65 @@ const CharacterSelector = (function() {
         
         if (searchQuery) {
             const query = searchQuery.toLowerCase();
-            filteredCharacters = characters.filter(char => 
-                char.name.toLowerCase().includes(query) ||
-                (char.nameEn && char.nameEn.toLowerCase().includes(query)) ||
-                (char.tags && char.tags.some(tag => tag.toLowerCase().includes(query)))
-            );
+            filteredCharacters = characters.filter(char => {
+                // 搜索名称
+                if (char.name && char.name.toLowerCase().includes(query)) return true;
+                
+                // ✅ 修复：适配新的数据结构，搜索各种标签
+                if (char.occupation && char.occupation.toLowerCase().includes(query)) return true;
+                if (char.archetype && char.archetype.toLowerCase().includes(query)) return true;
+                
+                // 搜索标签数组
+                const tagArrays = [
+                    char.soulTags,
+                    char.themeTags,
+                    char.emotionTags,
+                    char.coreXP
+                ];
+                
+                for (const tags of tagArrays) {
+                    if (Array.isArray(tags) && tags.some(tag => 
+                        tag.toLowerCase().includes(query)
+                    )) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            });
         }
 
         if (filteredCharacters.length === 0) {
             return '<div class="empty-state">未找到匹配的角色</div>';
         }
 
-        return filteredCharacters.map(char => `
-            <div class="character-card" data-character='${JSON.stringify(char)}'>
-                <div class="character-avatar">
-                    ${char.avatar || char.emoji || '👤'}
-                </div>
-                <div class="character-info">
-                    <div class="character-name">${char.name}</div>
-                    ${char.nameEn ? `<div class="character-name-en">${char.nameEn}</div>` : ''}
-                </div>
-                ${char.tags ? `
-                    <div class="character-tags">
-                        ${char.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
+        return filteredCharacters.map(char => {
+            // ✅ 为角色卡片准备显示用的标签（优先显示 soulTags）
+            const displayTags = char.soulTags || char.themeTags || [];
+            
+            return `
+                <div class="character-card" data-character='${JSON.stringify({
+                    id: char.id,
+                    name: char.name,
+                    occupation: char.occupation,
+                    archetype: char.archetype,
+                    soulTags: char.soulTags
+                })}'>
+                    <div class="character-avatar">
+                        ${char.avatar || char.emoji || '👤'}
                     </div>
-                ` : ''}
-            </div>
-        `).join('');
+                    <div class="character-info">
+                        <div class="character-name">${char.name}</div>
+                        ${char.occupation ? `<div class="character-name-en">${char.occupation}</div>` : ''}
+                    </div>
+                    ${displayTags.length > 0 ? `
+                        <div class="character-tags">
+                            ${displayTags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }).join('');
     }
 
     // 绑定事件
@@ -339,3 +372,4 @@ const CharacterSelector = (function() {
 
 // 挂载到全局
 window.CharacterSelector = CharacterSelector;
+
