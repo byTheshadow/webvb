@@ -9,8 +9,9 @@
    - 标签云展示
    - 相关角色推荐
    - 支持左右滑动切换角色（移动端）
+   - ✨ 头像上传功能
    
-   最后更新：2026-04-19
+   最后更新：2026-04-21
    ================================ */
 
 // ========== 区块A：模块状态 开始 ==========
@@ -246,6 +247,25 @@ const CharacterDetail = (function() {
     // ========== 区块E：UI渲染 开始 ==========
     
     /**
+     * 获取角色头像（优先使用用户上传的）
+     */
+    function getCharacterAvatar(character) {
+        // 1. 优先使用用户上传的头像
+        const customAvatar = Storage.get(`character_avatar_${character.id}`);
+        if (customAvatar) {
+            return `<img src="${customAvatar}" alt="${character.name}">`;
+        }
+        
+        // 2. 使用角色的 imageFile
+        if (character.imageFile) {
+            return `<img src="data/characters/images/${character.imageFile}" alt="${character.name}">`;
+        }
+        
+        // 3. 使用占位符
+        return `<div class="avatar-placeholder-large">${character.name[0]}</div>`;
+    }
+    
+    /**
      * 创建模态框HTML
      */
     function createModalHTML(character) {
@@ -271,18 +291,28 @@ const CharacterDetail = (function() {
         
         // 相关角色卡片
         const relatedCards = state.relatedCharacters
-            .map(char => `
-                <div class="related-card" data-character-id="${char.id}">
-                    <div class="related-avatar">
-                        ${char.avatarFile ? 
-                            `<img src="data/characters/avatars/${char.avatarFile}" alt="${char.name}">` :
-                            `<div class="avatar-placeholder">${char.name[0]}</div>`
-                        }
+            .map(char => {
+                // 获取相关角色的头像
+                const relatedAvatar = Storage.get(`character_avatar_${char.id}`);
+                let avatarHTML;
+                if (relatedAvatar) {
+                    avatarHTML = `<img src="${relatedAvatar}" alt="${char.name}">`;
+                } else if (char.avatarFile) {
+                    avatarHTML = `<img src="data/characters/avatars/${char.avatarFile}" alt="${char.name}">`;
+                } else {
+                    avatarHTML = `<div class="avatar-placeholder">${char.name[0]}</div>`;
+                }
+                
+                return `
+                    <div class="related-card" data-character-id="${char.id}">
+                        <div class="related-avatar">
+                            ${avatarHTML}
+                        </div>
+                        <div class="related-name">${char.name}</div>
+                        <div class="related-archetype">${char.archetype || ''}</div>
                     </div>
-                    <div class="related-name">${char.name}</div>
-                    <div class="related-archetype">${char.archetype || ''}</div>
-                </div>
-            `)
+                `;
+            })
             .join('');
         
         return `
@@ -299,11 +329,13 @@ const CharacterDetail = (function() {
                     <div class="modal-body">
                         <!-- 角色基本信息 -->
                         <div class="character-header">
-                            <div class="character-avatar">
-                                ${character.imageFile ? 
-                                    `<img src="data/characters/images/${character.imageFile}" alt="${character.name}">` :
-                                    `<div class="avatar-placeholder-large">${character.name[0]}</div>`
-                                }
+                            <div class="character-avatar-wrapper">
+                                <div class="character-avatar" id="character-avatar-display">
+                                    ${getCharacterAvatar(character)}
+                                </div>
+                                <button class="upload-avatar-btn" id="upload-avatar-btn" title="上传头像">
+                                    📷
+                                </button>
                             </div>
                             <div class="character-info">
                                 <h2 class="character-name">${character.name}</h2>
@@ -471,6 +503,12 @@ const CharacterDetail = (function() {
             favoriteBtn.addEventListener('click', toggleFavorite);
         }
         
+        // ✨ 上传头像按钮
+        const uploadAvatarBtn = state.modalElement.querySelector('#upload-avatar-btn');
+        if (uploadAvatarBtn) {
+            uploadAvatarBtn.addEventListener('click', handleAvatarUpload);
+        }
+        
         // 相关角色卡片点击
         const relatedCards = state.modalElement.querySelectorAll('.related-card');
         relatedCards.forEach(card => {
@@ -512,6 +550,33 @@ const CharacterDetail = (function() {
         }
     }
     
+    /**
+     * ✨ 处理头像上传
+     */
+    function handleAvatarUpload() {
+        if (!state.currentCharacter) return;
+        
+        const character = state.currentCharacter;
+        const currentAvatar = Storage.get(`character_avatar_${character.id}`);
+        
+        // 打开头像上传器
+        AvatarUploader.open((avatarData) => {
+            // 保存头像到 localStorage
+            Storage.set(`character_avatar_${character.id}`, avatarData);
+            
+            // 更新页面显示
+            const avatarDisplay = document.getElementById('character-avatar-display');
+            if (avatarDisplay) {
+                avatarDisplay.innerHTML = `<img src="${avatarData}" alt="${character.name}">`;
+            }
+            
+            console.log('[CharacterDetail] 头像上传成功:', character.id);
+        }, {
+            title: `上传 ${character.name} 的头像`,
+            currentAvatar: currentAvatar
+        });
+    }
+    
     // ========== 区块F：事件绑定 结束 ==========
     
     // ========== 区块G：公共API 开始 ==========
@@ -520,7 +585,8 @@ const CharacterDetail = (function() {
         init: loadCharacters,
         show: showCharacterDetail,
         close: closeDetail,
-        getCharacter: getCharacterById
+        getCharacter: getCharacterById,
+        uploadAvatar: handleAvatarUpload  // ✨ 新增公开方法
     };
     
     // ========== 区块G：公共API 结束 ==========
@@ -529,4 +595,5 @@ const CharacterDetail = (function() {
 
 // ========== 导出到全局 ==========
 window.CharacterDetail = CharacterDetail;
+
 
