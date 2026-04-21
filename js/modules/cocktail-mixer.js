@@ -17,25 +17,27 @@ const CocktailMixer = (function() {
     'use strict';
 
     // ========== 区块A1：模块状态 开始 ==========
-    let state = {
-        // 数据
-        spirits: [],
-        mixers: [],
-        garnishes: [],
-        techniques: [],
-        presets: [],
-        
-        // 当前选择
-        currentMood: null,
-        selectedSpirit: null,
-        selectedMixers: [],
-        selectedTechnique: null,
-        selectedGarnishes: [],
-        
-        // UI状态
-        currentStep: 'mood', // mood, spirit, mixer, technique, garnish, result
-        viewMode: 'create' // create, presets
-    };
+ let state = {
+    // 数据
+    spirits: [],
+    mixers: [],
+    garnishes: [],
+    techniques: [],
+    presets: [],
+    
+    // 当前选择
+    currentMood: null,
+    selectedCharacters: [], // ✨ 新增
+    selectedSpirit: null,
+    selectedMixers: [],
+    selectedTechnique: null,
+    selectedGarnishes: [],
+    
+    // UI状态
+    currentStep: 'mood', // mood, character, spirit, mixer, technique, garnish, result
+    viewMode: 'create' // create, presets
+};
+
     // ========== 区块A1：模块状态 结束 ==========
 
     // ========== 区块A2：初始化 开始 ==========
@@ -162,25 +164,28 @@ function isStepCompleted(stepId) {
     // ========== 区块A6：渲染步骤指示器 结束 ==========
 
     // ========== 区块A7：渲染当前步骤 开始 ==========
-    function renderCurrentStep() {
-        switch (state.currentStep) {
-            case 'mood':
-                return renderMoodStep();
-            case 'spirit':
-                return renderSpiritStep();
-            case 'mixer':
-                return renderMixerStep();
-            case 'technique':
-                return renderTechniqueStep();
-            case 'garnish':
-                return renderGarnishStep();
-            case 'result':
-                return renderResultStep();
-            default:
-                return '';
-        }
+   function renderCurrentStep() {
+    switch (state.currentStep) {
+        case 'mood':
+            return renderMoodStep();
+        case 'character': // ✨ 新增
+            return renderCharacterStep();
+        case 'spirit':
+            return renderSpiritStep();
+        case 'mixer':
+            return renderMixerStep();
+        case 'technique':
+            return renderTechniqueStep();
+        case 'garnish':
+            return renderGarnishStep();
+        case 'result':
+            return renderResultStep();
+        default:
+            return '<p>未知步骤</p>';
     }
+}
     // ========== 区块A7：渲染当前步骤 结束 ==========
+   
 
     // ========== 区块A8：心情选择步骤 开始 ==========
     function renderMoodStep() {
@@ -216,6 +221,52 @@ function isStepCompleted(stepId) {
         `;
     }
     // ========== 区块A8：心情选择步骤 结束 ==========
+   // ========== 区块A8：角色选择步骤 开始 ==========
+function renderCharacterStep() {
+    return `
+        <div class="step-section">
+            <h2 class="step-title">为谁调制这杯酒？</h2>
+            <p class="step-desc">选择1-2个角色，或跳过此步骤</p>
+            
+            <div class="character-selection">
+                ${state.selectedCharacters.length > 0 ? `
+                    <div class="selected-characters-preview">
+                        <div class="preview-label">已选择：</div>
+                        <div class="preview-list">
+                            ${state.selectedCharacters.map((char, index) => `
+                                <div class="preview-item">
+                                    <span class="preview-name">${char.name}</span>
+                                    <button class="preview-remove" onclick="CocktailMixer.removeCharacter(${index})">×</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <div class="character-actions">
+                    <button class="select-btn primary-btn" onclick="CocktailMixer.openCharacterSelector()">
+                        ${state.selectedCharacters.length > 0 ? '✏️ 修改角色' : '👥 选择角色'}
+                    </button>
+                    <button class="select-btn secondary-btn" onclick="CocktailMixer.skipCharacterSelection()">
+                        ⏭️ 跳过（独饮）
+                    </button>
+                </div>
+            </div>
+            
+            <div class="step-navigation">
+                <button class="nav-btn secondary" onclick="CocktailMixer.prevStep()">
+                    ← 上一步
+                </button>
+                <button class="nav-btn primary" onclick="CocktailMixer.nextStep()" 
+                        ${state.selectedCharacters.length === 0 ? 'disabled' : ''}>
+                    下一步 →
+                </button>
+            </div>
+        </div>
+    `;
+}
+// ========== 区块A8：角色选择步骤 结束 ==========
+
 
     // ========== 区块A9：基酒选择步骤 开始 ==========
     function renderSpiritStep() {
@@ -806,18 +857,38 @@ function getMoodName(moodId) {
 
     // ========== 区块A19：保存和分享 开始 ==========
     function saveCocktail() {
-        const savedCocktails = Storage.get('savedCocktails') || [];
-        savedCocktails.unshift(state.generatedCocktail);
+    const savedCocktails = Storage.get('savedCocktails') || [];
+    
+    // 添加角色信息
+    const cocktailWithCharacters = {
+        ...state.generatedCocktail,
+        characters: state.selectedCharacters
+    };
+    
+    savedCocktails.unshift(cocktailWithCharacters);
+    
+    // 只保留最近50个
+    if (savedCocktails.length > 50) {
+        savedCocktails.length = 50;
+    }
+    
+    Storage.set('savedCocktails', savedCocktails);
+    
+    // ✨ 如果选择了角色，生成互动卡片
+    if (state.selectedCharacters.length > 0) {
+        const cardData = InteractionCard.generateDrinkingCard(
+            state.generatedCocktail,
+            state.selectedCharacters
+        );
         
-        // 只保留最近50个
-        if (savedCocktails.length > 50) {
-            savedCocktails.length = 50;
-        }
-        
-        Storage.set('savedCocktails', savedCocktails);
-        
+        // 显示卡片
+        setTimeout(() => {
+            InteractionCard.showCard(cardData);
+        }, 500);
+    } else {
         alert('🍸 酒卡已保存！');
     }
+}
 
     function shareCocktail() {
         const cocktail = state.generatedCocktail;
@@ -840,37 +911,71 @@ function getMoodName(moodId) {
     }
 
     function reset() {
-        state.currentMood = null;
-        state.selectedSpirit = null;
-        state.selectedMixers = [];
-        state.selectedTechnique = null;
-        state.selectedGarnishes = [];
-        state.generatedCocktail = null;
-        state.currentStep = 'mood';
+    state.currentMood = null;
+    state.selectedCharacters = []; // ✨ 新增
+    state.selectedSpirit = null;
+    state.selectedMixers = [];
+    state.selectedTechnique = null;
+    state.selectedGarnishes = [];
+    state.generatedCocktail = null;
+    state.currentStep = 'mood';
+    
+    render(document.getElementById('main-content'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
         
-        render(document.getElementById('main-content'));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
     // ========== 区块A19：保存和分享 结束 ==========
+   // ========== 区块A20：角色选择功能 开始 ==========
+function openCharacterSelector() {
+    CharacterSelector.open((characters) => {
+        if (Array.isArray(characters)) {
+            state.selectedCharacters = characters;
+        } else {
+            state.selectedCharacters = [characters];
+        }
+        render(document.getElementById('main-content'));
+    }, {
+        title: '选择角色',
+        allowCustom: true,
+        allowMultiple: true,
+        maxSelection: 2
+    });
+}
+
+function removeCharacter(index) {
+    state.selectedCharacters.splice(index, 1);
+    render(document.getElementById('main-content'));
+}
+
+function skipCharacterSelection() {
+    state.selectedCharacters = [];
+    nextStep();
+}
+// ========== 区块A20：角色选择功能 结束 ==========
+
 
     // ========== 区块A20：公共API 开始 ==========
     return {
-        init,
-        render,
-        selectMood,
-        selectSpirit,
-        toggleMixer,
-        selectTechnique,
-        toggleGarnish,
-        nextStep,
-        prevStep,
-        switchView,
-        generateCocktail,
-        usePreset,
-        saveCocktail,
-        shareCocktail,
-        reset
-    };
+    init,
+    render,
+    selectMood,
+    openCharacterSelector, // ✨ 新增
+    removeCharacter, // ✨ 新增
+    skipCharacterSelection, // ✨ 新增
+    selectSpirit,
+    toggleMixer,
+    selectTechnique,
+    toggleGarnish,
+    nextStep,
+    prevStep,
+    switchView,
+    generateCocktail,
+    usePreset,
+    saveCocktail,
+    shareCocktail,
+    reset
+};
+
     // ========== 区块A20：公共API 结束 ==========
 
 })();
