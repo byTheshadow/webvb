@@ -948,7 +948,7 @@ const PerfumeBlender = (function() {
         
         if (currentIndex < stepOrder.length - 1) {
             state.currentStep = stepOrder[currentIndex + 1];
-            render(document.getElementById('main-content'));
+            render(document.getElementById('app'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
@@ -959,7 +959,7 @@ const PerfumeBlender = (function() {
         
         if (currentIndex > 0) {
             state.currentStep = stepOrder[currentIndex - 1];
-            render(document.getElementById('main-content'));
+            render(document.getElementById('app'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
@@ -983,7 +983,7 @@ const PerfumeBlender = (function() {
         state.generatedPerfume = null;
         state.currentStep = 'mood';
         
-        render(document.getElementById('main-content'));
+        render(document.getElementById('app'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1088,7 +1088,7 @@ const PerfumeBlender = (function() {
             } else {
                 state.selectedCharacters = [characters];
             }
-            render(document.getElementById('main-content'));
+            render(document.getElementById('app'));
         }, {
             title: '选择角色',
             allowCustom: true,
@@ -1099,13 +1099,13 @@ const PerfumeBlender = (function() {
 
     function removeCharacter(index) {
         state.selectedCharacters.splice(index, 1);
-        render(document.getElementById('main-content'));
+        render(document.getElementById('app'));
     }
 
     function skipCharacterSelection() {
         state.selectedCharacters = [];
         state.currentStep = 'top'; // 直接跳到前调选择
-        render(document.getElementById('main-content'));
+        render(document.getElementById('app'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     // ========== 区块A20：角色选择功能 结束 ==========
@@ -1149,3 +1149,5 @@ const PerfumeBlender = (function() {
 
 // 挂载到全局
 window.PerfumeBlender = PerfumeBlender;
+
+
