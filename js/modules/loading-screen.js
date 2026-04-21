@@ -90,7 +90,7 @@ const LoadingScreen = (function() {
                                 <div class="disclaimer-section">
                                     <div class="disclaimer-label">内容说明</div>
                                     <div class="disclaimer-text">
-                                        本站为爱发电，不保证内容完全符合老师们的预期（包括tag部分）。
+                                        为爱发电，不保证内容完全符合老师们的预期（包括tag部分）。
                                         内容会持续更新优化，感谢理解与支持！
                                     </div>
                                 </div>
@@ -217,17 +217,22 @@ function startAutoPlay() {
     }
 
     // 关闭加载页面
-    function closeLoadingScreen() {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.classList.add('fade-out');
+function closeLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        loadingScreen.classList.add('fade-out');
+        
+        setTimeout(() => {
+            loadingScreen.remove();
+            console.log('[LoadingScreen] 加载页面已关闭');
             
-            setTimeout(() => {
-                loadingScreen.remove();
-                console.log('[LoadingScreen] 加载页面已关闭');
-            }, 800);
-        }
+            // ✨ 关闭后触发偏好检查
+            if (window.PreferenceManager && typeof PreferenceManager.checkFirstVisit === 'function') {
+                PreferenceManager.checkFirstVisit();
+            }
+        }, 800);
     }
+}
 
     // 公开API
     return {
