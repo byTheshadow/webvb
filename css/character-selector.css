@@ -1,0 +1,395 @@
+/* ================================
+   文件名：character-selector.css
+   功能：角色选择器样式
+   
+   最后更新：2026-04-21
+   ================================ */
+
+.character-selector-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.selector-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.selector-content {
+    position: relative;
+    background: var(--background-color);
+    border-radius: var(--border-radius-lg);
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xl);
+    animation: slideUp 0.3s ease;
+}
+
+.selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.selector-title {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.selector-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--surface-color);
+    border-radius: 50%;
+    font-size: 28px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selector-close:hover {
+    background: #ff4444;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.selector-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+}
+
+/* 搜索框 */
+.selector-search {
+    margin-bottom: var(--spacing-md);
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 标签页 */
+.selector-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.selector-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.selector-tab:hover {
+    color: var(--text-primary);
+}
+
+.selector-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* 标签页内容 */
+.selector-tab-content {
+    display: none;
+}
+
+.selector-tab-content.active {
+    display: block;
+}
+
+/* 角色网格 */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
+}
+
+.character-card {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.character-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.character-card.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.character-avatar {
+    font-size: 48px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--background-color);
+}
+
+.character-info {
+    text-align: center;
+    width: 100%;
+}
+
+.character-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.character-name-en {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+.character-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.character-tags .tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: var(--background-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+}
+
+/* 自定义输入 */
+.custom-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: -8px;
+}
+
+.custom-input,
+.custom-textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.custom-input:focus,
+.custom-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.custom-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* 已选择的角色 */
+.selected-characters {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+}
+
+.selected-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.selected-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.selected-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+.selected-name {
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.remove-btn {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-tertiary);
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.remove-btn:hover {
+    background: #ff4444;
+    color: white;
+}
+
+/* 底部按钮 */
+.selector-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    border-top: 2px solid var(--border-color);
+}
+
+.selector-footer button {
+    flex: 1;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.selector-footer .secondary-btn {
+    border: 2px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-primary);
+}
+
+.selector-footer .secondary-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.selector-footer .primary-btn {
+    border: 2px solid var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+.selector-footer .primary-btn:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.selector-footer .primary-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 空状态 */
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .selector-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .character-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    .character-avatar {
+        font-size: 36px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .selector-footer {
+        flex-direction: column;
+    }
+}
