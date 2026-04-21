@@ -85,6 +85,11 @@ if (typeof PreferenceManager !== 'undefined') {
        if (typeof PerfumeBlender !== 'undefined') {
        await PerfumeBlender.init();
        }
+       // 6.9. 初始化命运扭蛋机
+if (typeof GashaponNotes !== 'undefined') {
+    await GashaponNotes.init();
+}
+
 
 
         // 7. 绑定全局事件
