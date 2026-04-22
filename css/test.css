@@ -3724,3 +3724,389 @@
   color: var(--test-text-secondary);
   font-style: italic;
 }
+/* ============================================================
+ * 搭子测试专属样式
+ * 添加到 css/test.css 文件末尾
+ * ============================================================ */
+
+/* ----------------------------------------------------------
+ * 搭子测试 - 结果页专属样式
+ * ---------------------------------------------------------- */
+
+/* 搭子匹配卡片 */
+.partner-matches {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.partner-card {
+  position: relative;
+  background: var(--test-bg-card);
+  backdrop-filter: var(--test-blur-sm);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--test-shadow-sm);
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.partner-card:hover {
+  background: var(--test-bg-hover);
+  box-shadow: var(--test-shadow-md);
+  transform: translateY(-2px);
+}
+
+.partner-rank {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--test-accent-blue);
+  font-family: var(--test-font-display);
+  min-width: 40px;
+  text-align: center;
+}
+
+.partner-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.partner-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.partner-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.partner-name-group {
+  flex: 1;
+}
+
+.partner-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--test-text-primary);
+  margin: 0 0 0.25rem 0;
+  font-family: var(--test-font-sans);
+}
+
+.partner-title {
+  font-size: 0.875rem;
+  color: var(--test-text-secondary);
+  margin: 0;
+  font-family: var(--test-font-sans);
+}
+
+.partner-attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.attr-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(96, 165, 250, 0.1);
+  color: var(--test-accent-blue);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--test-font-sans);
+}
+
+.partner-similarity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.similarity-label {
+  font-size: 0.875rem;
+  color: var(--test-text-secondary);
+  font-weight: 500;
+  min-width: 60px;
+}
+
+.similarity-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(100, 116, 139, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.similarity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.similarity-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--test-accent-blue);
+  min-width: 45px;
+  text-align: right;
+}
+
+/* 特殊搭子 */
+.special-partners {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.special-partner {
+  background: var(--test-bg-card);
+  backdrop-filter: var(--test-blur-sm);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--test-shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.special-partner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+}
+
+.special-partner.soulmate::before {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.special-partner.complement::before {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.special-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--test-accent-blue);
+  margin-bottom: 1rem;
+  font-family: var(--test-font-sans);
+}
+
+.special-partner.soulmate .special-badge {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+  color: #f59e0b;
+}
+
+.special-partner.complement .special-badge {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+  color: #10b981;
+}
+
+.special-content {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.special-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.special-info {
+  flex: 1;
+}
+
+.special-info h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--test-text-primary);
+  margin: 0 0 0.25rem 0;
+  font-family: var(--test-font-sans);
+}
+
+.special-info p {
+  font-size: 0.875rem;
+  color: var(--test-text-secondary);
+  margin: 0 0 0.75rem 0;
+}
+
+.special-desc {
+  font-size: 0.875rem;
+  color: var(--test-text-secondary);
+  line-height: 1.6;
+  padding: 0.75rem;
+  background: rgba(100, 116, 139, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--test-accent-blue);
+}
+
+.special-partner.soulmate .special-desc {
+  border-left-color: #f59e0b;
+}
+
+.special-partner.complement .special-desc {
+  border-left-color: #10b981;
+}
+
+/* 搭子宣言 */
+.partner-manifesto {
+  background: var(--test-bg-card);
+  backdrop-filter: var(--test-blur-sm);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: var(--test-shadow-sm);
+}
+
+.partner-manifesto p {
+  font-size: 0.9375rem;
+  color: var(--test-text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.partner-manifesto strong {
+  color: var(--test-text-primary);
+  font-weight: 600;
+}
+
+/* 维度条形图 */
+.dimension-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.dimension-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dimension-label {
+  font-size: 0.875rem;
+  color: var(--test-text-secondary);
+  font-weight: 500;
+  min-width: 100px;
+  font-family: var(--test-font-sans);
+}
+
+.dimension-track {
+  flex: 1;
+  height: 12px;
+  background: rgba(100, 116, 139, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dimension-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+.dimension-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--test-accent-blue);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* 响应式 - 搭子测试 */
+@media (max-width: 768px) {
+  .partner-card {
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+
+  .partner-rank {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .partner-icon {
+    font-size: 1.75rem;
+  }
+
+  .partner-name {
+    font-size: 1rem;
+  }
+
+  .partner-title {
+    font-size: 0.8125rem;
+  }
+
+  .partner-similarity {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .similarity-bar {
+    width: 100%;
+  }
+
+  .special-content {
+    flex-direction: column;
+  }
+
+  .special-icon {
+    font-size: 2.5rem;
+  }
+
+  .dimension-label {
+    min-width: 80px;
+    font-size: 0.8125rem;
+  }
+
+  .dimension-value {
+    min-width: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partner-attributes {
+    gap: 0.375rem;
+  }
+
+  .attr-tag {
+    font-size: 0.6875rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .dimension-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .dimension-track {
+    width: 100%;
+  }
+
+  .dimension-value {
+    align-self: flex-end;
+  }
+}
+
