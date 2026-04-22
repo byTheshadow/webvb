@@ -844,13 +844,14 @@ const MusicTest = (function () {
   function getState() {
     return { ...state };
   }
-
   /* ----------------------------------------------------------
    * 导出
    * ---------------------------------------------------------- */
   return {
     init,
-    start,
+    render: start,        // ✅ 添加 render 方法（personality-test.js 需要）
+    start,                // 保留原有的 start 方法
+    renderResult,         // ✅ 添加结果渲染方法
     getState
   };
 
@@ -858,3 +859,4 @@ const MusicTest = (function () {
 
 window.MusicTest = MusicTest;
 console.log('[MusicTest] 音乐人格测试模块加载完成 ✓');
+
