@@ -202,17 +202,20 @@
     <script src="js/storage.js"></script>
     <script src="js/data-loader.js"></script>
     <script src="js/router.js"></script>
-   <!-- ========== Phase 2: 人格测试系统 ✅ 已完成 ========== -->
+<!-- ========== Phase 2: 人格测试系统 ✅ 已完成 ========== -->
 <script src="js/modules/test-base.js"></script>
-<script src="js/modules/personality-test.js"></script>
 
-<!-- ========== 测试模块 ========== -->
+<!-- ========== 测试模块（必须在 personality-test.js 之前加载） ========== -->
 <script src="js/modules/tests/airp-test.js"></script>
 <script src="js/modules/tests/love-test.js"></script>
 <!-- 其他测试模块待开发 -->
 <!-- <script src="js/modules/tests/koi-test.js"></script> -->
 <!-- <script src="js/modules/tests/partner-test.js"></script> -->
 <!-- <script src="js/modules/tests/music-test.js"></script> -->
+
+<!-- 测试中心路由器（必须最后加载） -->
+<script src="js/modules/personality-test.js"></script>
+
 
 <!-- ========== Phase 4: 主题切换系统 ✅ 新增 ========== -->
 <script src="js/modules/theme-manager.js"></script>
