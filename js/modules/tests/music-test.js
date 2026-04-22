@@ -35,6 +35,7 @@ const MusicTest = (function () {
     isLoaded: false,
     completed: false,
     callbacks: {}
+    container: null
   };
 
   /* ----------------------------------------------------------
@@ -538,11 +539,15 @@ const MusicTest = (function () {
   /* ----------------------------------------------------------
    * 开始测试
    * ---------------------------------------------------------- */
-  function start() {
+   function start(container, options = {}) {
     if (!state.isLoaded) {
       console.error('[MusicTest] 测试未初始化');
       return;
     }
+
+    // ✅ 保存容器和回调
+    state.container = container;
+    state.callbacks = options;
 
     // 重置状态
     state.currentQuestionIndex = 0;
@@ -558,7 +563,7 @@ const MusicTest = (function () {
    * 渲染题目
    * ---------------------------------------------------------- */
   function renderQuestion() {
-    const container = document.getElementById('test-container');
+    const container = state.container || document.getElementById('test-container');  // ✅ 修改这一行
     if (!container) return;
 
     const question = state.questions[state.currentQuestionIndex];
@@ -603,7 +608,7 @@ const MusicTest = (function () {
    * ---------------------------------------------------------- */
   function bindQuestionEvents() {
     const question = state.questions[state.currentQuestionIndex];
-    const container = document.getElementById('test-container');
+    const container = state.container || document.getElementById('test-container');  // ✅ 修改这一行
 
     // 选项选择
     const inputs = container.querySelectorAll('input[type="radio"], input[type="checkbox"]');
@@ -622,7 +627,7 @@ const MusicTest = (function () {
     });
 
     // 上一题
-    const btnPrev = document.getElementById('btn-prev');
+    const btnPrev = container.querySelector('#btn-prev');  // ✅ 改用 querySelector
     if (btnPrev) {
       btnPrev.addEventListener('click', () => {
         if (state.currentQuestionIndex > 0) {
@@ -633,7 +638,7 @@ const MusicTest = (function () {
     }
 
     // 下一题/查看结果
-    const btnNext = document.getElementById('btn-next');
+    const btnNext = container.querySelector('#btn-next');  // ✅ 改用 querySelector
     if (btnNext) {
       btnNext.addEventListener('click', () => {
         if (!state.answers[question.id] || state.answers[question.id].length === 0) {
@@ -705,7 +710,7 @@ const MusicTest = (function () {
    * 渲染结果页
    * ---------------------------------------------------------- */
   function renderResult() {
-    const container = document.getElementById('test-container');
+    const container = state.container || document.getElementById('test-container');
     if (!container) return;
 
     const type = state.personalityType;
