@@ -632,43 +632,50 @@ body[data-custom-bg="true"] {
     background-attachment: fixed;
 }
 /* ============================================================
- * 底部小红书链接样式
+ * 顶部小红书链接样式 - 毛玻璃淡色白色 + 主题适配
  * ============================================================ */
-.app-footer {
-  padding: 1rem 1.5rem 1.5rem;
+.app-top-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 0.5rem 1rem;
   text-align: center;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .xhs-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, 
-    rgba(255, 95, 109, 0.1) 0%, 
-    rgba(255, 195, 113, 0.1) 100%);
-  border: 1px solid rgba(255, 95, 109, 0.3);
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 20px;
-  color: var(--text-secondary, #64748b);
+  color: #64748b;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-family: var(--test-font-sans, sans-serif);
   transition: all 0.3s ease;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .xhs-link:hover {
-  background: linear-gradient(135deg, 
-    rgba(255, 95, 109, 0.2) 0%, 
-    rgba(255, 195, 113, 0.2) 100%);
-  border-color: rgba(255, 95, 109, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 95, 109, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(148, 163, 184, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.15);
+  color: #475569;
 }
 
 .xhs-icon {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   animation: koiSwim 2s ease-in-out infinite;
 }
 
@@ -682,16 +689,95 @@ body[data-custom-bg="true"] {
   letter-spacing: 0.02em;
 }
 
-/* 响应式适配 */
+/* 为主内容区域添加顶部间距，避免被banner遮挡 */
+.app-header {
+  margin-top: 3rem;
+}
+
+/* ============================================================
+ * 主题适配 - 跟随主题变色
+ * ============================================================ */
+
+/* 雨幕主题 - 冷调蓝灰 */
+[data-theme="rain"] .app-top-banner {
+  background: rgba(240, 244, 248, 0.75);
+  border-bottom-color: rgba(203, 213, 225, 0.3);
+}
+
+[data-theme="rain"] .xhs-link {
+  background: rgba(248, 250, 252, 0.6);
+  border-color: rgba(148, 163, 184, 0.25);
+  color: #64748b;
+}
+
+[data-theme="rain"] .xhs-link:hover {
+  background: rgba(248, 250, 252, 0.9);
+  border-color: rgba(100, 116, 139, 0.4);
+  color: #475569;
+}
+
+/* 春日花园主题 - 温暖粉色 */
+[data-theme="spring"] .app-top-banner {
+  background: rgba(255, 250, 245, 0.75);
+  border-bottom-color: rgba(251, 207, 232, 0.3);
+}
+
+[data-theme="spring"] .xhs-link {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(251, 207, 232, 0.3);
+  color: #be185d;
+}
+
+[data-theme="spring"] .xhs-link:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(244, 114, 182, 0.4);
+  color: #9f1239;
+}
+
+/* 无人之地主题 - 深色暗调 */
+[data-theme="wasteland"] .app-top-banner {
+  background: rgba(30, 41, 59, 0.75);
+  border-bottom-color: rgba(71, 85, 105, 0.3);
+}
+
+[data-theme="wasteland"] .xhs-link {
+  background: rgba(51, 65, 85, 0.6);
+  border-color: rgba(100, 116, 139, 0.3);
+  color: #cbd5e1;
+}
+
+[data-theme="wasteland"] .xhs-link:hover {
+  background: rgba(51, 65, 85, 0.9);
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #f1f5f9;
+}
+
+/* ============================================================
+ * 响应式适配
+ * ============================================================ */
 @media (max-width: 480px) {
+  .app-top-banner {
+    padding: 0.4rem 0.75rem;
+  }
+  
   .xhs-link {
-    font-size: 0.85rem;
-    padding: 0.6rem 1.2rem;
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+    gap: 0.4rem;
   }
   
   .xhs-icon {
     font-size: 1rem;
   }
+  
+  .app-header {
+    margin-top: 2.5rem;
+  }
 }
 
-
+/* 平板适配 */
+@media (min-width: 481px) and (max-width: 768px) {
+  .xhs-link {
+    font-size: 0.8rem;
+  }
+}
