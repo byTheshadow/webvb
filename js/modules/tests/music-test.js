@@ -364,7 +364,7 @@ const MusicTest = (function () {
   text: '你更愿意生活在一个什么样的音乐世界里？',
   options: [
     { id: 'A', text: '只有古典和爵士，一切优雅有序', scores: { R1: 1, S1: 1 } },
-    { id: 'B', text: '只有摇滚和金属，一切狂放真实', scores: { R2: 1, E1: 1 } },
+        { id: 'B', text: '只有摇滚和金属，一切狂放真实', scores: { R2: 1, E1: 1 } },
     { id: 'C', text: '只有电子和环境，一切流动无形', scores: { R2: 1, S2: 1 } },
     { id: 'D', text: '所有风格共存，每天随机切换', scores: { R2: 1, S1: 1, T2: 1 } }
   ],
@@ -564,39 +564,63 @@ const MusicTest = (function () {
    * 渲染题目
    * ---------------------------------------------------------- */
   function renderQuestion() {
-    const container = state.container || document.getElementById('test-container');  // ✅ 修改这一行
+    const container = state.container || document.getElementById('test-container');
     if (!container) return;
 
     const question = state.questions[state.currentQuestionIndex];
-    const progress = TestBase.renderProgress(
-      state.currentQuestionIndex + 1,
-      state.questions.length
-    );
+    const current = state.currentQuestionIndex + 1;
+    const total = state.questions.length;
+    const progress = Math.round((current / total) * 100);
+    const isFirst = state.currentQuestionIndex === 0;
+    const isLast = state.currentQuestionIndex === state.questions.length - 1;
+    const hasSelection = state.answers[question.id] && state.answers[question.id].length > 0;
+
+    // 渲染选项
+    const optionsHTML = question.options.map(opt => {
+      const isSelected = state.answers[question.id]?.includes(opt.id);
+      return `
+        <div class="test-option ${isSelected ? 'selected' : ''}"
+             data-option-id="${opt.id}">
+          <span class="option-marker">${isSelected ? '◉' : '○'}</span>
+          <span class="option-text">${opt.text}</span>
+        </div>
+      `;
+    }).join('');
 
     container.innerHTML = `
-      <div class="test-content">
-        ${progress}
-        
-        <div class="test-stage">
-          <h3 class="stage-title">音乐人格测试</h3>
-          <p class="stage-subtitle">探索你的声音灵魂</p>
-        </div>
-
-        <div class="question-card">
-          <h4 class="question-text">Q${question.id}. ${question.text}</h4>
-          <div class="options-list">
-            ${TestBase.renderOptions(question, state.answers)}
+      <div class="test-container music-test">
+        <!-- 进度条 -->
+        <div class="test-progress-area">
+          <div class="test-progress-bar">
+            <div class="test-progress-fill" style="width: ${progress}%; background: linear-gradient(90deg, #60a5fa, #a78bfa)"></div>
           </div>
+          <div class="test-progress-text">${current} / ${total}</div>
         </div>
 
+        <!-- 题目头部 -->
+        <div class="test-question-header">
+          <span class="question-icon">🎵</span>
+          <span class="question-number">Q${current}</span>
+        </div>
+
+        <!-- 题目内容 -->
+        <div class="test-question-body">
+          <p class="question-text">${question.text}</p>
+          ${question.multi ? '<span class="multi-hint">（可多选）</span>' : ''}
+        </div>
+
+        <!-- 选项列表 -->
+        <div class="test-options">
+          ${optionsHTML}
+        </div>
+
+        <!-- 导航按钮 -->
         <div class="test-nav">
-          ${state.currentQuestionIndex > 0 ? 
-            '<button class="btn-secondary" id="btn-prev">上一题</button>' : 
-            '<div></div>'
+          <button class="btn-test-prev" ${isFirst ? 'disabled' : ''}>← 上一题</button>
+          ${isLast 
+            ? `<button class="btn-test-submit" ${!hasSelection ? 'disabled' : ''}>查看结果 🎵</button>`
+            : `<button class="btn-test-next" ${!hasSelection ? 'disabled' : ''}>下一题 →</button>`
           }
-          <button class="btn-primary" id="btn-next">
-            ${state.currentQuestionIndex === state.questions.length - 1 ? '查看结果' : '下一题'}
-          </button>
         </div>
       </div>
     `;
@@ -609,26 +633,36 @@ const MusicTest = (function () {
    * ---------------------------------------------------------- */
   function bindQuestionEvents() {
     const question = state.questions[state.currentQuestionIndex];
-    const container = state.container || document.getElementById('test-container');  // ✅ 修改这一行
+    const container = state.container || document.getElementById('test-container');
 
     // 选项选择
-    const inputs = container.querySelectorAll('input[type="radio"], input[type="checkbox"]');
-    inputs.forEach(input => {
-      input.addEventListener('change', () => {
+    const options = container.querySelectorAll('.test-option');
+    options.forEach(optionEl => {
+      optionEl.addEventListener('click', () => {
+        const optId = optionEl.dataset.optionId;
+        
         if (question.multiple) {
           // 多选
-          const selected = Array.from(container.querySelectorAll('input:checked'))
-            .map(inp => inp.value);
-          state.answers[question.id] = selected;
+          if (!state.answers[question.id]) {
+            state.answers[question.id] = [];
+          }
+          const index = state.answers[question.id].indexOf(optId);
+          if (index > -1) {
+            state.answers[question.id].splice(index, 1);
+          } else {
+            state.answers[question.id].push(optId);
+          }
         } else {
           // 单选
-          state.answers[question.id] = [input.value];
+          state.answers[question.id] = [optId];
         }
+        
+        renderQuestion();
       });
     });
 
     // 上一题
-    const btnPrev = container.querySelector('#btn-prev');  // ✅ 改用 querySelector
+    const btnPrev = container.querySelector('.btn-test-prev');
     if (btnPrev) {
       btnPrev.addEventListener('click', () => {
         if (state.currentQuestionIndex > 0) {
@@ -638,8 +672,8 @@ const MusicTest = (function () {
       });
     }
 
-    // 下一题/查看结果
-    const btnNext = container.querySelector('#btn-next');  // ✅ 改用 querySelector
+    // 下一题/提交
+    const btnNext = container.querySelector('.btn-test-next, .btn-test-submit');
     if (btnNext) {
       btnNext.addEventListener('click', () => {
         if (!state.answers[question.id] || state.answers[question.id].length === 0) {
@@ -718,7 +752,7 @@ const MusicTest = (function () {
     const dims = state.dimensions;
 
     // 计算百分比（用于雷达图）
-    const maxScore = 15; // 大致估算每个维度的最大可能分数
+    const maxScore = 15;
     const radarData = [
       { 
         label: dims.R1 >= dims.R2 ? '规律型' : '自由型', 
@@ -743,52 +777,57 @@ const MusicTest = (function () {
     ];
 
     container.innerHTML = `
-      <div class="test-result">
+      <div class="test-result music-result">
         <!-- 主卡片 -->
-        <div class="result-card">
-          <div class="result-icon">${type.icon}</div>
-          <h2 class="result-title">${type.name}</h2>
-          <p class="result-quadrant">${type.quadrant}</p>
-          <p class="result-slogan">${type.slogan}</p>
-        </div>
+        <div class="personality-card music-personality">
+          <div class="personality-header">
+            <span class="personality-emoji">${type.icon}</span>
+            <div class="personality-title">
+              <h2>${type.name}</h2>
+              <p class="personality-core-xp">${type.quadrant}</p>
+            </div>
+          </div>
 
-        <!-- 人格描述 -->
-        <div class="result-section">
-          <h3 class="section-title">你的音乐灵魂</h3>
-          <p class="result-description">${type.description}</p>
+          <blockquote class="personality-slogan">
+            ${type.slogan}
+          </blockquote>
+
+          <div class="personality-description">
+            <p>${type.description}</p>
+          </div>
         </div>
 
         <!-- 圣歌 -->
         <div class="result-section">
           <h3 class="section-title">🎵 你的圣歌</h3>
-          <p class="result-anthem">${type.anthem}</p>
+          <p>${type.anthem}</p>
         </div>
 
         <!-- 隐藏技能 -->
         <div class="result-section">
           <h3 class="section-title">✨ 隐藏技能</h3>
-          <p class="result-skill">${type.skill}</p>
+          <p>${type.skill}</p>
         </div>
 
         <!-- 给你的建议 -->
         <div class="result-section">
           <h3 class="section-title">💡 给你的建议</h3>
-          <p class="result-advice">${type.advice}</p>
+          <p>${type.advice}</p>
         </div>
 
         <!-- 四维雷达图 -->
         <div class="result-section">
           <h3 class="section-title">四维音乐人格</h3>
-          <div class="radar-chart">
-            ${TestBase.renderRadarChart(
-              {
-                [radarData[0].label]: radarData[0].value,
-                [radarData[1].label]: radarData[1].value,
-                [radarData[2].label]: radarData[2].value,
-                [radarData[3].label]: radarData[3].value
-              },
-              radarData
-            )}
+          <div class="music-dimensions">
+            ${radarData.map(item => `
+              <div class="dimension-item">
+                <div class="dimension-label">${item.label}</div>
+                <div class="dimension-bar">
+                  <div class="dimension-fill" style="width: ${item.value}%; background: ${item.color}"></div>
+                </div>
+                <div class="dimension-value">${item.value}%</div>
+              </div>
+            `).join('')}
           </div>
         </div>
 
@@ -829,7 +868,7 @@ const MusicTest = (function () {
     const btnRetake = document.getElementById('btn-retake');
     if (btnRetake) {
       btnRetake.addEventListener('click', () => {
-        start();
+        start(state.container, state.callbacks);
       });
     }
 
@@ -850,14 +889,15 @@ const MusicTest = (function () {
   function getState() {
     return { ...state };
   }
+  
   /* ----------------------------------------------------------
    * 导出
    * ---------------------------------------------------------- */
   return {
     init,
-    render: start,        // ✅ 添加 render 方法（personality-test.js 需要）
-    start,                // 保留原有的 start 方法
-    renderResult,         // ✅ 添加结果渲染方法
+    render: start,
+    start,
+    renderResult,
     getState
   };
 
@@ -865,4 +905,5 @@ const MusicTest = (function () {
 
 window.MusicTest = MusicTest;
 console.log('[MusicTest] 音乐人格测试模块加载完成 ✓');
+
 
