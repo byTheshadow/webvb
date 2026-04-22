@@ -3258,5 +3258,26 @@
     opacity: 1;
   }
 }
+/* 锦鲤测试专属样式 */
+.koi-test .personality-icon {
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+
+.koi-result .personality-slogan {
+  font-style: italic;
+  color: var(--test-text-secondary);
+  border-left: 3px solid var(--test-accent-blue);
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.koi-result .personality-match {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--test-bg-glass);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
 
 
