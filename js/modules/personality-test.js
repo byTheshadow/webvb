@@ -124,7 +124,7 @@ partner: {
   /* ----------------------------------------------------------
    * 渲染测试中心主页
    * ---------------------------------------------------------- */
-  function render(container) {
+    function render(container) {
     if (!state.isLoaded) {
       init();
     }
@@ -143,13 +143,13 @@ partner: {
             ${hasHistory ? '<span class="history-badge">✓</span>' : ''}
           </div>
           <h3 class="test-name">${test.name}</h3>
-          <p class="test-desc">${test.desc}</p>
+          <p class="test-desc">${test.desc || '暂无描述'}</p>
           <div class="test-meta">
-            <span class="test-count">📝 ${test.questionCount}题</span>
-            <span class="test-duration">⏱ ${test.duration}</span>
+            <span class="test-count">📝 ${test.questionCount || 0}题</span>
+            <span class="test-duration">⏱ ${test.duration || '未知'}</span>
           </div>
           <div class="test-tags">
-            ${test.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${(test.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
           ${!isComingSoon ? '<div class="test-card-action">开始测试 →</div>' : ''}
         </div>
