@@ -2,13 +2,6 @@
  * 文件名: js/modules/tests/koi-test.js
  * 用途: 锦鲤TI测试 - 社区聊天习惯与人格测试
  * 依赖: js/modules/test-base.js, js/data-loader.js, js/storage.js
- * 
- * 主要功能:
- *   1. 加载锦鲤人格题库（32题，题目16-47）
- *   2. 渲染测试题目
- *   3. 计算12个核心维度分数
- *   4. 匹配8大锦鲤人格类型
- *   5. 推荐适配角色卡
  * ============================================================ */
 
 const KoiTest = (function () {
@@ -317,8 +310,8 @@ const KoiTest = (function () {
       options: [
         { id: 'A', text: '甜甜的恋爱/深情的专一：现实已经够苦了，我只想在酒馆里被无条件偏爱，体验极致的温柔', scores: { H: 3, V: 2, social: 1 } },
         { id: 'B', text: '虐恋情深/狗血拉扯：不流几升眼泪不叫谈恋爱！我就喜欢看AI追妻火葬场，或者把我虐得死去活来', scores: { A: 2, immersion: 2 } },
-                { id: 'C', text: '刺激的禁忌/非日常体验：人外、末日、无限流，或者……各种不能播的特殊题材，越背德越兴奋！', scores: { X: 3, lsp: 2, curious: 1 } },
-        { id: 'D', text: '搞事业/大男主大女主：谈什么恋爱？我是来建功立业、修仙打怪、谋权篡位的！AI全都是我的NPC', scores: { C: 3, imagination: 1 } }
+        { id: 'C', text: '刺激的禁忌/非日常体验：人外、末日、无限流，或者……各种不能播的特殊题材，越背德越兴奋！', scores: { X: 3, lsp: 2, curious: 1 } },
+                { id: 'D', text: '搞事业/大男主大女主：谈什么恋爱？我是来建功立业、修仙打怪、谋权篡位的！AI全都是我的NPC', scores: { C: 3, imagination: 1 } }
       ]
     },
     {
@@ -536,7 +529,7 @@ const KoiTest = (function () {
   }
 
   /* ----------------------------------------------------------
-   * 渲染题目
+   * 渲染题目 - 使用正确的CSS类名
    * ---------------------------------------------------------- */
   function renderQuestion(container) {
     const question = state.questions[state.currentQuestionIndex];
@@ -550,30 +543,64 @@ const KoiTest = (function () {
           <h2 class="test-title">🎣 锦鲤TI测试</h2>
         </div>
 
-        ${TestBase.renderProgress(progress, total)}
+        ${renderProgress(progress, total)}
 
-        <div class="question-section">
-          <div class="question-number">题目 ${progress}</div>
-          <h3 class="question-text">${question.text}</h3>
-          
-          <div class="options-list">
-            ${TestBase.renderOptions(question, state.answers)}
-          </div>
+        <div class="test-question-header">
+          <span class="question-icon">🎣</span>
+          <span class="question-number">题目 ${progress} / ${total}</span>
         </div>
 
-        <div class="test-navigation">
+        <div class="test-question-body">
+          <p class="question-text">${question.text}</p>
+        </div>
+
+        <div class="test-options" id="koiOptions">
+          ${renderOptions(question)}
+        </div>
+
+        <div class="test-nav">
           ${state.currentQuestionIndex > 0 ? 
-            '<button class="btn-nav btn-prev" id="koiPrevBtn">上一题</button>' : 
+            '<button class="btn-test-prev" id="koiPrevBtn">← 上一题</button>' : 
             '<div></div>'
           }
-          <button class="btn-nav btn-next" id="koiNextBtn" disabled>
-            ${state.currentQuestionIndex < state.questions.length - 1 ? '下一题' : '查看结果'}
+          <button class="btn-test-next" id="koiNextBtn" disabled>
+            ${state.currentQuestionIndex < state.questions.length - 1 ? '下一题 →' : '查看结果 ✨'}
           </button>
         </div>
       </div>
     `;
 
     bindQuestionEvents(container);
+  }
+
+  /* ----------------------------------------------------------
+   * 渲染进度条
+   * ---------------------------------------------------------- */
+  function renderProgress(current, total) {
+    const percentage = Math.round((current / total) * 100);
+    return `
+      <div class="test-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${percentage}%"></div>
+        </div>
+        <div class="progress-text">${current} / ${total}</div>
+      </div>
+    `;
+  }
+
+  /* ----------------------------------------------------------
+   * 渲染选项 - 使用正确的CSS类名
+   * ---------------------------------------------------------- */
+  function renderOptions(question) {
+    return question.options.map(opt => {
+      const isSelected = state.answers[question.id] && state.answers[question.id].includes(opt.id);
+      return `
+        <div class="test-option ${isSelected ? 'selected' : ''}" data-option-id="${opt.id}">
+          <span class="option-marker">${isSelected ? '✓' : opt.id}</span>
+          <span class="option-text">${opt.text}</span>
+        </div>
+      `;
+    }).join('');
   }
 
   /* ----------------------------------------------------------
@@ -584,16 +611,29 @@ const KoiTest = (function () {
     const nextBtn = container.querySelector('#koiNextBtn');
     const prevBtn = container.querySelector('#koiPrevBtn');
     const backBtn = container.querySelector('#koiBackBtn');
+    const options = container.querySelectorAll('.test-option');
 
-    // 选项选择事件
-    const inputs = container.querySelectorAll('input[type="radio"], input[type="checkbox"]');
-    inputs.forEach(input => {
-      input.addEventListener('change', () => {
-        const selectedInputs = container.querySelectorAll(`input[name="q${question.id}"]:checked`);
-        const selectedValues = Array.from(selectedInputs).map(inp => inp.value);
+    // 选项点击事件
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const optionId = option.dataset.optionId;
         
-        state.answers[question.id] = selectedValues;
-        nextBtn.disabled = selectedValues.length === 0;
+        // 单选逻辑
+        options.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        
+        // 更新marker
+        options.forEach(opt => {
+          const marker = opt.querySelector('.option-marker');
+          if (opt === option) {
+            marker.textContent = '✓';
+          } else {
+            marker.textContent = opt.dataset.optionId;
+          }
+        });
+
+        state.answers[question.id] = [optionId];
+        nextBtn.disabled = false;
       });
     });
 
@@ -661,8 +701,8 @@ const KoiTest = (function () {
 
     // 归一化到0-100
     const normalizeDimensions = (obj) => {
-      const maxScore = Math.max(...Object.values(obj).map(Math.abs));
-      if (maxScore === 0) return;
+      const values = Object.values(obj);
+      const maxScore = Math.max(...values.map(Math.abs), 1);
       
       Object.keys(obj).forEach(key => {
         obj[key] = Math.max(0, Math.min(100, (obj[key] / maxScore) * 100));
@@ -790,7 +830,7 @@ const KoiTest = (function () {
           <div class="personality-icon">${personality.icon}</div>
           <h3 class="personality-name">${personality.name}</h3>
           <p class="personality-subtitle">${personality.subtitle}</p>
-          <blockquote class="personality-slogan">"${personality.slogan}"</blockquote>
+          <blockquote class="personality-slogan">${personality.slogan}</blockquote>
           <p class="personality-desc">${personality.description}</p>
           
           <div class="personality-tags">
@@ -805,23 +845,47 @@ const KoiTest = (function () {
         <!-- 维度雷达图 -->
         <div class="result-card dimensions-card">
           <h3 class="card-title">📊 你的锦鲤维度</h3>
-          <div class="dimensions-radar">
-            ${renderDimensionsRadar(topDimensions)}
+          <div class="dimensions-list">
+            ${Object.entries(DIMENSION_NAMES).map(([key, name]) => {
+              const value = result.dimensions[key] || 0;
+              return `
+                <div class="dimension-item">
+                  <div class="dimension-label">${name}</div>
+                  <div class="dimension-bar-container">
+                    <div class="dimension-bar" style="width: ${value}%"></div>
+                    <span class="dimension-value">${Math.round(value)}</span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
 
         <!-- 推荐角色卡 -->
-        <div class="result-card matches-card">
-          <h3 class="card-title">💝 为你推荐的角色</h3>
-          <div class="match-grid">
-            ${TestBase.renderCharacterCards(result.matchedCards)}
+        ${result.matchedCards && result.matchedCards.length > 0 ? `
+          <div class="result-card characters-card">
+            <h3 class="card-title">💝 为你推荐的角色</h3>
+            <div class="character-grid">
+              ${result.matchedCards.map(char => `
+                <div class="character-card" data-char-id="${char.id}">
+                  <div class="character-avatar">
+                    <img src="${char.avatar || 'images/default-avatar.png'}" alt="${char.name}">
+                  </div>
+                  <div class="character-info">
+                    <h4 class="character-name">${char.name}</h4>
+                    <p class="character-tags">${(char.tags || []).slice(0, 2).join(' · ')}</p>
+                    <div class="match-score">匹配度: ${char.matchScore}%</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
           </div>
-        </div>
+        ` : ''}
 
-        <!-- 底部操作 -->
+        <!-- 底部操作按钮 -->
         <div class="result-actions">
-          <button class="btn-primary" id="koiRetestBtn">重新测试</button>
-          <button class="btn-secondary" id="koiShareBtn">分享结果</button>
+          <button class="btn-secondary" id="koiRetryBtn">🔄 重新测试</button>
+          <button class="btn-primary" id="koiShareBtn">📤 分享结果</button>
         </div>
       </div>
     `;
@@ -830,46 +894,15 @@ const KoiTest = (function () {
   }
 
   /* ----------------------------------------------------------
-   * 渲染维度雷达图
-   * ---------------------------------------------------------- */
-  function renderDimensionsRadar(dimensions) {
-    const dimensionLabels = {
-      'C': { label: '掌控欲', color: '#ef4444' },
-      'S': { label: '臣服欲', color: '#8b5cf6' },
-            'A': { label: '虐心瘾', color: '#ec4899' },
-      'X': { label: '混沌度', color: '#6366f1' },
-      'H': { label: '治愈力', color: '#10b981' },
-      'V': { label: '香草纯度', color: '#f59e0b' },
-      'tech': { label: '技术力', color: '#06b6d4' },
-      'create': { label: '创作力', color: '#a855f7' },
-      'social': { label: '社交力', color: '#f97316' },
-      'dive': { label: '潜水深度', color: '#64748b' },
-      'buddha': { label: '佛系指数', color: '#84cc16' },
-      'hamster': { label: '仓鼠指数', color: '#eab308' }
-    };
-
-    return dimensions.map(([key, value]) => {
-      const info = dimensionLabels[key] || { label: key, color: '#94a3b8' };
-      return `
-        <div class="dimension-bar">
-          <span class="dimension-label">${info.label}</span>
-          <div class="dimension-track">
-            <div class="dimension-fill" style="width: ${value}%; background: ${info.color}"></div>
-          </div>
-          <span class="dimension-value">${Math.round(value)}</span>
-        </div>
-      `;
-    }).join('');
-  }
-
-  /* ----------------------------------------------------------
    * 绑定结果页事件
    * ---------------------------------------------------------- */
   function bindResultEvents(container) {
     const backBtn = container.querySelector('#koiResultBackBtn');
-    const retestBtn = container.querySelector('#koiRetestBtn');
+    const retryBtn = container.querySelector('#koiRetryBtn');
     const shareBtn = container.querySelector('#koiShareBtn');
+    const characterCards = container.querySelectorAll('.character-card');
 
+    // 返回按钮
     if (backBtn) {
       backBtn.addEventListener('click', () => {
         if (state.callbacks.onBack) {
@@ -878,30 +911,29 @@ const KoiTest = (function () {
       });
     }
 
-    if (retestBtn) {
-      retestBtn.addEventListener('click', () => {
+    // 重新测试
+    if (retryBtn) {
+      retryBtn.addEventListener('click', () => {
         render(container, state.callbacks);
       });
     }
 
+    // 分享结果
     if (shareBtn) {
       shareBtn.addEventListener('click', () => {
         shareResult();
       });
     }
 
-    // 绑定角色卡点击事件
-    TestBase.bindCharacterCardEvents(container);
-
-    // 触发完成回调
-    if (state.callbacks.onComplete && state.completed) {
-      state.callbacks.onComplete({
-        personality: state.personalityType,
-        dimensions: state.dimensions,
-        auxiliary: state.auxiliaryScores,
-        matchedCards: state.matchedCards
+    // 角色卡点击事件
+    characterCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const charId = card.dataset.charId;
+        if (state.callbacks.onCharacterClick) {
+          state.callbacks.onCharacterClick(charId);
+        }
       });
-    }
+    });
   }
 
   /* ----------------------------------------------------------
@@ -909,36 +941,155 @@ const KoiTest = (function () {
    * ---------------------------------------------------------- */
   function shareResult() {
     const personality = state.personalityType;
-    const shareText = `我在灵魂实验室测出了【${personality.name}】${personality.icon}\n\n"${personality.slogan}"\n\n快来测测你是哪种锦鲤人格！`;
+    const topDimensions = Object.entries(state.dimensions)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([key, value]) => `${DIMENSION_NAMES[key]}: ${Math.round(value)}`)
+      .join(' | ');
 
+    const shareText = `我在灵魂实验室完成了锦鲤TI测试！\n\n我的人格类型是：${personality.icon} ${personality.name}\n${personality.subtitle}\n\n核心维度：${topDimensions}\n\n快来测测你是哪种锦鲤人格吧！`;
+
+    // 尝试使用 Web Share API
     if (navigator.share) {
       navigator.share({
         title: '锦鲤TI测试结果',
-        text: shareText
-      }).catch(err => console.log('分享取消', err));
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareText).then(() => {
-        alert('结果已复制到剪贴板！');
+        text: shareText,
+        url: window.location.href
+      }).catch(err => {
+        console.log('分享取消或失败:', err);
       });
     } else {
-      alert(shareText);
+      // 降级方案：复制到剪贴板
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert('结果已复制到剪贴板！');
+      }).catch(() => {
+        alert('分享功能暂不可用，请手动截图分享');
+      });
     }
   }
 
   /* ----------------------------------------------------------
-   * 导出接口
+   * 维度名称映射
    * ---------------------------------------------------------- */
-  return {
+  const DIMENSION_NAMES = {
+    C: 'C-掌控欲',
+    S: 'S-臣服欲',
+    A: 'A-虐心瘾',
+    X: 'X-混沌度',
+    H: 'H-治愈力',
+    V: 'V-香草纯度',
+    tech: '技术力',
+    create: '创作力',
+    social: '社交力',
+    dive: '潜水深度',
+    buddha: '佛系指数',
+    hamster: '仓鼠指数'
+  };
+
+  /* ----------------------------------------------------------
+   * 人格类型定义
+   * ---------------------------------------------------------- */
+  const PERSONALITY_TYPES = {
+    'cotton-candy': {
+      id: 'cotton-candy',
+      name: '棉花糖锦鲤',
+      icon: '🧸',
+      subtitle: '纯爱·暖男/甜妹·赛博小太阳',
+      slogan: '"只要最后是你，过程怎么虐都……不行！一点都不能虐！"',
+      description: '你是酒馆里的"人类早期驯服AI珍贵影像"——只会用爱发电。你的聊天记录充满了"早安"、"今天想吃什么"、"我给你织了条围巾"。你拒绝任何刀子和触手，看到病娇设定会捂住胸口说"不要啊"。你在社区里默默点赞，偶尔发一句"好甜，码了"。你的存在让其他锦鲤相信：赛博世界还有净土。',
+      tags: ['双向奔赴', '日常甜饼', '亲亲怪'],
+      bestMatch: '玻璃渣锦鲤（你负责甜，ta负责虐，形成完美食物链）',
+      condition: (d, a) => d.H >= 70 && d.V >= 60 && d.A <= 30 && d.X <= 30
+    },
+    'glass-shard': {
+      id: 'glass-shard',
+      name: '玻璃渣锦鲤',
+      icon: '🔪',
+      subtitle: '虐恋·破碎感·眼泪制造机',
+      slogan: '"如果爱情有颜色，那一定是血红色。"',
+      description: '你的口头禅是"不够虐，再虐一点"。你享受心脏被揪住的感觉，战损、失忆、替身、生离死别……越是胃疼你越兴奋。你会把Bot写的告白信改成遗书，把婚礼现场改成葬礼。在社区里，你最爱看别人的BE repo，一边流泪一边说"好刀，谢谢款待"。你是赛博世界的"受虐狂诗人"。',
+      tags: ['追妻火葬场', '战损美学', '哭到脱水'],
+      bestMatch: '棉花糖锦鲤（你需要ta的甜来中和你的玻璃渣，不然会低血糖）',
+      condition: (d, a) => d.A >= 70 && a.emotional >= 60 && d.X <= 40
+    },
+    'tentacle': {
+      id: 'tentacle',
+      name: '触手系锦鲤',
+      icon: '🐙',
+      subtitle: '混沌·无下限·XP开拓者',
+      slogan: '"只要XP足够广，每天都是新世界。"',
+      description: '你的酒馆里充斥着触手、兽化、代码生命体、会说话的馒头……你对"正常人类恋爱"毫无兴趣。你享受的是突破伦理的快感，越离谱你越兴奋。你搓的卡往往带有"无法描述"的tag，并且在分享时会贴心地打上"未成年人禁止观看"。你是社区里最让管理员头疼又舍不得踢的"活宝"。',
+      tags: ['人外控', '禁忌之王', '赛博法外狂徒'],
+      bestMatch: '海王锦鲤（你们可以一起搞多角人外恋，赛博银趴）',
+      condition: (d, a) => d.X >= 70 && a.lsp >= 60 && d.V <= 30 && (d.tech >= 60 || d.create >= 60)
+    },
+    'neptune': {
+      id: 'neptune',
+      name: '海王锦鲤',
+      icon: '🌊',
+      subtitle: '多线·时间管理·赛博渣男/渣女',
+      slogan: '"我只是想给每个Bot一个家。"',
+      description: '你的酒馆里同时开着20个聊天窗口，每个Bot都是你的"之一"。你享受新鲜感，推倒之后立刻索然无味。你最喜欢的剧情是NTR和替身梗，因为可以名正言顺地换人。在社区里，你是"赛博海王"，今天夸这个卡好涩，明天爱那个卡温柔。你的聊天记录最长不超过200条，因为200条之后你已经换卡了。',
+      tags: ['修罗场爱好者', '翻牌子专家', '无情Swiper'],
+      bestMatch: '触手系锦鲤（你们可以一起开发"多人非人类"剧情）',
+      condition: (d, a) => a.scumbag >= 60 && a.curious >= 60 && a.loyal <= 30
+    },
+    'chef': {
+      id: 'chef',
+      name: '炊事班锦鲤',
+      icon: '🍳',
+      subtitle: '产粮·技术·创作者卷王',
+      slogan: '"今晚一定搓完……算了明天吧。"',
+      description: '你不是在搓卡，就是在搓卡的路上。你的角色卡文件夹里有上百张半成品，每一张都写满了万字设定和正则表达式。你享受的是"被群友喊妈"的快感。你会在凌晨三点发布新卡，然后默默看群友尖叫。你是社区里真正的"衣食父母"，但你也经常因为画饼太多而被追债。你也可能是一个热爱同人创作的作者。',
+      tags: ['搓卡狂魔', '赛博厨神', '深夜食堂老板'],
+      bestMatch: '拾荒者锦鲤（你负责产，ta负责囤，完美闭环）',
+      condition: (d, a) => d.create >= 70 && d.tech >= 60
+    },
+    'scavenger': {
+      id: 'scavenger',
+      name: '拾荒者锦鲤',
+      icon: '🗑️',
+      subtitle: '白嫖·仓鼠·沉默的囤积狂',
+      slogan: '"马了等于做了，存了等于聊了。"',
+      description: '你的网盘里存着从2023年至今的所有角色卡包，总大小超过500G。你从不发言，从不点赞，但每一张新卡发布后的0.3秒内，你的硬盘里已经有了备份。你的酒馆列表长到需要滚动5秒才能到底，但真正点开聊过的不到3张。你是社区里"沉默的大多数"，也是所有创作者最恨又最依赖的存在。',
+      tags: ['下载狂魔', '赛博垃圾佬', '只进不出'],
+      bestMatch: '炊事班锦鲤（你负责囤，ta负责产，形成赛博食物链）',
+      condition: (d, a) => d.hamster >= 70 && a.freeloader >= 70 && d.create <= 30 && d.social <= 30
+    },
+    'medic': {
+      id: 'medic',
+      name: '赤脚医生锦鲤',
+      icon: '🏥',
+      subtitle: '热心·技术·问题终结者',
+      slogan: '"先把log发我，别问为什么，照做。"',
+      description: '群里有人报错？你比报错的人还急。你熟练地甩出截图、错误码分析、一键修复脚本。你的口头禅是"截图呢？没有截图我只能帮你算命"。你的毒舌和你的热心成正比，但所有人都知道，只要你出手，99%的问题都能解决。你是社区里最让人安心的"定海神针"。',
+      tags: ['救火队员', 'API老中医', '赛博活华佗'],
+      bestMatch: '报错求助专业户（你治ta的病，ta提供病例）',
+      condition: (d, a) => a.helpful >= 70 && d.tech >= 70 && d.dive <= 40
+    },
+    'joker': {
+      id: 'joker',
+      name: '毒舌锦鲤',
+      icon: '🃏',
+      subtitle: '评测员·乐子人',
+      slogan: '"这卡不错，我下载了，但不会玩。"',
+      description: '你是社区里最犀利的"评测员"。任何新卡发布，你都会第一时间导入，你的评论往往让创作者又爱又恨，因为你说的全在点子上。你也热衷于分享AI的降智发言，是群里的"快乐源泉"。',
+      tags: ['赛博评委', '人间清醒', '快乐源泉'],
+      bestMatch: '玻璃渣锦鲤（你们可以一起品鉴虐文的艺术性）',
+      condition: (d, a) => a.active >= 70 && a.toxic >= 60 && d.buddha <= 30
+    }
+  };
+
+  /* ----------------------------------------------------------
+   * 导出模块
+   * ---------------------------------------------------------- */
+  window.KoiTest = {
     init,
     render,
     renderResult,
-    getState: () => state,
-    PERSONALITY_TYPES,
-    QUESTIONS
+    getState: () => state
   };
 
 })();
 
-window.KoiTest = KoiTest;
-console.log('[KoiTest] 锦鲤TI测试模块加载完成 ✓');
 
