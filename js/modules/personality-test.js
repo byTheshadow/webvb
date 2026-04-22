@@ -53,18 +53,20 @@ const PersonalityTest = (function () {
   module: null,
   status: 'active' // ✅ 改为 active
 },
-    partner: {
-      id: 'partner',
-      name: '测测你的搭子',
-      nameShort: '搭子测试',
-      icon: '🤝',
-      desc: '找到最适合你的灵魂搭档类型',
-      questionCount: 10,
-      duration: '3-5分钟',
-      tags: ['社交', '友谊', '匹配'],
-      module: null,
-      status: 'coming-soon'
-    },
+    // 在 js/modules/personality-test.js 中修改
+
+partner: {
+  id: 'partner',
+  name: '测测你的搭子',
+  nameShort: '搭子测试',
+  icon: '🤝',
+  desc: '找到最适合你的灵魂搭档类型',
+  questionCount: 14,  // ✅ 改为 14
+  duration: '5-8分钟',  // ✅ 更新时长
+  tags: ['社交', '友谊', '匹配'],
+  module: null,
+  status: 'active'  // ✅ 改为 active
+},
     music: {
       id: 'music',
       name: '音乐人格测试',
