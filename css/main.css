@@ -631,5 +631,67 @@ body[data-custom-bg="true"] {
     background-position: center;
     background-attachment: fixed;
 }
+/* ============================================================
+ * 底部小红书链接样式
+ * ============================================================ */
+.app-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  text-align: center;
+  background: transparent;
+}
+
+.xhs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, 
+    rgba(255, 95, 109, 0.1) 0%, 
+    rgba(255, 195, 113, 0.1) 100%);
+  border: 1px solid rgba(255, 95, 109, 0.3);
+  border-radius: 20px;
+  color: var(--text-secondary, #64748b);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: var(--test-font-sans, sans-serif);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.xhs-link:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 95, 109, 0.2) 0%, 
+    rgba(255, 195, 113, 0.2) 100%);
+  border-color: rgba(255, 95, 109, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 95, 109, 0.2);
+}
+
+.xhs-icon {
+  font-size: 1.2rem;
+  animation: koiSwim 2s ease-in-out infinite;
+}
+
+@keyframes koiSwim {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(3px) rotate(5deg); }
+}
+
+.xhs-text {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* 响应式适配 */
+@media (max-width: 480px) {
+  .xhs-link {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .xhs-icon {
+    font-size: 1rem;
+  }
+}
 
 
