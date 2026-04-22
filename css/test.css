@@ -3258,26 +3258,469 @@
     opacity: 1;
   }
 }
-/* 锦鲤测试专属样式 */
-.koi-test .personality-icon {
-  font-size: 4rem;
-  margin: 1rem 0;
+/* ============================================================
+ * 锦鲤TI测试专属样式
+ * 用途: 为锦鲤人格测试提供独特的视觉风格
+ * 风格: 赛博锦鲤 · 社区氛围 · 趣味活泼
+ * ============================================================ */
+
+/* 锦鲤测试容器 */
+.koi-test {
+  --koi-primary: #f59e0b;
+  --koi-secondary: #ec4899;
+  --koi-accent: #8b5cf6;
+  --koi-success: #10b981;
+  --koi-gradient: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
 }
 
+/* 锦鲤测试标题 */
+.koi-test .test-title {
+  background: var(--koi-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* 锦鲤进度条特殊样式 */
+.koi-test .progress-fill {
+  background: var(--koi-gradient);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+
+/* 锦鲤选项悬停效果 */
+.koi-test .option-item:hover {
+  border-color: var(--koi-primary);
+  background: rgba(245, 158, 11, 0.05);
+  transform: translateX(4px);
+}
+
+.koi-test .option-item input:checked + .option-text {
+  color: var(--koi-primary);
+  font-weight: 500;
+}
+
+/* 锦鲤结果页 */
+.koi-result {
+  animation: koiFadeIn 0.6s ease-out;
+}
+
+@keyframes koiFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 人格卡片 - 锦鲤风格 */
+.koi-result .personality-card {
+  background: linear-gradient(135deg, 
+    rgba(248, 250, 252, 0.9) 0%, 
+    rgba(241, 245, 249, 0.85) 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.koi-result .personality-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: var(--koi-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* 人格图标 */
+.koi-result .personality-icon {
+  font-size: 5rem;
+  margin: 1.5rem 0;
+  display: inline-block;
+  animation: koiBounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.3));
+}
+
+@keyframes koiBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 人格名称 */
+.koi-result .personality-name {
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--koi-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0.5rem 0;
+  letter-spacing: 0.5px;
+}
+
+/* 人格副标题 */
+.koi-result .personality-subtitle {
+  font-size: 1rem;
+  color: var(--test-text-secondary);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+/* 人格口号 */
 .koi-result .personality-slogan {
   font-style: italic;
-  color: var(--test-text-secondary);
-  border-left: 3px solid var(--test-accent-blue);
-  padding-left: 1rem;
-  margin: 1rem 0;
+  font-size: 1.1rem;
+  color: var(--test-text-primary);
+  border-left: 4px solid var(--koi-primary);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(245, 158, 11, 0.05);
+  border-radius: 0 8px 8px 0;
+  position: relative;
 }
 
+.koi-result .personality-slogan::before {
+  content: '"';
+  position: absolute;
+  left: 8px;
+  top: -10px;
+  font-size: 3rem;
+  color: var(--koi-primary);
+  opacity: 0.2;
+  font-family: Georgia, serif;
+}
+
+/* 人格描述 */
+.koi-result .personality-desc {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--test-text-primary);
+  margin: 1.5rem 0;
+  text-align: left;
+  padding: 0 1rem;
+}
+
+/* 人格标签 */
+.koi-result .personality-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  justify-content: center;
+}
+
+.koi-result .personality-tags .tag {
+  background: var(--koi-gradient);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  transition: all 0.3s ease;
+}
+
+.koi-result .personality-tags .tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* 最佳搭子 */
 .koi-result .personality-match {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background: var(--test-bg-glass);
-  border-radius: 8px;
-  font-size: 0.9rem;
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, 
+    rgba(245, 158, 11, 0.08) 0%, 
+    rgba(236, 72, 153, 0.08) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
 }
 
+.koi-result .personality-match strong {
+  color: var(--koi-primary);
+  font-weight: 600;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
 
+/* 维度卡片 */
+.koi-result .dimensions-card {
+  background: var(--test-bg-card);
+  backdrop-filter: var(--test-blur-md);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--test-shadow-md);
+  margin: 1.5rem 0;
+}
+
+.koi-result .dimensions-card .card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--test-text-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* 维度雷达图 */
+.koi-result .dimensions-radar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.koi-result .dimension-bar {
+  display: grid;
+  grid-template-columns: 100px 1fr 50px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.koi-result .dimension-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--test-text-primary);
+  text-align: right;
+}
+
+.koi-result .dimension-track {
+  height: 24px;
+  background: var(--test-bg-glass);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--test-shadow-inner);
+}
+
+.koi-result .dimension-fill {
+  height: 100%;
+  border-radius: 12px;
+  transition: width 1s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.koi-result .dimension-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.koi-result .dimension-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--test-text-primary);
+  text-align: center;
+}
+
+/* 角色推荐卡片 */
+.koi-result .matches-card {
+  background: var(--test-bg-card);
+  backdrop-filter: var(--test-blur-md);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--test-shadow-md);
+  margin: 1.5rem 0;
+}
+
+.koi-result .match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.koi-result .match-card {
+  background: var(--test-bg-glass);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.koi-result .match-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--koi-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.koi-result .match-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(100, 116, 139, 0.15);
+  border-color: var(--koi-primary);
+}
+
+.koi-result .match-card:hover::before {
+  transform: scaleX(1);
+}
+
+.koi-result .match-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.koi-result .match-card-header h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--test-text-primary);
+  margin: 0;
+}
+
+.koi-result .match-score {
+  background: var(--koi-gradient);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.koi-result .match-archetype {
+  font-size: 0.85rem;
+  color: var(--test-text-secondary);
+  margin-bottom: 0.8rem;
+}
+
+.koi-result .match-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.koi-result .match-tags .tag {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--koi-primary);
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* 底部操作按钮 */
+.koi-result .result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.koi-result .btn-primary {
+  background: var(--koi-gradient);
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.koi-result .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.koi-result .btn-secondary {
+  background: var(--test-bg-card);
+  color: var(--test-text-primary);
+  border: 2px solid var(--koi-primary);
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.koi-result .btn-secondary:hover {
+  background: rgba(245, 158, 11, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .koi-result .personality-icon {
+    font-size: 3.5rem;
+  }
+
+  .koi-result .personality-name {
+    font-size: 1.5rem;
+  }
+
+  .koi-result .dimension-bar {
+    grid-template-columns: 80px 1fr 40px;
+    gap: 0.5rem;
+  }
+
+  .koi-result .match-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .koi-result .result-actions {
+    flex-direction: column;
+  }
+
+  .koi-result .btn-primary,
+  .koi-result .btn-secondary {
+    width: 100%;
+  }
+}
+
+/* 无角色匹配提示 */
+.koi-result .no-match {
+  text-align: center;
+  padding: 2rem;
+  color: var(--test-text-secondary);
+  font-style: italic;
+}
