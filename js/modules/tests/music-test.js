@@ -34,8 +34,9 @@ const MusicTest = (function () {
     personalityType: null,
     isLoaded: false,
     completed: false,
-    callbacks: {}
+    callbacks: {},
     container: null
+
   };
 
   /* ----------------------------------------------------------
