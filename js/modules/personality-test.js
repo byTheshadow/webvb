@@ -42,17 +42,17 @@ const PersonalityTest = (function () {
       status: 'active'
     },
     koi: {
-      id: 'koi',
-      name: '锦鲤TI测试',
-      nameShort: '锦鲤测试',
-      icon: '🎣',
-      desc: '测测你的幸运指数与命运走向',
-      questionCount: 12,
-      duration: '3-5分钟',
-      tags: ['运势', '趣味', '轻松'],
-      module: null,
-      status: 'coming-soon' // 待开发
-    },
+  id: 'koi',
+  name: '锦鲤TI测试',
+  nameShort: '锦鲤测试',
+  icon: '🎣',
+  desc: '测测你的社区人格与聊天习惯',
+  questionCount: 32,
+  duration: '8-10分钟',
+  tags: ['社区', '习惯', '趣味'],
+  module: null,
+  status: 'active' // ✅ 改为 active
+},
     partner: {
       id: 'partner',
       name: '测测你的搭子',
