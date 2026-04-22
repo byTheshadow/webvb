@@ -67,13 +67,18 @@ partner: {
   module: null,
   status: 'active'  // ✅ 改为 active
 },
-    'music': {  // ✨ 新增
-    id: 'music',
-    name: '音乐人格测试',
-    icon: '🎵',
-    description: '探索你的声音灵魂',
-    module: window.MusicTest
-  }
+music: {
+      id: 'music',
+      name: '音乐人格测试',
+      nameShort: '音乐测试',
+      icon: '🎵',
+      desc: '探索你的声音灵魂',
+      questionCount: 20,
+      duration: '6-8分钟',
+      tags: ['音乐', '艺术', '情感'],
+      module: null,  // ✅ 保持 null，通过 loadTestModule 加载
+      status: 'active'
+    }
   };
 
   /* ----------------------------------------------------------
